@@ -1,0 +1,5 @@
+1. You have given an array and a Number. You have to find triplets whose sum is equal to given number.If Yes den return "True" else return "False".
+
+2. You have given 4 bottles 10L,7L, 5L,1L. A number will be given and you have to fill that quantity with minimum number of bottles.
+
+eg. 12 == 7L + 5L == 2 Bottles
