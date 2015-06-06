@@ -1,4 +1,4 @@
-package com.home.games.bowling;
+/*package com.home.games.bowling;
 
 public class TestClass {
 
@@ -32,3 +32,4 @@ public class TestClass {
         
     }
 }
+*/
