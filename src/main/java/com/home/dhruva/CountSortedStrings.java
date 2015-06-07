@@ -10,8 +10,21 @@ public class CountSortedStrings {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
         int N = Integer.parseInt(line);
-        for (int i = 0; i < N; i++) {
-            System.out.println(getCount(Integer.parseInt(br.readLine()), br.readLine()));
+        for (int j = 0; j < N; j++) {
+            int n = Integer.parseInt(br.readLine());
+            line = br.readLine();
+            int i = 0;
+            long result = 0, count = 1;
+            while (i < n) {
+                count = 1;
+                while (i < n - 1 && line.charAt(i) <= line.charAt(i + 1)) {
+                    i = i + 1;
+                    count = count + 1;
+                }
+                result = result + (count * (count + 1) / 2);
+                i++;
+            }
+            System.out.println(result);
         }
     }
 

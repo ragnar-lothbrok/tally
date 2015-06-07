@@ -10,16 +10,38 @@ public class TestClass {
     public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
-        try{
+        try {
             line = line.replace("  ", "");
             String[] str = line.trim().split(" ");
-            if(str.length  ==2){
+            if (str.length == 2) {
                 Integer steps = Integer.parseInt(str[0]);
                 Integer probability = Integer.parseInt(str[1]);
                 calculateProbability(steps, probability);
             }
-        }catch(Exception exception){
+        } catch (Exception exception) {
         }
+//        
+        findMaximumProfit(new int[]{23,12,25,32,8,26,48,4});
+        findMaximumProfit(new int[]{3,10,1,20});
+    }
+
+    private static void findMaximumProfit(int[] inputArr) {
+        int startPos1 = 0;
+        int startPos2 = 0;
+        int endPos = -1;
+        int profit = 0;
+
+        for (int i = 1; i < inputArr.length; i++) {
+            if (startPos1 != -1 && inputArr[startPos1] > inputArr[i]){
+                startPos2 = startPos1;
+                startPos1 = i;
+            }
+            else if (inputArr[i] - inputArr[startPos1] > profit) {
+                endPos = i;
+                profit = inputArr[endPos] - inputArr[startPos1];
+            }
+        }
+        System.out.println(" Profit :" + profit+" startPos1 : "+(startPos2 == 0 ? startPos1 : startPos2)+" End Pos : "+endPos);
     }
 
     public static void calculateProbability(Integer steps, Integer probability) {
