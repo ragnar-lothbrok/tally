@@ -8,8 +8,8 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 public class ConnectionManagerFactory {
 
-    private static int MAX_CON = 25;
-    private static int MAX_ROUTE = 5;
+    private static int MAX_CON = 5;
+    private static int MAX_ROUTE = 2;
 
     private volatile static PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = null;
 
