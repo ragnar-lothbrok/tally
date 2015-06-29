@@ -3,9 +3,28 @@ package com.home.zoomcar;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TestClass {
+
+    public int OPT[][]; // contains the optimal solution
+    // during every recurrence step.
+    public String optimalChange[][]; // string representation of optimal
+                                     // solutions.
+
+    /**
+     * List of all possible solutions for the target
+     */
+    public ArrayList<String> allPossibleChanges = new ArrayList<String>();
+
+    /**
+     * The target amount.
+     */
+    private int target;
+
+    /**
+     * Copy of the denominations that was used to generate this solution
+     */
+    public int[] denoms;
 
     public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,91 +39,56 @@ public class TestClass {
             }
         } catch (Exception exception) {
         }
-//        
-        findMaximumProfit(new int[]{23,12,25,32,8,26,48,4});
-        findMaximumProfit(new int[]{3,10,1,20});
     }
 
-    private static void findMaximumProfit(int[] inputArr) {
-        int startPos1 = 0;
-        int startPos2 = 0;
-        int endPos = -1;
-        int profit = 0;
-
-        for (int i = 1; i < inputArr.length; i++) {
-            if (startPos1 != -1 && inputArr[startPos1] > inputArr[i]){
-                startPos2 = startPos1;
-                startPos1 = i;
+    private static void findAllCombinationsRecursive(String tsoln, int startIx, int remainingTarget, TestClass answer) {
+        for (int i = startIx; i < answer.denoms.length; i++) {
+            int temp = remainingTarget - answer.denoms[i];
+            String tempSoln = tsoln + "" + answer.denoms[i] + ",";
+            if (temp < 0) {
+                break;
             }
-            else if (inputArr[i] - inputArr[startPos1] > profit) {
-                endPos = i;
-                profit = inputArr[endPos] - inputArr[startPos1];
+            if (temp == 0) {
+                answer.allPossibleChanges.add(tempSoln);
+                break;
+            } else {
+                findAllCombinationsRecursive(tempSoln, i, temp, answer);
             }
         }
-        System.out.println(" Profit :" + profit+" startPos1 : "+(startPos2 == 0 ? startPos1 : startPos2)+" End Pos : "+endPos);
+    }
+
+    public TestClass(int target, int[] denoms) {
+        this.target = target;
+        this.denoms = denoms;
+    }
+
+    public static TestClass findAllPossibleCombinations(int target, int[] denoms) {
+        TestClass soln = new TestClass(target, denoms);
+        String tempSoln = new String();
+        findAllCombinationsRecursive(tempSoln, 0, target, soln);
+        return soln;
     }
 
     public static void calculateProbability(Integer steps, Integer probability) {
         float twoProbability = (probability * 1.0f / 100);
         float threeProbability = 1 - twoProbability;
-
         float totalProbability = 0;
-        List<StoreSteps> stepsListSix = new ArrayList<StoreSteps>();
-        if (steps < 2) {
-            System.out.println("0");
-        }
-        int remainder = steps % 6;
-        if (steps / 6 >= 1) {
-            StoreSteps storeSteps1 = new StoreSteps();
-            storeSteps1.setNoOfTwo(3 * (steps / 6));
-            stepsListSix.add(storeSteps1);
-
-            StoreSteps storeSteps2 = new StoreSteps();
-            storeSteps2.setNoofThree(2 * (steps / 6));
-            stepsListSix.add(storeSteps2);
-        }
-        if (remainder >= 2) {
-            int stepArr[] = getSteps(remainder);
-            if (stepsListSix != null && stepsListSix.size() > 0) {
-                for (StoreSteps step : stepsListSix) {
-                    step.setNoOfTwo(step.getNoOfTwo() + stepArr[0]);
-                    step.setNoofThree(step.getNoofThree() + stepArr[1]);
+        TestClass testClass = findAllPossibleCombinations(steps, new int[] { 2, 3 });
+        if (testClass.allPossibleChanges.size() > 0) {
+            for (String value : testClass.allPossibleChanges) {
+                value = value.replaceAll(",,", ",");
+                int noOfTwo = 0;
+                int noOfThree = 0;
+                for (int i = 0; i < value.length(); i++) {
+                    if (value.charAt(i) == '2') {
+                        noOfTwo++;
+                    } else if (value.charAt(i) == '3') {
+                        noOfThree++;
+                    }
                 }
-            } else {
                 StoreSteps storeSteps = new StoreSteps();
-                storeSteps.setNoOfTwo(stepArr[0]);
-                storeSteps.setNoofThree(stepArr[1]);
-                stepsListSix.add(storeSteps);
-            }
-        }
-
-        List<StoreSteps> stepsListFive = new ArrayList<StoreSteps>();
-        remainder = steps % 5;
-        if (steps / 5 >= 1) {
-            StoreSteps storeSteps = new StoreSteps();
-            storeSteps.setNoOfTwo(1 * (steps / 5));
-            storeSteps.setNoofThree(1 * (steps / 5));
-            if (!stepsListSix.contains(storeSteps))
-                stepsListFive.add(storeSteps);
-        }
-        if (remainder >= 2) {
-            int stepArr[] = getSteps(remainder);
-            if (stepsListFive != null && stepsListFive.size() > 0) {
-                for (StoreSteps step : stepsListFive) {
-                    step.setNoOfTwo(step.getNoOfTwo() + stepArr[0]);
-                    step.setNoofThree(step.getNoofThree() + stepArr[1]);
-                }
-            } else {
-                StoreSteps storeSteps = new StoreSteps();
-                storeSteps.setNoOfTwo(stepArr[0]);
-                storeSteps.setNoofThree(stepArr[1]);
-                if (!stepsListSix.contains(storeSteps))
-                    stepsListFive.add(storeSteps);
-            }
-        }
-        stepsListSix.addAll(stepsListFive);
-        if (stepsListSix != null && stepsListSix.size() > 0) {
-            for (StoreSteps storeSteps : stepsListSix) {
+                storeSteps.setNoofThree(noOfThree);
+                storeSteps.setNoOfTwo(noOfTwo);
                 if (storeSteps.getNoofThree() != 0 && storeSteps.getNoOfTwo() != 0) {
                     totalProbability = totalProbability
                             + (((storeSteps.getNoofThree() * threeProbability) * (storeSteps.getNoOfTwo() * twoProbability)) * (factorial(storeSteps
@@ -117,26 +101,6 @@ public class TestClass {
             }
         }
         System.out.printf("%.6f", totalProbability);
-    }
-
-    public static int[] getSteps(int remainder) {
-        int[] stepType = new int[2];
-        switch (remainder) {
-            case 2:
-                stepType[0] = 1;
-                break;
-            case 3:
-                stepType[1] = 1;
-                break;
-            case 4:
-                stepType[0] = 2;
-                break;
-            case 5:
-                stepType[0] = 1;
-                stepType[1] = 1;
-                break;
-        }
-        return stepType;
     }
 
     static class StoreSteps {

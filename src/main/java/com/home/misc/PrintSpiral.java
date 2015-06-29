@@ -1,6 +1,6 @@
 package com.home.misc;
 
-public class PrintSpiral {
+class PrintSpiral {
 
     public static void main(String[] args) {
         int count = 0;
