@@ -1,42 +1,27 @@
 package com.home.strings;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 public class DecimalToRoman {
-    private static Map<Integer, String> romanMap = new LinkedHashMap<Integer, String>();
-
-    static {
-        romanMap.put(1000, "M");
-        romanMap.put(500, "D");
-        romanMap.put(100, "C");
-        romanMap.put(50, "L");
-        romanMap.put(10, "X");
-        romanMap.put(5, "V");
-        romanMap.put(1, "I");
-    }
+    static String roman[] = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+    static int decimal[] = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
     public static void main(String[] args) {
         convertIntoRoman(114);
     }
 
-    private static void convertIntoRoman(int number) {
-        StringBuffer sb = new StringBuffer();
-        for (Entry<Integer, String> entry : romanMap.entrySet()) {
-            if (number > 0 && number == entry.getKey() - 1) {
-                sb.append("I" + entry.getValue());
-                number = 0;
-            } else if (number >= entry.getKey()) {
-                int mul = (number / entry.getKey());
-                while (mul > 0) {
-                    sb.append(entry.getValue());
-                    mul--;
+    private static void convertIntoRoman(int num) {
+        String str = "";
+        if (num > 0 && num < 4000) {
+            for (int i = 0; i < 13; i++) {
+                while (num >= decimal[i]) {
+                    num = num - decimal[i];
+                    str = str + roman[i];
                 }
-                number = number % entry.getKey();
             }
+            System.out.println("Roman Equivalent = " + str);
         }
-        System.out.println(sb.toString());
+
+        else
+            System.out.println("nYou entered a number out of Range.nPlease enter a number in the range [1-3999]");
     }
 
 }

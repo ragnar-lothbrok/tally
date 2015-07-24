@@ -45,7 +45,7 @@ public class MainClass {
                     (str[i].trim().length() == 2 ? 1 : Integer.parseInt(str[i].trim().substring(2))));
         }
 
-        // DFSGraph.DFS(charGraph);
+         DFSGraph.traverse(charGraph);
 
         // BFSGraph.traverse(charGraph);
 

@@ -25,6 +25,12 @@
 			<artifactId>httpasyncclient</artifactId>
 			<version>4.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
