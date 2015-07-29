@@ -1,36 +1,40 @@
 package com.home.thought;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
+/* IMPORTANT: class must not be public. */
+
 class Solution1 {
-    public static void main(String[] args) throws IOException {
-        long num = 0;
+    public static void main(String args[]) throws Exception {
+        int num = 0;
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            int testCases = Integer.parseInt(br.readLine());
+            String line = br.readLine();
+            int testCases = Integer.parseInt(line);
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < testCases; i++) {
-                num = Long.parseLong(br.readLine().trim());
-                System.out.println(getFlips(num));
+
+                long noOfcards = Long.parseLong(br.readLine());
+                long moves = (noOfcards) / 3;
+                if (noOfcards == 0)
+                    result.append(0 + "\n");
+                else if (noOfcards < 3)
+                    result.append(1 + "\n");
+                else if (noOfcards % 3 == 0) {
+                    result.append(moves + "\n");
+                }
+
+                else if (noOfcards % 3 == 1 && noOfcards > 3) {
+                    result.append((noOfcards) + "\n");
+                } else if (noOfcards % 3 == 2 && noOfcards > 3) {
+                    result.append((noOfcards) + "\n");
+                }
             }
+            System.out.println(result);
         } catch (Exception exception) {
             System.out.println(num);
         }
-    }
 
-    public static long getFlips(long num) {
-        long totalFlips = 0;
-        if (num <= 0) {
-            totalFlips = 0;
-        } else if (num <= 3) {
-            totalFlips = 1;
-        } else if (num % 3 == 0) {
-            totalFlips = num / 3;
-        } else {
-            totalFlips = num;
-        }
-        return totalFlips;
     }
-
 }
