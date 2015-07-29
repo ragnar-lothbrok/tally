@@ -4,14 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
 
 // /https://www.hackerearth.com/battle-of-algorithmists/algorithm/dinesh-and-his-travelling-cost/
 public class ShortestPathWeightedBellmanFord {
+
+    public static final Boolean IS_BELLMAN_FORD = true; // If it is false means
+                                                        // it's Dijkstra
 
     public static void main(String[] args) throws IOException {
 
@@ -19,18 +20,20 @@ public class ShortestPathWeightedBellmanFord {
         String line = br.readLine();
         int N = Integer.parseInt(line);
         int adajacency[][] = new int[500 + 1][500 + 1];
-        Set<Integer> vertexSet = new HashSet<Integer>();
+        List<Integer> vertexList = new ArrayList<Integer>();
         for (int i = 0; i < N; i++) {
             line = br.readLine();
             String str[] = line.split(" ");
             adajacency[Integer.parseInt(str[0])][Integer.parseInt(str[1])] = Integer.parseInt(str[2]);
-            // adajacency[Integer.parseInt(str[1])][Integer.parseInt(str[0])] =
-            // Integer.parseInt(str[2]);
-            vertexSet.add(Integer.parseInt(str[1]));
-            vertexSet.add(Integer.parseInt(str[0]));
-
+            if (!IS_BELLMAN_FORD)
+                adajacency[Integer.parseInt(str[1])][Integer.parseInt(str[0])] = Integer.parseInt(str[2]);
+            if (!vertexList.contains(Integer.parseInt(str[1]))) {
+                vertexList.add(Integer.parseInt(str[1]));
+            }
+            if (!vertexList.contains(Integer.parseInt(str[0]))) {
+                vertexList.add(Integer.parseInt(str[0]));
+            }
         }
-        List<Integer> vertexList = new ArrayList<Integer>(vertexSet);
         int path[] = new int[501];
         long distance[] = new long[501];
         Integer source = Integer.parseInt(br.readLine());
@@ -77,7 +80,10 @@ public class ShortestPathWeightedBellmanFord {
 
             for (int u = 0; u < adajacency.length; u++) {
                 if (adajacency[current][u] != 0) {
-                    if (distance[u] > distance[current] + adajacency[current][u]) {
+                    if (distance[u] < 0 && distance[current] + adajacency[current][u] < 0
+                            && distance[u] > distance[current] + adajacency[current][u]) {
+                        return -1;
+                    } else if (distance[u] > distance[current] + adajacency[current][u]) {
                         distance[u] = distance[current] + adajacency[current][u];
                         path[u] = current;
                         if (!visited[u]) {
@@ -91,3 +97,14 @@ public class ShortestPathWeightedBellmanFord {
         return 1;
     }
 }
+
+/*
+ * 
+ * Bellman Ford algorithm code will be same as Dijkstra if we have all positive
+ * weight edges but if we have negative edges than Dijkstra algorithm won't work
+ * as we have to detect negative edge cycles otherwise code will go in infinite
+ * loop.
+ * 
+ * Bellman algorithm works for : 1. Undirected Graph + Positive Weights 2.
+ * Directed Graph + Negative/Positive Weights
+ */
