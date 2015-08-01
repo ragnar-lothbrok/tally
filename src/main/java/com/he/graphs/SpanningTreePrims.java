@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -34,49 +33,30 @@ public class SpanningTreePrims {
         long distance[] = new long[501];
         for (int i = 0; i < adajacency.length; i++) {
             path[i] = -1;
+            distance[i] = Integer.MAX_VALUE;
         }
-        for(int i=0;i<vertexList.size();i++){
-            weightedShortestPath(adajacency, path, distance, vertexList.get(i));
-        }
+        weightedShortestPath(adajacency, path, distance, 0);
         System.out.println();
 
     }
 
     public static void weightedShortestPath(int adajacency[][], int path[], long distance[], int source) {
-        PriorityQueue<Node> pq = new PriorityQueue<Node>();
-        pq.add(new Node(source, 0l));
-        for (int i = 0; i < adajacency.length; i++) {
-            distance[i] = Integer.MAX_VALUE;
-        }
-        distance[source] = 0;
-
+        PriorityQueue<GraphNode> pq = new PriorityQueue<GraphNode>();
+        pq.add(new GraphNode(source, 0l));
         while (!pq.isEmpty()) {
-            Node heapNode = pq.remove();
-            Integer vertex = (Integer) heapNode.getNode();
-            if (heapNode.getNode() != null) {
-                for (int i = 0; i < adajacency.length; i++) {
-                    if (i != vertex && adajacency[vertex][i] != 0) {
-                        long dist = distance[vertex] + adajacency[vertex][i];
-                        if (distance[i] == Integer.MAX_VALUE) {
-                            distance[i] = adajacency[vertex][i];
-                            path[i] = vertex;
-                            pq.add(new Node(i, dist));
-                        }
-                        if (distance[i] > dist) {
-                            distance[i] = adajacency[vertex][i];
-                            Iterator<Node> iterator = pq.iterator();
-                            while (iterator.hasNext()) {
-                                Node node = iterator.next();
-                                if (node.getNode().equals(i)) {
-                                    iterator.remove();
-                                    break;
-                                }
-                            }
-                            pq.add(new Node(i, dist));
-                            path[i] = vertex;
-                        }
+            GraphNode node = pq.remove();
+            System.out.println(node);
+            Integer vertex = (Integer) node.getNode();
+            for (int i = 0; i < adajacency.length; i++) {
+                if (path[i] == -1 && adajacency[vertex][i] != 0) {
+                    if (distance[i] > adajacency[vertex][i]) {
+                        distance[i] = adajacency[vertex][i];
+                        GraphNode graphNode = new GraphNode(i, distance[i]);
+                        pq.remove(graphNode);
+                        pq.add(graphNode);
                     }
                 }
+                path[vertex] = 1;
             }
         }
     }

@@ -42,15 +42,15 @@ public class ShortestPathWeightedDijkstraPQ {
     }
 
     public static void weightedShortestPath(int adajacency[][], int path[], long distance[], int source) {
-        PriorityQueue<Node> pq = new PriorityQueue<Node>();
-        pq.add(new Node(source, 0l));
+        PriorityQueue<GraphNode> pq = new PriorityQueue<GraphNode>();
+        pq.add(new GraphNode(source, 0l));
         for (int i = 0; i < adajacency.length; i++) {
             distance[i] = Integer.MAX_VALUE;
         }
         distance[source] = 0;
 
         while (!pq.isEmpty()) {
-            Node heapNode = pq.remove();
+            GraphNode heapNode = pq.remove();
             Integer vertex = (Integer) heapNode.getNode();
             if (heapNode.getNode() != null) {
                 for (int i = 0; i < adajacency.length; i++) {
@@ -59,19 +59,19 @@ public class ShortestPathWeightedDijkstraPQ {
                         if (distance[i] == Integer.MAX_VALUE) {
                             distance[i] = dist;
                             path[i] = vertex;
-                            pq.add(new Node(i, dist));
+                            pq.add(new GraphNode(i, dist));
                         }
                         if (distance[i] > dist) {
                             distance[i] = dist;
-                            Iterator<Node> iterator = pq.iterator();
+                            Iterator<GraphNode> iterator = pq.iterator();
                             while (iterator.hasNext()) {
-                                Node node = iterator.next();
+                                GraphNode node = iterator.next();
                                 if (node.getNode().equals(i)) {
                                     iterator.remove();
                                     break;
                                 }
                             }
-                            pq.add(new Node(i, dist));
+                            pq.add(new GraphNode(i, dist));
                             path[i] = vertex;
                         }
                     }

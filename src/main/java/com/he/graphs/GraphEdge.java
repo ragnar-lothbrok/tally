@@ -1,6 +1,6 @@
 package com.he.graphs;
 
-public class Edge implements Comparable {
+public class GraphEdge implements Comparable {
 
     private Object startNode;
     private Object endNode;
@@ -30,7 +30,7 @@ public class Edge implements Comparable {
         this.weight = weight;
     }
 
-    public Edge(Object startNode, Object endNode, Long weight) {
+    public GraphEdge(Object startNode, Object endNode, Long weight) {
         super();
         this.startNode = startNode;
         this.endNode = endNode;
@@ -43,6 +43,6 @@ public class Edge implements Comparable {
     }
 
     public int compareTo(Object o) {
-        return -(this.getWeight().compareTo(((Edge) o).getWeight()));
+        return -(this.getWeight().compareTo(((GraphEdge) o).getWeight()));
     }
 }

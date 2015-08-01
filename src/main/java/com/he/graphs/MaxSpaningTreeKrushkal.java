@@ -13,7 +13,7 @@ public class MaxSpaningTreeKrushkal {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        PriorityQueue<Edge> pqEdge = new PriorityQueue<Edge>();
+        PriorityQueue<GraphEdge> pqEdge = new PriorityQueue<GraphEdge>();
         for (int i = 0; i < N; i++) {
             String[] str = br.readLine().split(" ");
             int numOfEdges = Integer.parseInt(str[1]);
@@ -22,7 +22,7 @@ public class MaxSpaningTreeKrushkal {
                 int source = Integer.parseInt(str[0]);
                 int destination = Integer.parseInt(str[1]);
                 long weight = Long.parseLong(str[2]);
-                Edge edge = new Edge(source, destination, weight);
+                GraphEdge edge = new GraphEdge(source, destination, weight);
                 pqEdge.add(edge);
             }
             int[] disjoint = new int[5000 + 1];
@@ -33,11 +33,11 @@ public class MaxSpaningTreeKrushkal {
         }
     }
 
-    public static int maximumST(Queue<Edge> pqEdge, int[] disjoint) {
+    public static int maximumST(Queue<GraphEdge> pqEdge, int[] disjoint) {
         int maximum = 0;
-        List<Edge> finalEdgeList = new ArrayList<Edge>();
+        List<GraphEdge> finalEdgeList = new ArrayList<GraphEdge>();
         while (!pqEdge.isEmpty()) {
-            Edge edge = pqEdge.remove();
+            GraphEdge edge = pqEdge.remove();
             int source = (Integer) edge.getStartNode();
             int destination = (Integer) edge.getEndNode();
             if (root(source, disjoint) != root(destination, disjoint)) {
