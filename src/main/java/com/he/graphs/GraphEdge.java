@@ -1,6 +1,6 @@
 package com.he.graphs;
 
-public class GraphEdge implements Comparable {
+public class GraphEdge implements Comparable<Object> {
 
     private Object startNode;
     private Object endNode;

@@ -3,19 +3,22 @@ package com.he.graphs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-///https://www.hackerearth.com/code-monk-minimum-spanning-tree/algorithm/maximum-spanning-tree/description/
-public class MaxSpaningTreeKrushkal {
+
+// https://www.hackerearth.com/code-monk-minimum-spanning-tree/algorithm/quantitative-coefficient/
+public class WorkingMSTKrushkals {
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+        String line = br.readLine();
+        int N = Integer.parseInt(line);
         PriorityQueue<GraphEdge> pqEdge = new PriorityQueue<GraphEdge>();
         for (int i = 0; i < N; i++) {
+            pqEdge.clear();
             String[] str = br.readLine().split(" ");
+            int numOfNodes = Integer.parseInt(str[0]);
             int numOfEdges = Integer.parseInt(str[1]);
             for (int j = 0; j < numOfEdges; j++) {
                 str = br.readLine().trim().split(" ");
@@ -25,28 +28,27 @@ public class MaxSpaningTreeKrushkal {
                 GraphEdge edge = new GraphEdge(source, destination, weight);
                 pqEdge.add(edge);
             }
-            int[] disjoint = new int[5000 + 1];
+            int[] disjoint = new int[numOfNodes + 5];
             for (int j = 0; j < disjoint.length; j++) {
                 disjoint[j] = j;
             }
-            System.out.println(maximumST(pqEdge, disjoint));
+            mstKrushkals(pqEdge, disjoint);
         }
     }
 
-    public static int maximumST(Queue<GraphEdge> pqEdge, int[] disjoint) {
-        int maximum = 0;
-        List<GraphEdge> finalEdgeList = new ArrayList<GraphEdge>();
+    public static void mstKrushkals(Queue<GraphEdge> pqEdge, int[] disjoint) {
+        long wt=1;;
         while (!pqEdge.isEmpty()) {
             GraphEdge edge = pqEdge.remove();
             int source = (Integer) edge.getStartNode();
             int destination = (Integer) edge.getEndNode();
             if (root(source, disjoint) != root(destination, disjoint)) {
-                maximum += edge.getWeight();
                 union(source, destination, disjoint);
-                finalEdgeList.add(edge);
+                wt=wt*edge.getWeight();
+                wt=wt%1000000007;
             }
         }
-        return maximum;
+        System.out.println(wt);
     }
 
     private static int root(int x, int disjoint[]) {
@@ -62,5 +64,52 @@ public class MaxSpaningTreeKrushkal {
         int q = root(destination, disjoint);
         disjoint[p] = disjoint[q];
     }
-}
 
+    static class GraphEdge implements Comparable<GraphEdge> {
+
+        private Object startNode;
+        private Object endNode;
+        private Long weight;
+
+        public Object getStartNode() {
+            return startNode;
+        }
+
+        public void setStartNode(Object startNode) {
+            this.startNode = startNode;
+        }
+
+        public Object getEndNode() {
+            return endNode;
+        }
+
+        public void setEndNode(Object endNode) {
+            this.endNode = endNode;
+        }
+
+        public Long getWeight() {
+            return weight;
+        }
+
+        public void setWeight(Long weight) {
+            this.weight = weight;
+        }
+
+        public GraphEdge(Object startNode, Object endNode, Long weight) {
+            super();
+            this.startNode = startNode;
+            this.endNode = endNode;
+            this.weight = weight;
+        }
+
+        @Override
+        public String toString() {
+            return "Edge [startNode=" + startNode + ", endNode=" + endNode + ", weight=" + weight + "]";
+        }
+
+        public int compareTo(GraphEdge o) {
+            return (this.getWeight().compareTo(((GraphEdge) o).getWeight()));
+        }
+    }
+
+}
