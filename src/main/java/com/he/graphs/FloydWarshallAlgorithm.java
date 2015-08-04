@@ -6,6 +6,10 @@ public class FloydWarshallAlgorithm {
                 { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 1 },
                 { Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0 } };
 
+        int adjacent1[][] = { { 0, 3, 5, Integer.MAX_VALUE, 6 }, { Integer.MAX_VALUE, 0, 4, -1, 4 },
+                { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 3 },
+                { Integer.MAX_VALUE, Integer.MAX_VALUE, 4, 0, 12 }, { 7, Integer.MAX_VALUE, Integer.MAX_VALUE, -5, 0 } };
+        adjacent = adjacent1;
         int[][] predeccesor = new int[adjacent.length][adjacent.length];
 
         for (int i = 0; i < adjacent.length; i++) {
@@ -22,7 +26,7 @@ public class FloydWarshallAlgorithm {
         display(adjacent);
         updateMatrix(adjacent, predeccesor);
         display(adjacent);
-        
+
         display(predeccesor);
 
     }
@@ -46,6 +50,12 @@ public class FloydWarshallAlgorithm {
                         predeccesor[j][k] = predeccesor[i][k];
                     }
                 }
+            }
+        }
+        for (int i = 0; i < adjacent.length; i++) {
+            if (adjacent[i][i] < 0) {
+                System.out.println("negative Cycle detected.");
+                break;
             }
         }
     }
