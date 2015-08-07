@@ -137,5 +137,4 @@ class HeapNode {
     public String toString() {
         return "HeapNode [node=" + node + ", weight=" + weight + "]";
     }
-
 }
