@@ -9,25 +9,73 @@ public class Solution1 {
 
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
-        int value = 1;
-        for (int i = 0; i < T; i++) {
-            value = value * 2;
-        }
-
-        Integer values[][] = new Integer[value][value];
-
-        function(values, 0, 0, value, 1 + 0);
+        String line = br.readLine();
+        int numofQueries = Integer.parseInt(line);
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < value; i++) {
-            for (int j = 0; j < value; j++) {
-                sb.append(values[i][j] +" ");
+        for (int k = 0; k < numofQueries; k++) {
+            line = br.readLine();
+            String str[] = line.split(" ");
+            int T = Integer.parseInt(str[1]);
+            int value = 1;
+            for (int i = 0; i < T; i++) {
+                value = value * 2;
             }
-            sb.append("\n");
+            Integer values[][] = new Integer[value][value];
+            if (str[0].charAt(0) == '1') {
+                int num = Integer.parseInt(str[2]);
+                function1(values, 0, 0, value, 1 + 0, -1, -1, num, sb);
+            } else if (str[0].charAt(0) == '2') {
+               
+                function1(values, 0, 0, value, 1 + 0, Integer.parseInt(str[2]), Integer.parseInt(str[3]), 0, sb);
+            }
         }
         System.out.println(sb.toString());
     }
 
+    private static Integer function1(Integer values[][], int i, int j, int size, int start, int n, int m, int num,
+            StringBuffer sb) {
+        if (size == 2) {
+            values[i][j] = start;
+            if (printResult(i, j, values[i][j], n, m, num, sb) == 1)
+                function1(values, i, j, 0 / 2, start,n, m, num, sb);
+            values[i][j + 1] = start + 1;
+            if (printResult(i, j + 1, values[i][j + 1], n, m, num, sb) == 1)
+                function1(values, i, j, 0 / 2, start,n, m, num, sb);
+            values[i + 1][j] = start + 2;
+            if (printResult(i + 1, j, values[i + 1][j], n, m, num, sb) == 1)
+                function1(values, i, j, 0 / 2, start,n, m, num, sb);
+            values[i + 1][j + 1] = start + 3;
+            if (printResult(i + 1, j + 1, values[i + 1][j + 1], n, m, num, sb) == 1)
+                function1(values, i, j, 0 / 2, start,n, m, num, sb);
+            return start + 4;
+        }
+
+        if (size > 2) {
+            start = function1(values, i, j, size / 2, start,n, m, num, sb);
+            start = function1(values, i, j + size / 2, size / 2, start,n, m, num, sb);
+            start = function1(values, i + size / 2, j, size / 2, start,n, m, num, sb);
+            start = function1(values, i + size / 2, j + size / 2, size / 2, start,n, m, num, sb);
+        }
+
+        return start;
+    }
+
+    private static int printResult(int i, int j, int value, int n, int m, int num, StringBuffer sb) {
+        if (n == -1 && m == -1) {
+            if (num == value) {
+                sb.append((i + 1) + " " + (j + 1) + "\n");
+                return 1;
+            }
+        } else {
+            if ((n-1) == i && (m-1) == j) {
+                sb.append(value + "\n");
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    // function(values, 0, 0, value, 1 + 0);
     private static Integer function(Integer values[][], int i, int j, int size, int start) {
         if (size == 2) {
             values[i][j] = start;
