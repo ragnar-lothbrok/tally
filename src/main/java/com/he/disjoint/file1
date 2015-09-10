@@ -1,4 +1,0 @@
-common.numaric.min=Please provide valid numeric value.You have provided:
-common.string.empty=Please provide values for mandatory fields.
-common.email.invalid=Please provide valid email.
-common.numaric.length=Please provide value between {min} and {max}.

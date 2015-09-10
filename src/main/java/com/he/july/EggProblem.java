@@ -16,19 +16,20 @@ public class EggProblem {
         }
     }
 
+    // Egg Dropping Dynamic Programming
     private static int eggDrop(int eggs, int floors) {
-        int T[][] = new int[eggs+1][floors+1];
-        int c =0;
-        for(int i=0; i <= floors; i++){
+        int T[][] = new int[eggs + 1][floors + 1];
+        int c = 0;
+        for (int i = 0; i <= floors; i++) {
             T[1][i] = i;
         }
-        
-        for(int e = 2; e <= eggs; e++){
-            for(int f = 1; f <=floors; f++){
+
+        for (int e = 2; e <= eggs; e++) {
+            for (int f = 1; f <= floors; f++) {
                 T[e][f] = Integer.MAX_VALUE;
-                for(int k = 1; k <=f ; k++){
-                    c = 1 + Math.max(T[e-1][k-1], T[e][f-k]);
-                    if(c < T[e][f]){
+                for (int k = 1; k <= f; k++) {
+                    c = 1 + Math.max(T[e - 1][k - 1], T[e][f - k]);
+                    if (c < T[e][f]) {
                         T[e][f] = c;
                     }
                 }
@@ -37,12 +38,21 @@ public class EggProblem {
         return T[eggs][floors];
     }
 
-    private static void display(int arr[][]) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length; j++) {
-                System.out.print(arr[i][j]+" ");
-            }
-            System.out.println();
+    // Egg Dropping Recursive Programming
+    public int calculateRecursive(int eggs, int floors) {
+        if (eggs == 1) {
+            return floors;
         }
+        if (floors == 0) {
+            return 0;
+        }
+        int min = 1000;
+        for (int i = 1; i <= floors; i++) {
+            int val = 1 + Math.max(calculateRecursive(eggs - 1, i - 1), calculateRecursive(eggs, floors - i));
+            if (val < min) {
+                min = val;
+            }
+        }
+        return min;
     }
 }
