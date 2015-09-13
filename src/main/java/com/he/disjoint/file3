@@ -1,0 +1,43 @@
+
+Information Distribution
+Max. Marks 100
+
+There has been a Galaxy war started between Deo system and Sprite system . Mountain named planet is leader from Deo system and want to distribute some special information to all countries(infinite in number) of each planet in Deo system. Deo system's planets have some special bond among themselves that is each country is connected to other countries on a planet which means there is source of communication between any two countries on every planet of Deo system.
+
+To defeat Sprite system in war, Deo system have some strategies. Now Mountain planet as a leader wants to distribute these strategies to all countries of each of M planets and each planet have their own unique way to communicate among their countries. Mountain planet have N packets of information (same information in all N packets) and wants to distribute all the packets of information among M planets.
+
+For small number of planets people on Mountain planet can easily find number of ways Mountain planet can distribute the information but for large number of planets it has been difficult for them, so they hire you to help them finding the answer. Answer can be large so output the answer by Taking modulo with K .
+
+INPUT:
+
+1st first line contain test cases T. Each test contain N,M,K.
+
+OUTPUT:
+
+Find number of ways Mountain planet can distribute the information.
+
+CONSTRAINTS:
+
+1<=T<=10
+
+1<=N,M<=1012
+
+1<=K<=109
+
+N - M <= 2000
+Sample Input
+(Plaintext Link)
+
+2
+5 1 6
+3 2 7
+
+Sample Output
+(Plaintext Link)
+
+1
+2
+
+Explanation
+
+In test case 1: There is only 1 way to distribute the information. As there is only 1 planet, so give all N packets to that planet. In test case 2: There are only 2 ways to distribute the information: (1 packet to one planet and 2 packets to another planet) or (2 packets to one planet and 1 packet to another planet).

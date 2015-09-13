@@ -1,0 +1,29 @@
+SELECT fg.id featureGroupId,
+       fg.name featureGroupName,
+       f.id featureId,
+       f.name featureName,
+       max(rf.permission_id) permission,
+       rr.resource_id resourceId,
+       rt.id AS resourceType,
+       rr.resource_type_id parentResourecType,
+       rr.parent_resource_id parentId,
+       a.id applicationId,
+       a.name applicationName
+FROM user_role_resourcegroup urr
+INNER JOIN role_feature rf ON rf.role_id = urr.role_id
+INNER JOIN feature f ON f.id= rf.feature_id
+INNER JOIN featuregroup fg ON fg.id= f.featuregroup_id
+INNER JOIN application a ON a.id= fg.application_id
+LEFT JOIN feature_resource_type_mapping frtm ON f.id=frtm.feature_id
+LEFT JOIN resource_type rt ON rt.id = frtm.resource_type_id
+LEFT JOIN resourcegroup_resource rr ON rr.resourcegroup_id=urr.resourcegroup_id
+AND (rr.resource_type_id= frtm.resource_type_id
+     OR (rt.parent_id= rr.resource_type_id
+         AND rf.permission_id=2))
+WHERE urr.user_id=6
+  AND(frtm.resource_type_id IS NULL
+      OR rr.resource_type_id IS NOT NULL)
+GROUP BY rf.feature_id,
+         rr.resource_id,
+         rt.id,
+         rr.resource_type_id
