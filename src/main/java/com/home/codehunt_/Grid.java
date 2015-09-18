@@ -3,6 +3,8 @@ package com.home.codehunt_;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+///https://www.hackerearth.com/codex-6-0/algorithm/dummy-4-1/
+
 public class Grid {
 
     public static void main(String args[]) throws Exception {

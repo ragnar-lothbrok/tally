@@ -2,7 +2,7 @@
 Game Fifteen
 Max. Marks 100
 
-Rahul is a huge Indiana Jones fan. He recently came across an exiting piece of puzzle, the aim of the puzzle is to reach a final configuration from a initial configuration by shifting the adjacent elements of the initial configuration one at a time to X (the blank element).
+Rahul is a huge Indiana Jones fan. He recently came across an exiting piece of puzzle',' the aim of the puzzle is to reach a final configuration from a initial configuration by shifting the adjacent elements of the initial configuration one at a time to X (the blank element).
 For example
 Initial Configuration
 2 1 3 4
@@ -18,15 +18,15 @@ Final Configuration
 
 Here X marks the spot to where the elements can be shifted and the final configuration always remains the same for each test case (i. e. the one above)
 
-Now Rahul knows there are cases where no solution exists no matter what he does, so he asks your help to help him classify the puzzles into 'can be solved' and 'can not be solved' bundle.
+Now Rahul knows there are cases where no solution exists no matter what he does',' so he asks your help to help him classify the puzzles into 'can be solved' and 'can not be solved' bundle.
 
-Given a set of initial and final configurations, print "YES" if it belongs to the 'can be solved' bundle and "NO" otherwise.
+Given a set of initial and final configurations',' print "YES" if it belongs to the 'can be solved' bundle and "NO" otherwise.
 
 Input:
-First line contains the number of test cases T ,. Each test case contains four lines and each line contains four integer that is the initial configuration and black element X is represented as 0 in test case.
+First line contains the number of test cases T ','. Each test case contains four lines and each line contains four integer that is the initial configuration and black element X is represented as 0 in test case.
 
 Output:
-For each test case, print "YES" if it belongs to the 'can be solved' bundle and "NO" otherwise.
+For each test case',' print "YES" if it belongs to the 'can be solved' bundle and "NO" otherwise.
 
 Constraints:
 1<=T<=1000

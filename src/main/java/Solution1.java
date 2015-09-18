@@ -23,7 +23,10 @@ public class Solution1 {
 
         System.out.println("Input1 : " + list1);
         System.out.println("input2 : " + list2);
-        System.out.println("Output List : " + getSumOfLists(list1, list2));
+        
+        list2.retainAll(null);
+        System.out.println(list2);
+//        System.out.println("Output List : " + getSumOfLists(list1, list2));
 
     }
 

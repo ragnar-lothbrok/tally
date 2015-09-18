@@ -1,18 +1,18 @@
 package com.he.july;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class CoinDispencer {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = br.readLine();
-        int N = Integer.parseInt(line);
-        for (int i = 0; i < N; i++) {
-            System.out.println(count(new int[] { 1, 3, 5 }, 3, Integer.parseInt(br.readLine())));
-        }
+        // BufferedReader br = new BufferedReader(new
+        // InputStreamReader(System.in));
+        // String line = br.readLine();
+        // int N = Integer.parseInt(line);
+        // for (int i = 0; i < N; i++) {
+        System.out.println(count(new int[] { 1, 3, 5 }, 3, 10));
+        System.out.println(countOptimized(new int[] { 1, 3, 5 }, 3, 10));
+        // }
     }
 
     private static int count(int[] S, int m, int n) {
@@ -41,6 +41,18 @@ public class CoinDispencer {
             }
         }
         return table[n][m - 1];
+    }
+
+    //Coin Dispenser Optimized
+    private static int countOptimized(int[] coinTypes, int coinCount, int sum) {
+        int arr[] = new int[sum + 1];
+        arr[0] = 1;
+        for (int i = 0; i < coinCount; i++) {
+            for (int j = coinTypes[i]; j <= sum; j++) {
+                arr[j] = arr[j] + arr[j - coinTypes[i]];
+            }
+        }
+        return arr[sum];
     }
 
 }
