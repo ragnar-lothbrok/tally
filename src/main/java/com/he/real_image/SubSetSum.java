@@ -67,7 +67,7 @@ public class SubSetSum {
         int arr[] = { 1, 2, 3, 4, 5, 6 };
         find(arr, 0, 0, 8, new int[8]);
         System.out.println();
-//        System.out.println(hasSum(arr, 0, 8));
+        // System.out.println(hasSum(arr, 0, 8));
 
         System.out.println(subSetDP(arr, 8));
     }

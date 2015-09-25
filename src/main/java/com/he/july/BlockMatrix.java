@@ -39,7 +39,6 @@ public class BlockMatrix {
                 }
             }
         }
-
         System.out.println(dummy[row][col]);
     }
 }

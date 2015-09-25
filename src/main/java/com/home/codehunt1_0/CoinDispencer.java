@@ -22,14 +22,14 @@ public class CoinDispencer {
     }
 
     // Dynamic Programming
-    public static int dispenceCoint(int num, int[] S, int m) {
+    public static int dispenceCoint(int num, int[] S, int coinsLength) {
         int table[] = new int[num + 1];
         table[0] = 1;
 
         // Pick all coins one by one and update the table[] values
         // after the index greater than or equal to the value of the
         // picked coin
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < coinsLength; i++) {
             for (int j = S[i]; j <= num; j++)
                 table[j] += table[j - S[i]];
             for (int k = 0; k < table.length; k++) {
