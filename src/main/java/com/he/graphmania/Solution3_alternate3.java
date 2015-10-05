@@ -74,7 +74,7 @@ public class Solution3_alternate3 {
 
             for (int j = 0; j < vertexCount; j++) {
                 if (distance[minIndex] != Long.MAX_VALUE && visited[j] == false
-                        && adajacency[minIndex][j] != Long.MAX_VALUE
+                        && adajacency[minIndex][j] != Integer.MAX_VALUE
                         && distance[minIndex] + adajacency[minIndex][j] < distance[j]) {
                     distance[j] = distance[minIndex] + adajacency[minIndex][j];
                 }

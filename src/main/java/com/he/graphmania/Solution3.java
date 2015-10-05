@@ -22,7 +22,7 @@ public class Solution3 {
             for (int j = 0; j < queryCount; j++) {
                 str = br.readLine().split(" ");
                 int xCo = Integer.parseInt(str[0]) - 1;
-//                System.out.println("@@"+str[1]+"@@");
+                // System.out.println("@@"+str[1]+"@@");
                 int yCo = Integer.parseInt(str[1]) - 1;
                 adMat[xCo][yCo] = 1;
                 adMat[yCo][xCo] = 1;
@@ -35,15 +35,15 @@ public class Solution3 {
         long minWeight = Long.MAX_VALUE;
         long minHopes = Long.MIN_VALUE;
         Queue<Vertex> queue = new LinkedList<Vertex>();
-        queue.add(new Vertex(0, 0,0));
+        queue.add(new Vertex(0, 0, 0));
         boolean visited[] = new boolean[vertexCount];
         visited[0] = true;
         while (!queue.isEmpty()) {
             Vertex vertex = queue.remove();
-            if(vertex.getV() == vertexCount-1){
-                if(minWeight >= vertex.getWeight()){
+            if (vertex.getV() == vertexCount - 1) {
+                if (minWeight >= vertex.getWeight()) {
                     minWeight = vertex.getWeight();
-                    if(minHopes < vertex.getHopes()){
+                    if (minHopes < vertex.getHopes()) {
                         minHopes = vertex.getHopes();
                     }
                 }
@@ -52,14 +52,14 @@ public class Solution3 {
                 for (int i = 0; i < vertexCount; i++) {
                     if (vertex.getV() != i) {
                         if (!visited[i] && adMat[vertex.getV()][i] != 0) {
-                            queue.add(new Vertex(i, vertex.getWeight() + adMat[vertex.getV()][i],vertex.getHopes()+1));
+                            queue.add(new Vertex(i, vertex.getWeight() + adMat[vertex.getV()][i], vertex.getHopes() + 1));
                             visited[i] = true;
                         }
                     }
                 }
             }
         }
-        
+
         System.out.println(minHopes);
     }
 

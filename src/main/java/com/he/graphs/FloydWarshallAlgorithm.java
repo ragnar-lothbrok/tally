@@ -6,15 +6,22 @@ public class FloydWarshallAlgorithm {
                 { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 1 },
                 { Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0 } };
 
-        int adjacent1[][] = { { 0, 3, 5, Integer.MAX_VALUE, 6 }, { Integer.MAX_VALUE, 0, 4, -1, 4 },
+        int adjacent1[][] = { { 0, Integer.MAX_VALUE, 3,0 },
+                              {-2,0,Integer.MAX_VALUE,1},
+                              { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 5},
+                              { Integer.MAX_VALUE, 4,  Integer.MAX_VALUE,0} };
+        
+        adjacent = adjacent1;
+        
+        int adjacent2[][] = { { 0, 3, 5, Integer.MAX_VALUE, 6 }, { Integer.MAX_VALUE, 0, 4, -1, 4 },
                 { Integer.MAX_VALUE, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 3 },
                 { Integer.MAX_VALUE, Integer.MAX_VALUE, 4, 0, 12 }, { 7, Integer.MAX_VALUE, Integer.MAX_VALUE, -5, 0 } };
-        adjacent = adjacent1;
+        
         int[][] predeccesor = new int[adjacent.length][adjacent.length];
 
         for (int i = 0; i < adjacent.length; i++) {
             for (int j = 0; j < adjacent.length; j++) {
-                if (adjacent[i][j] == Integer.MAX_VALUE) {
+                if (adjacent[i][j] == Integer.MAX_VALUE || i == j) {
                     predeccesor[i][j] = -1;
                 } else {
                     predeccesor[i][j] = i;
@@ -26,7 +33,6 @@ public class FloydWarshallAlgorithm {
         display(adjacent);
         updateMatrix(adjacent, predeccesor);
         display(adjacent);
-
         display(predeccesor);
 
     }
