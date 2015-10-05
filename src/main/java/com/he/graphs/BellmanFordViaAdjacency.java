@@ -10,7 +10,8 @@ public class BellmanFordViaAdjacency {
         initializeMat(mat, adjacency);
         int source = 1;
         int vertexCount = mat.length;
-        calculateShortestPath(adjacency, source, vertexCount);
+        calculateSingleSourceShortestPath(adjacency, source, vertexCount);
+        calculateAllPairSourceShortestPath(adjacency, source, vertexCount);
     }
 
     private static void initializeMat(int[][] adMat, int adjacency[][]) {
@@ -27,7 +28,7 @@ public class BellmanFordViaAdjacency {
         }
     }
 
-    private static void calculateShortestPath(int[][] mat, int source, int vertexCount) {
+    private static void calculateSingleSourceShortestPath(int[][] mat, int source, int vertexCount) {
         int distance[] = new int[vertexCount + 1];
         for (int i = 1; i < mat.length; i++) {
             distance[i] = Integer.MAX_VALUE;
@@ -61,6 +62,40 @@ public class BellmanFordViaAdjacency {
 
         for (int vertex = 1; vertex <= vertexCount; vertex++) {
             System.out.println("Distance from " + source + " to " + vertex + " is : " + distance[vertex]);
+        }
+    }
+
+    private static void calculateAllPairSourceShortestPath(int[][] mat, int source, int vertexCount) {
+        int distance[][] = new int[vertexCount + 1][vertexCount + 1];
+
+        for (int src = 1; src <= vertexCount; src++) {
+            for (int dest = 1; dest <= vertexCount; dest++) {
+                distance[src][dest] = mat[src][dest];
+            }
+        }
+
+        for (int vertex = 1; vertex <= vertexCount; vertex++) {
+            for (int src = 1; src <= vertexCount; src++) {
+                for (int dest = 1; dest <= vertexCount; dest++) {
+                    if (distance[src][vertex] != Integer.MAX_VALUE && distance[vertex][dest] != Integer.MAX_VALUE
+                            && distance[src][dest] > distance[src][vertex] + distance[vertex][dest]) {
+                        distance[src][dest] = distance[src][vertex] + distance[vertex][dest];
+                    }
+                }
+            }
+        }
+
+        for (int src = 1; src <= vertexCount; src++) {
+            for (int dest = 1; dest <= vertexCount; dest++) {
+                if (src == dest && distance[src][dest] != 0) {
+                    System.out.println("The Graph contains negative egde cycle");
+                    break;
+                }
+            }
+        }
+
+        for (int vertex = 1; vertex <= vertexCount; vertex++) {
+            System.out.println("Distance from " + source + " to " + vertex + " is : " + distance[source][vertex]);
         }
     }
 
