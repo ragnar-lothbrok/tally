@@ -3,11 +3,14 @@ package com.he.bits_28_Aug;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Solution {
 
     public void getPairs(int[] arr, int sum) {
-        int i = 0, j = arr.length - 1;
+        
+         int i = 0, j = arr.length - 1;
         while (i < j) {
             if (arr[i] + arr[j] > sum) {
                 j--;
@@ -19,6 +22,16 @@ public class Solution {
                 System.out.println(i+" "+j);
             }
         }
+        
+        int num = 19_90;
+        
+        
+//        int a = 0123;
+//        int a = 0678;
+//        int a = 0xfda; 
+//        int a = 1 2 3;
+//        int a = 123;
+//       int a = 1_2_3;
     }
 
     public static void printFib(int n) {
@@ -82,6 +95,19 @@ public class Solution {
     }
 
     public static void main(String[] args) throws IOException {
+        
+        ConcurrentHashMap<String,String> premiumPhone = new ConcurrentHashMap<String,String>();
+        premiumPhone.put("Apple", "iPhone6");
+        premiumPhone.put("HTC", "HTC one");
+        premiumPhone.put("Samsung","S6");
+        
+        Iterator iterator = premiumPhone.keySet().iterator();
+        
+        while (iterator.hasNext())
+        {
+            System.out.println(premiumPhone.get(iterator.next()));
+            premiumPhone.put("Sony", "Xperia Z");
+        }
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // String line = br.readLine();
         // String str[] = line.split(" ");
