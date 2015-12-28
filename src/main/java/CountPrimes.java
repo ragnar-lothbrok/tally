@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+//https://www.geocerts.com/faq#Q1
 // /https://www.hackerearth.com/prysm-qa-coding-test/problems/e4773b368150476c9de4dd9c7c37bae3/
 public class CountPrimes {
 

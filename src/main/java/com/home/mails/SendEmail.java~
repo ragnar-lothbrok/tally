@@ -48,7 +48,7 @@ public class SendEmail {
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("xxx@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("raghunandan.gupta@exclusively.com"));
             message.setSubject("Reset your password");
             message.setContent(writer.toString(), "text/html");
 
