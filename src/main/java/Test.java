@@ -1,7 +1,16 @@
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 // class MyThread extends Thread {
 // public String text;
@@ -35,7 +44,17 @@ class B extends A {
 }
 
 public class Test {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws JsonGenerationException, JsonMappingException, IOException {
+    	
+    	List<String> test = new ArrayList<String>();
+    	test.add("asddsdf");
+    	test.add("dsdfsdf");
+    	System.out.println(new ObjectMapper().writeValueAsString(test));
+    	
+    	Map<String,String> map = new  HashMap<String,String>();
+    	map.put("asdasdff", "sdfsdf");
+    	map.put("sdfsdf", "324234");
+    	System.out.println(new ObjectMapper().writeValueAsString(map));
         B b = new B();
         System.out.println("x = " + b.GetResult(0, 1));
         new Test().start();

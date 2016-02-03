@@ -2,6 +2,7 @@ package com.home.mails;
 
 import java.io.StringWriter;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,6 +20,8 @@ public class SendEmail {
 
     public static void main(String[] args) {
 
+    	
+    	System.out.println(UUID.randomUUID().toString());
         try {
             final String username = "xxx@gmail.com";
             final String password = "xxx";
