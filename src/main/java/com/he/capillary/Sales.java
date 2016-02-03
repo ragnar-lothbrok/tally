@@ -17,7 +17,7 @@ public class Sales {
 	public static void main(String[] args) {
 		try {
 			Sales st = new Sales();
-			st.calculateSales("/home/coder/mygit/tally/src/main/java/com/he/capillary/sale.txt");
+			st.calculateSales("sale.txt");
 		} catch (Exception exception) {
 			System.out.println("File Not found.");
 		}
