@@ -20,13 +20,13 @@ public class HttpClientConnector {
 	public static void call() {
 		System.out.println(Math.pow(2, 9));
 //		 String serviceUrl = "http://10.11.22.12:3333/uaa/login";
-		String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
+//		String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
 		// String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
 //		String serviceUrl = "http://10.11.19.19:8081/uaa/oauth/authorize";
 //		 String serviceUrl = "http://localhost:3333/uaa/login";
 //		 String serviceUrl = "http://10.41.64.84:3333/uaa/login";
-//		 String serviceUrl =
-//		 "http://app-mobile-api-355317418.ap-southeast-1.elb.amazonaws.com/uaa/login";
+		 String serviceUrl =
+		 "http://app-mobile-api-355317418.ap-southeast-1.elb.amazonaws.com/uaa/login";
 		if (serviceUrl != null) {
 			try {
 

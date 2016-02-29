@@ -26,7 +26,8 @@ public class ReadCSVModified {
 
 //		String csvFile = "/home/raghunandangupta/Menus/overall.csv";
 //		String csvFile = "/home/raghunandangupta/Menus/designer.csv";
-		String csvFile = "/home/raghunandangupta/Menus/premium.csv";
+//		String csvFile = "/home/raghunandangupta/Menus/premium.csv";
+		String csvFile = "/home/raghunandangupta/Menus/luxury.csv";
 		List<Level> list = new ArrayList<Level>();
 		Level firstLevel = null;
 		Level secondLevel = null;
