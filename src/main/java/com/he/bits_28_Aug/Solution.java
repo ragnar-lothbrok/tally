@@ -113,12 +113,12 @@ public class Solution {
     	dynamic.put("234324", "dfwerwersdfs");
     	list.add(dynamic);
     	list.add(staticmap);
-    	System.out.println("##"+new ObjectMapper().writeValueAsString(list));
+//    	System.out.println("##"+new ObjectMapper().writeValueAsString(list));
     	
     	Set<String> set = new HashSet<String>();
     	set.add("ssdsdf");
     	set.add("dsdfsdfsdf");
-    	System.out.println("##$$$$"+new ObjectMapper().writeValueAsString(set));
+//    	System.out.println("##$$$$"+new ObjectMapper().writeValueAsString(set));
      	
     	String next = "https://graph.facebook.com/v2.4/dXNlcl9jb250ZAXh0OgGQvhtWziW5WpkytLLmAqhzptdffwHhX6ZBP3H6WpWBOrUzwfdiQK5jwrbQ8QOShk69Vq2LF9I67Hymp85EdAMNQLjQvDRiJglfwbR2a2CTOxZCEZD/mutual_likes?limit=25&after=NjY1MzM0NDYxNDYZD";
     	int index = next.indexOf("?");

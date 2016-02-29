@@ -49,12 +49,12 @@ public class Test {
     	List<String> test = new ArrayList<String>();
     	test.add("asddsdf");
     	test.add("dsdfsdf");
-    	System.out.println(new ObjectMapper().writeValueAsString(test));
+//    	System.out.println(new ObjectMapper().writeValueAsString(test));
     	
     	Map<String,String> map = new  HashMap<String,String>();
     	map.put("asdasdff", "sdfsdf");
     	map.put("sdfsdf", "324234");
-    	System.out.println(new ObjectMapper().writeValueAsString(map));
+//    	System.out.println(new ObjectMapper().writeValueAsString(map));
         B b = new B();
         System.out.println("x = " + b.GetResult(0, 1));
         new Test().start();
