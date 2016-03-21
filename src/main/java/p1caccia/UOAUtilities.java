@@ -53,9 +53,25 @@ public class UOAUtilities {
 	}
 
 	public boolean delete(String targetKey) {
-		if (next == 0)
-			return false;
-		data[--next] = null;
+		boolean isdeleted = false;
+		if (data.length > 0) {
+			for (int i = 0; i < next; i++) {
+				if (data[i] != null && data[i].getIdNumber().equals(targetKey)) {
+					data[i] = null;
+					isdeleted = true;
+				}
+				if (isdeleted && i < next - 1) {
+					data[i] = data[i + 1];
+				}
+			}
+			if (isdeleted) {
+				data[next] = null;
+				next--;
+			}
+		}
+		// if (next == 0)
+		// return false;
+		// data[--next] = null;
 		return true;
 	}
 

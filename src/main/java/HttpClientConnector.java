@@ -19,14 +19,13 @@ public class HttpClientConnector {
 
 	public static void call() {
 		System.out.println(Math.pow(2, 9));
-		 String serviceUrl = "http://10.11.15.10:3333/uaa/login";
-//		String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
+		 String serviceUrl = "http://st-api.exclusively.net/uaa/login";
+//		 String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
 		// String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
-//		String serviceUrl = "http://10.11.19.19:8081/uaa/oauth/authorize";
+		// String serviceUrl = "http://10.11.19.19:8081/uaa/oauth/authorize";
 //		 String serviceUrl = "http://localhost:3333/uaa/login";
-//		 String serviceUrl = "http://10.41.64.84:3333/uaa/login";
-//		 String serviceUrl =
-//		 "http://app-mobile-api-355317418.ap-southeast-1.elb.amazonaws.com/uaa/login";
+		// String serviceUrl = "http://10.41.64.84:3333/uaa/login";
+//		String serviceUrl = "https://api.exclusively.com/uaa/login";
 		if (serviceUrl != null) {
 			try {
 
@@ -38,24 +37,22 @@ public class HttpClientConnector {
 				String bytesEncoded = new String(Base64.encodeBase64(appended.getBytes()));
 
 				HttpGet loginServiceSocialGetRequest = new HttpGet(serviceUrl);
-//				loginServiceSocialGetRequest.setHeader("Login-Token",
-//						"oBkFcQS1iNuCj3N6cHjbHjQLwjtYKlitddVyjneXvT1jOS3ittpw7r1mXm-7N4TgrP7XnBpd8wBdRXe3r0-MbOHvXO3WloSx_1sMBU2EDXipUfBOZzqPXObRHdexVkSC");
-				
+				// loginServiceSocialGetRequest.setHeader("Login-Token",
+				// "oBkFcQS1iNuCj3N6cHjbHjQLwjtYKlitddVyjneXvT1jOS3ittpw7r1mXm-7N4TgrP7XnBpd8wBdRXe3r0-MbOHvXO3WloSx_1sMBU2EDXipUfBOZzqPXObRHdexVkSC");
+
 				loginServiceSocialGetRequest.setHeader("Login-Token",
-						"Scufun4IejYz6mJQiYwZcEpnR40vNzLKO_PewO81YV3yCjvrqabYPcie_MH88Nfu9qScT8aFcut-C9JKlscDMPJ7kDzeEjzOXE1hh3MP1QYVf-K29iG8JJFf4T34T7bp");
-				
-				
-				
-//				loginServiceSocialGetRequest.setHeader("GENDER", "female");
-				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TOKEN",
-						"CAACXHJL0waQBACmkeGiBGTpWW0sXFY8GyBzoIERHaC87OlNQTKpoPzvh3sxMCBgxyib7nqUkm6ZALxIbWaJFAAlcN4afHNRCZC7ll3rRoHMFrjYycXABCKI0luG6ijQfGt89ZAaTlj5IKq2zdZAv5nLEBmY753qKNA0Q1Ivqp8dKZBCU1iBOmLE6OLt7DD0DyRodqzbYBzL2qdN7fHAF7OHxbgEi1S8IZD");
-				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TYPE", "FACEBOOK");
-				
+						"Scufun4IejYz6mJQiYwZcKus4xyIUvRgq7OJqsIavCpByYx423kJXVP_YFOWu2xROS7tWDxozQnPHfdVuFqB-weypbRQEADLrNBh-dueC3m_FIw_Zb6YA_H8TnR8nIj7");
+
+				// loginServiceSocialGetRequest.setHeader("GENDER", "female");
 //				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TOKEN",
-//						"ya29.hQLUuQ6k1qAex1Xj9E-Faqhrd1fAP9MmpoYr6RXyINvM5WR2SGUy-H8A39p_34XjW1xz");
-//				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TYPE", "GOOGLE");
-				
-				
+//						"CAACXHJL0waQBAL4MCnsh4DcaNwy5xYF9Ve3KOdJNrcMOOc3PTnSzNxtI5GI6eD023k07ZB358gDWQrY2ntZC6PBDZAxZC8Yq5JdO9rYXuGRzXf43vxEPsYp5a6hMZCmq41ceMMXc8wRKKLqp6VrhqBrknyjL6e3CQeFHqwdX0H9bMmng0ml16nif65Ur3eLGTS3mj39Wccbvhp9t2MhVdv8ZAVYlQVk5ZBcgHgGDIpjDQZDZD");
+//				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TYPE", "FACEBOOK");
+
+				// loginServiceSocialGetRequest.setHeader("X-SOCIAL-TOKEN",
+				// "ya29.hQLUuQ6k1qAex1Xj9E-Faqhrd1fAP9MmpoYr6RXyINvM5WR2SGUy-H8A39p_34XjW1xz");
+				// loginServiceSocialGetRequest.setHeader("X-SOCIAL-TYPE",
+				// "GOOGLE");
+
 				System.out.println("Basic " + bytesEncoded);
 				// loginServiceSocialGetRequest.setHeader("Authorization",
 				// "Basic " + bytesEncoded);
@@ -83,8 +80,10 @@ public class HttpClientConnector {
 	public static void main(String[] args) throws ClientProtocolException, IOException {
 
 		try {
-			call();
-			if (false)
+			for(int i=0;i<1;i++){
+				call();
+			}
+			if (true)
 				return;
 			System.out.println("###############################################################");
 			HttpResponse response = null;
@@ -102,7 +101,21 @@ public class HttpClientConnector {
 			// get.addHeader("visitorId",
 			// "33c792b2-0316-4fb0-9488-884aba178ab8");
 			get.addHeader("visitorId", "123456");
-			get.addHeader("X-API-TOKEN", "eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0ODc3NDk3NTksInVzZXJfbmFtZSI6Im1hbm9qZ3VwdGEwMUB5YWhvby5jby5pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQVVUSEVOVElDQVRFRF9VU0VSIl0sImp0aSI6ImVlZjVlMzQyLTE5ODQtNDM1My1iYWE5LTU5OGM3NGZlZjk5MiIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.jpbCDHhYq7t16emboZWf3WTiXVmth1HyJynlqLoOHr1PTLrhBCauaI-0gLApXwMHxVWxeF_gh2IN53la2HZBHprZIm-kGT4TI7OkGs19jmHhYEJudsf5nk11Hu04AhpSBmytlGTgm-0-N7SDhzh7iAYaOrSfbpq2nlgoTGaR4_Lwtgydlicjqh0WOBF9ccnPng_NYOFxXmfZOVJ8ay48kAYUdwwk2VcGej7TwXI2iBeLojVMO0k2IMhwXsOo0Dov-SWnNpnsslcSdEqkN_w8-fMxysf-JBlCG5uv4SstcNZoSHDatTrCiIA4rBGMw-JKHi83AxEu6ubvnCvlLkGNMA"/*token.substring(token.indexOf(' '))*/);
+			get.addHeader("X-API-TOKEN",
+					"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0ODc3NDk3NTksInVzZXJfbmFtZSI6Im1hbm9qZ3VwdGEwMUB5YWhvby5jby5pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQVVUSEVOVElDQVRFRF9VU0VSIl0sImp0aSI6ImVlZjVlMzQyLTE5ODQtNDM1My1iYWE5LTU5OGM3NGZlZjk5MiIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.jpbCDHhYq7t16emboZWf3WTiXVmth1HyJynlqLoOHr1PTLrhBCauaI-0gLApXwMHxVWxeF_gh2IN53la2HZBHprZIm-kGT4TI7OkGs19jmHhYEJudsf5nk11Hu04AhpSBmytlGTgm-0-N7SDhzh7iAYaOrSfbpq2nlgoTGaR4_Lwtgydlicjqh0WOBF9ccnPng_NYOFxXmfZOVJ8ay48kAYUdwwk2VcGej7TwXI2iBeLojVMO0k2IMhwXsOo0Dov-SWnNpnsslcSdEqkN_w8-fMxysf-JBlCG5uv4SstcNZoSHDatTrCiIA4rBGMw-JKHi83AxEu6ubvnCvlLkGNMA"/*
+																																																																																																																																																														 * token
+																																																																																																																																																														 * .
+																																																																																																																																																														 * substring
+																																																																																																																																																														 * (
+																																																																																																																																																														 * token
+																																																																																																																																																														 * .
+																																																																																																																																																														 * indexOf
+																																																																																																																																																														 * (
+																																																																																																																																																														 * '
+																																																																																																																																																														 * '
+																																																																																																																																																														 * )
+																																																																																																																																																														 * )
+																																																																																																																																																														 */);
 			response = httpClient.execute(get);
 			System.out.println(">>>>" + response.getHeaders("X-API-TOKEN"));
 			InputStream inputStream = response.getEntity().getContent();

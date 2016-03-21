@@ -14,10 +14,24 @@ public class Sales {
 	private static DecimalFormat df2 = new DecimalFormat("00.00");
 	private static double baseSalary = 200d;
 
+	public static int Acker(int m,int n){
+		System.out.println("Acker("+m+", "+n+")");
+		if( m == 0)
+			return n+1;
+		else if(n==0)
+			return Acker(m-1, 1);
+		else
+			return Acker(m-1,Acker(m, n - 1));
+	}
+	
 	public static void main(String[] args) {
+		
+//		System.out.println("Acker(1, 2) : "+ Acker(1, 2));
+		System.out.println("Acker(2, 1) : "+Acker(2, 1));
+		
 		try {
 			Sales st = new Sales();
-			st.calculateSales("sale.txt");
+//			st.calculateSales("sale.txt");
 		} catch (Exception exception) {
 			System.out.println("File Not found.");
 		}
