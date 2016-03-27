@@ -5,33 +5,136 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Sales {
+
+	static int reservationNumber = 500;
+
+	public static void processReservation(String name, String typeOfRoom, String hotelName, String numOfNight,
+			String numOfGuest, String arrivalDate) {
+
+		boolean result = isValid(name, typeOfRoom, hotelName, numOfNight, numOfGuest, arrivalDate);
+		if (result) {
+			double cost = calcReservationCosts(typeOfRoom, hotelName, numOfNight, numOfGuest);
+			String str[] = name.split(",");
+			String reservationId = str[0].charAt(0) + "" + str[1].charAt(0) + " " + reservationNumber;
+			reservationNumber++;
+		}
+	}
+
+	public static double calcReservationCosts(String typeOfRoom, String hotelName, String numOfNight,
+			String numOfGuest) {
+		double cost = 0.0;
+		if (hotelName.equals("Mom and Pop's hotel")) {
+			if (typeOfRoom.equals("Two Queen Beds")) {
+				cost = Integer.parseInt(numOfNight) * 49 * 1.10f;
+			} else if (typeOfRoom.equals("One King Bed")) {
+				cost = Integer.parseInt(numOfNight) * 48 * 1.10f;
+			} else if (typeOfRoom.equals("Suite")) {
+				cost = Integer.parseInt(numOfNight) * 65 * 1.10f;
+			}
+		} else if (hotelName.equals("Hotel from 'you know where'")) {
+			if (typeOfRoom.equals("Two Queen Beds")) {
+				cost = Integer.parseInt(numOfNight) * 19.99 * 1.10f;
+			} else if (typeOfRoom.equals("One King Bed")) {
+				cost = Integer.parseInt(numOfNight) * 16.99 * 1.10f;
+			} else if (typeOfRoom.equals("Suite")) {
+				cost = Integer.parseInt(numOfNight) * 24.99 * 1.10f;
+			}
+		} else if (hotelName.equals("Disnay(not disney)")) {
+			if (typeOfRoom.equals("Two Queen Beds")) {
+				cost = Integer.parseInt(numOfNight) * 99 * 1.10f;
+			} else if (typeOfRoom.equals("One King Bed")) {
+				cost = Integer.parseInt(numOfNight) * 89 * 1.10f;
+			} else if (typeOfRoom.equals("Suite")) {
+				cost = Integer.parseInt(numOfNight) * 109 * 1.10f;
+			}
+		}
+		return cost;
+	}
+
+	static boolean isValid(String name, String typeOfRoom, String hotelName, String numOfNight, String numOfGuest,
+			String arrivalDate) {
+		if (name != null && name.trim().length() > 0) {
+			System.out.println("Please provide valid Name.");
+			return false;
+		}
+		
+		if (hotelName != null && hotelName.trim().length() > 0) {
+			System.out.println("Please provide hotel Name.");
+			return false;
+		}
+
+		if (typeOfRoom != null && typeOfRoom.trim().length() > 0) {
+			System.out.println("Please select Room Type.");
+			return false;
+		}
+
+
+		try {
+			int num = Integer.parseInt(numOfGuest);
+			if (num <= 0 || num > 4) {
+				System.out.println("Please provide number of guest between 1 and 4.");
+				return false;
+			}
+		} catch (Exception exception) {
+			System.out.println("Please provide number of guest between 1 and 4.");
+			return false;
+		}
+
+		try {
+			int num = Integer.parseInt(numOfNight);
+			if (num <= 0) {
+				System.out.println("Please provide number of nights of stay (> 0).");
+				return false;
+			}
+		} catch (Exception exception) {
+			System.out.println("Please provide number of nights of stay (> 0).");
+			return false;
+		}
+
+		if (arrivalDate != null) {
+			try {
+				Date date = new SimpleDateFormat("dd/mm/yyyy").parse(arrivalDate);
+				Date currentDate = new Date();
+				if (!date.after(currentDate)) {
+					System.out.println("Please provide valid arrival date.");
+					return false;
+				}
+			} catch (Exception exception) {
+				System.out.println("Please provide valid arrival date.");
+				return false;
+			}
+		}
+		return true;
+	}
 
 	private static String space = "\t\t";
 	private static DecimalFormat df2 = new DecimalFormat("00.00");
 	private static double baseSalary = 200d;
 
-	public static int Acker(int m,int n){
-		System.out.println("Acker("+m+", "+n+")");
-		if( m == 0)
-			return n+1;
-		else if(n==0)
-			return Acker(m-1, 1);
+	public static int Acker(int m, int n) {
+		System.out.println("Acker(" + m + ", " + n + ")");
+		if (m == 0)
+			return n + 1;
+		else if (n == 0)
+			return Acker(m - 1, 1);
 		else
-			return Acker(m-1,Acker(m, n - 1));
+			return Acker(m - 1, Acker(m, n - 1));
 	}
-	
+
 	public static void main(String[] args) {
-		
-//		System.out.println("Acker(1, 2) : "+ Acker(1, 2));
-		System.out.println("Acker(2, 1) : "+Acker(2, 1));
-		
+
+		// System.out.println("Acker(1, 2) : "+ Acker(1, 2));
+		System.out.println("Acker(2, 1) : " + Acker(2, 1));
+
 		try {
 			Sales st = new Sales();
-//			st.calculateSales("sale.txt");
+			// st.calculateSales("sale.txt");
 		} catch (Exception exception) {
 			System.out.println("File Not found.");
 		}
@@ -39,12 +142,12 @@ public class Sales {
 
 	/**
 	 * This will accept file and calculate data
+	 * 
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
 	private void calculateSales(String fileName) throws FileNotFoundException, IOException {
-		BufferedReader br = new BufferedReader(
-				new FileReader(fileName));
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		String line = br.readLine();
 		String str[] = new String[2];
 		List<Sale> saleList = new ArrayList<Sale>();

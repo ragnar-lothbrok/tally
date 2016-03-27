@@ -186,17 +186,25 @@ public class SampleGUI2 {
 		String str[] = new String[4];
 		int index[] = new int[4];
 		for (int i = 0; i < syntax.length(); i++) {
+
+			// For substring 1
 			if (syntax.charAt(i) == '(') {
 				str[0] = syntax.substring(0, i).trim();
 				index[0] = i + 1;
 			}
+
+			// For substring 2
 			if (syntax.charAt(i) == ';' && str[1] == null) {
 				str[1] = syntax.substring(index[0], i).trim();
 				index[1] = i;
-			} else if (syntax.charAt(i) == ';' && str[1] != null) {
+			}
+			// For substring 3
+			else if (syntax.charAt(i) == ';' && str[1] != null) {
 				str[2] = syntax.substring(index[1] + 1, i).trim();
 				index[2] = i;
 			}
+
+			// For substring 4
 			if (syntax.charAt(i) == ')' && str[3] == null) {
 				str[3] = syntax.substring(index[2] + 1, i).trim();
 				index[3] = i;
@@ -210,12 +218,17 @@ public class SampleGUI2 {
 	}
 
 	public static void validate(String values[]) {
+		
+		//for
 		if (!(values[0] != null && "for".equals(values[0]))) {
 			System.out.println("Invalid substring1");
 			return;
 		}
+		
+		//int jj=0
 		if (values[1] != null) {
 			String str[] = values[1].split(" ");
+			//Here we are checking for "int" after that some characters should be present
 			if (str.length == 2 && str[0].trim().equals("int")) {
 				String temp[] = str[1].split("=");
 				if (temp.length == 2 && temp[0].toLowerCase().charAt(0) >= 'a' && temp[0].toLowerCase().charAt(0) <= 'z'
@@ -229,46 +242,48 @@ public class SampleGUI2 {
 				System.out.println("Invalid substring2");
 				return;
 			}
-		}
-		else {
+		} else {
 			System.out.println("Invalid substring2");
 			return;
 		}
-		if(values[2] != null){
+		
+		//Here we are for != and some characters jj!=7
+		if (values[2] != null) {
 			String temp[] = values[2].split("!=");
-			if(temp.length ==2 && temp[0].toLowerCase().charAt(0) >= 'a' && temp[0].toLowerCase().charAt(0) <= 'z'
-					&& temp[1].trim().length() > 0){
-				
-			}else {
+			if (temp.length == 2 && temp[0].toLowerCase().charAt(0) >= 'a' && temp[0].toLowerCase().charAt(0) <= 'z'
+					&& temp[1].trim().length() > 0) {
+
+			} else {
 				System.out.println("Invalid substring3");
 				return;
 			}
-		}else {
+		} else {
 			System.out.println("Invalid substring3");
 			return;
 		}
-		
-		if(values[3] != null){
+
+		//jj++
+		if (values[3] != null) {
 			String temp[] = values[3].split("/++");
-			if(temp.length != 2){
+			if (temp.length != 2) {
 				temp = values[3].split("/--");
-				if(temp[0].trim().toLowerCase().charAt(0) >= 'a' && temp[0].trim().toLowerCase().charAt(0) <= 'z'){
-					
-				}else {
+				if (temp[0].trim().toLowerCase().charAt(0) >= 'a' && temp[0].trim().toLowerCase().charAt(0) <= 'z') {
+
+				} else {
 					System.out.println("Invalid substring4");
 					return;
 				}
-			}else if(temp[0].trim().toLowerCase().charAt(0) >= 'a' && temp[0].trim().toLowerCase().charAt(0) <= 'z'){
-				
-			}else {
+			} else if (temp[0].trim().toLowerCase().charAt(0) >= 'a' && temp[0].trim().toLowerCase().charAt(0) <= 'z') {
+
+			} else {
 				System.out.println("Invalid substring4");
 				return;
 			}
-		}else {
+		} else {
 			System.out.println("Invalid substring4");
 			return;
 		}
-		
+
 		System.out.println("Valid for loop.");
 	}
 }
