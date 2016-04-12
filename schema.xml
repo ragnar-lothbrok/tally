@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<schema name="exclusively" version="1.5">
+	<types>
+
+		<fieldType name="string" class="solr.StrField"
+			sortMissingLast="true" />
+
+		<fieldType name="boolean" class="solr.BoolField"
+			sortMissingLast="true" />
+
+		<fieldType name="int" class="solr.TrieIntField"
+			precisionStep="0" positionIncrementGap="0" />
+
+		<fieldType name="float" class="solr.TrieFloatField"
+			precisionStep="0" positionIncrementGap="0" />
+
+		<fieldType name="long" class="solr.TrieLongField"
+			precisionStep="0" positionIncrementGap="0" />
+
+		<fieldType name="double" class="solr.TrieDoubleField"
+			precisionStep="0" positionIncrementGap="0" />
+
+
+		<fieldType name="tint" class="solr.TrieIntField"
+			precisionStep="8" positionIncrementGap="0" />
+
+		<fieldType name="tfloat" class="solr.TrieFloatField"
+			precisionStep="8" positionIncrementGap="0" />
+
+		<fieldType name="tlong" class="solr.TrieLongField"
+			precisionStep="8" positionIncrementGap="0" />
+
+		<fieldType name="tdouble" class="solr.TrieDoubleField"
+			precisionStep="8" positionIncrementGap="0" />
+
+		<fieldType name="date" class="solr.TrieDateField"
+			precisionStep="0" positionIncrementGap="0" sortMissingLast="true" />
+
+		<!-- Doc value fields -->
+		<fieldType name="string_dv" class="solr.StrField"
+			sortMissingLast="true" omitNorms="true" omitTermFreqAndPositions="true"
+			docValues="true" />
+
+		<fieldType name="long_dv" class="solr.TrieLongField"
+			omitNorms="true" precisionStep="100" omitTermFreqAndPositions="true"
+			docValues="true" />
+
+		<fieldType name="float_dv" class="solr.TrieFloatField"
+			omitNorms="true" precisionStep="100" omitTermFreqAndPositions="true"
+			docValues="true" />
+
+		<fieldType name="float_rq_dv" class="solr.TrieFloatField"
+			omitNorms="true" docValues="true" />
+
+		<!-- A general text field that has reasonable, generic cross-language defaults: 
+			it tokenizes with StandardTokenizer, removes stop words from case-insensitive 
+			"stopwords.txt" (empty by default), and down cases. At query time only, it 
+			also applies synonyms. -->
+		<fieldType name="text_general" class="solr.TextField"
+			positionIncrementGap="100">
+			<analyzer type="index">
+				<tokenizer class="solr.StandardTokenizerFactory" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" />
+				<!-- in this example, we will only use synonyms at query time <filter 
+					class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" 
+					expand="false"/> -->
+				<filter class="solr.LowerCaseFilterFactory" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.StandardTokenizerFactory" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" />
+				<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt"
+					ignoreCase="true" expand="true" />
+				<filter class="solr.LowerCaseFilterFactory" />
+			</analyzer>
+		</fieldType>
+
+		<!-- A text field with defaults appropriate for English: it tokenizes with 
+			StandardTokenizer, removes English stop words (lang/stopwords_en.txt), down 
+			cases, protects words from protwords.txt, and finally applies Porter's stemming. 
+			The query time analyzer also applies synonyms from synonyms.txt. -->
+		<!-- <fieldType name="text_en" class="solr.TextField"
+			positionIncrementGap="100">
+			<analyzer type="index">
+				<tokenizer class="solr.StandardTokenizerFactory" />
+				in this example, we will only use synonyms at query time <filter 
+					class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" 
+					expand="false"/>
+				Case insensitive stop word removal.
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="lang/stopwords_en.txt" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.EnglishPossessiveFilterFactory" />
+				<filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+				Optionally you may want to use this less aggressive stemmer instead 
+					of PorterStemFilterFactory: <filter class="solr.EnglishMinimalStemFilterFactory"/>
+				<filter class="solr.PorterStemFilterFactory" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.StandardTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt"
+					ignoreCase="true" expand="true" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="lang/stopwords_en.txt" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.EnglishPossessiveFilterFactory" />
+				<filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+				Optionally you may want to use this less aggressive stemmer instead 
+					of PorterStemFilterFactory: <filter class="solr.EnglishMinimalStemFilterFactory"/>
+				<filter class="solr.PorterStemFilterFactory" />
+			</analyzer>
+		</fieldType> -->
+
+		<!-- A text field with defaults appropriate for English, plus aggressive 
+			word-splitting and autophrase features enabled. This field is just like text_en, 
+			except it adds WordDelimiterFilter to enable splitting and matching of words 
+			on case-change, alpha numeric boundaries, and non-alphanumeric chars. This 
+			means certain compound word cases will work, for example query "wi fi" will 
+			match document "WiFi" or "wi-fi". -->
+		<!-- <fieldType name="text_en_splitting" class="solr.TextField"
+			positionIncrementGap="100" autoGeneratePhraseQueries="true">
+			<analyzer type="index">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				in this example, we will only use synonyms at query time <filter 
+					class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" 
+					expand="false"/>
+				Case insensitive stop word removal.
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="lang/stopwords_en.txt" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="1"
+					catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+				<filter class="solr.PorterStemFilterFactory" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt"
+					ignoreCase="true" expand="true" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="lang/stopwords_en.txt" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="0"
+					catenateNumbers="0" catenateAll="0" splitOnCaseChange="1" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+				<filter class="solr.PorterStemFilterFactory" />
+			</analyzer>
+		</fieldType> -->
+
+		<!-- Less flexible matching, but less false matches. Probably not ideal 
+			for product names, but may be good for SKUs. Can insert dashes in the wrong 
+			place and still match. -->
+		<fieldType name="text_en_splitting_tight" class="solr.TextField"
+			positionIncrementGap="100" autoGeneratePhraseQueries="true">
+			<analyzer>
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt"
+					ignoreCase="true" expand="false" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="lang/stopwords_en.txt" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="0" generateNumberParts="0" catenateWords="1"
+					catenateNumbers="1" catenateAll="0" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+				<filter class="solr.EnglishMinimalStemFilterFactory" />
+				<!-- this filter can remove any duplicate tokens that appear at the same 
+					position - sometimes possible with WordDelimiterFilter in conjuncton with 
+					stemming. -->
+				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
+			</analyzer>
+		</fieldType>
+
+
+		<!-- since fields of this type are by default not stored or indexed, any 
+			data added to them will be ignored outright. -->
+		<fieldType name="ignored" stored="true" indexed="false"
+			multiValued="true" class="solr.StrField" />
+
+		<!-- Money/currency field type. See http://wiki.apache.org/solr/MoneyFieldType 
+			Parameters: defaultCurrency: Specifies the default currency if none specified. 
+			Defaults to "USD" precisionStep: Specifies the precisionStep for the TrieLong 
+			field used for the amount providerClass: Lets you plug in other exchange 
+			provider backend: solr.FileExchangeRateProvider is the default and takes 
+			one parameter: currencyConfig: name of an xml file holding exchange rates 
+			solr.OpenExchangeRatesOrgProvider uses rates from openexchangerates.org: 
+			ratesFileLocation: URL or path to rates JSON file (default latest.json on 
+			the web) refreshInterval: Number of minutes between each rates fetch (default: 
+			1440, min: 60) -->
+		<fieldType name="currency" class="solr.CurrencyField"
+			precisionStep="8" defaultCurrency="USD" currencyConfig="currency.xml" />
+
+
+		<fieldType name="text_ws_sd" class="solr.TextField"
+			autoGeneratePhraseQueries="false" omitNorms="true">
+			<analyzer type="index">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt"
+					ignoreCase="true" expand="true" />
+				<!-- Case insensitive stop word removal. add enablePositionIncrements=true 
+					in both the index and query analyzers to leave a 'gap' for more accurate 
+					phrase queries. -->
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" enablePositionIncrements="true" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="1"
+					catenateNumbers="1" catenateAll="1" splitOnCaseChange="1"
+					preserveOriginal="1" splitOnNumerics="0" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<!-- filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="25" 
+					/ -->
+				<filter class="solr.KStemFilterFactory" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt"
+					ignoreCase="true" expand="true" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" enablePositionIncrements="true" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="1"
+					catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"
+					preserveOriginal="0" splitOnNumerics="0" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.KStemFilterFactory" />
+			</analyzer>
+		</fieldType>
+		<!-- <fieldType name="text_split" class="solr.TextField"
+			autoGeneratePhraseQueries="false" omitNorms="true">
+			<analyzer type="index">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt"
+					ignoreCase="true" expand="true" />
+				Case insensitive stop word removal. add enablePositionIncrements=true 
+					in both the index and query analyzers to leave a 'gap' for more accurate 
+					phrase queries.
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" enablePositionIncrements="true" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="1"
+					catenateNumbers="1" catenateAll="1" splitOnCaseChange="1"
+					preserveOriginal="1" splitOnNumerics="1" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="25" 
+					/
+				<filter class="solr.KStemFilterFactory" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt"
+					ignoreCase="true" expand="true" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" enablePositionIncrements="true" />
+				filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" 
+					generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="0" 
+					splitOnCaseChange="0" preserveOriginal="0" splitOnNumerics="0" /
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.KStemFilterFactory" />
+			</analyzer>
+		</fieldType> -->
+		<fieldType name="text_ws_ph" class="solr.TextField"
+			autoGeneratePhraseQueries="false" omitNorms="true">
+			<analyzer type="index">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.SynonymFilterFactory" synonyms="index_synonyms_ph.txt"
+					ignoreCase="true" expand="true" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" enablePositionIncrements="true" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="1"
+					catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" />
+				<filter class="solr.LengthFilterFactory" min="2" max="100" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<!-- filter class="solr.PorterStemFilterFactory"/ -->
+				<filter class="solr.PhoneticFilterFactory" encoder="RefinedSoundex"
+					inject="false" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.WhitespaceTokenizerFactory" />
+				<filter class="solr.StopFilterFactory" ignoreCase="true"
+					words="stopwords.txt" enablePositionIncrements="true" />
+				<filter class="solr.WordDelimiterFilterFactory"
+					generateWordParts="1" generateNumberParts="1" catenateWords="1"
+					catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"
+					preserveOriginal="0" />
+				<filter class="solr.LengthFilterFactory" min="2" max="100" />
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.PhoneticFilterFactory" encoder="RefinedSoundex"
+					inject="false" />
+			</analyzer>
+		</fieldType>
+
+	</types>
+	
+	<fields>
+
+		<field name="_version_" type="long" indexed="true" stored="true" />
+
+		<field name="_root_" type="string" indexed="true" stored="true" />
+		
+		<field name="_id" type="string" indexed="true" stored="true"
+			required="true" multiValued="false" />
+		
+		<field name="entity_id" type="string_dv" indexed="true" stored="true"
+			multiValued="false" />
+		
+		<field name="pogId" type="string_dv" indexed="true" stored="true"
+			multiValued="false" />
+		
+		<field name="sku" type="text_en_splitting_tight" indexed="true"
+			stored="true" omitNorms="true" />
+		
+		<field name="name" type="text_ws_sd" indexed="true" stored="true" />
+		
+		<field name="title" type="text_ws_sd" indexed="true" stored="true" />
+		
+		<field name="designer_brand_name_label" type="string_dv"
+			indexed="true" stored="true" />
+		
+		<field name="designer_brand_name_label_text" type="text_ws_sd"
+			indexed="true" stored="false" />
+		
+		<field name="designer_brand_name_label_ph" type="text_ws_ph"
+			indexed="true" stored="false" omitNorms="true" />
+		
+		<field name="product_type_all_label" type="string_dv" indexed="true"
+			stored="true" />
+		
+		<field name="product_type_all_label_text" type="text_ws_sd"
+			indexed="true" stored="false" />
+		
+		<field name="product_type_all_label_ph" type="text_ws_ph"
+			indexed="true" stored="false" omitNorms="true" />
+		
+		<field name="floor_type_label" type="string_dv" indexed="true"
+			stored="true" />
+		
+		<field name="floor_type_label_text" type="text_ws_sd" indexed="true"
+			stored="false" />
+		
+		<field name="status" type="long" indexed="true" stored="true"
+			multiValued="false" />
+		
+		<field name="visibility" type="long" indexed="true" stored="true"
+			multiValued="false" />
+		
+		<field name="is_in_stock" type="long" indexed="true" stored="true"
+			multiValued="false" />
+		
+		<field name="cod_availability" type="long" indexed="true"
+			stored="true" multiValued="false" />
+
+		<field name="color_label" type="string_dv" indexed="true"
+			stored="true" />
+		
+		<field name="color_label_text" type="text_general" indexed="true"
+			stored="false" />
+		
+		<field name="size_label" type="string_dv" indexed="true" stored="true"
+			multiValued="true" />
+		
+		<field name="description" type="text_ws_sd" indexed="true"
+			stored="true" />
+		
+		<field name="price" type="float_rq_dv" indexed="true" stored="true" />
+		
+		<field name="discount" type="float_rq_dv" indexed="true" stored="true" />
+		
+		<field name="discount_percent" type="float_dv" indexed="true"
+			stored="true" default="0" />
+
+		<field name="category_ids" type="long_dv" indexed="true" stored="true"
+			multiValued="true" />
+		
+		<field name="category_names" type="text_ws_sd" indexed="true"
+			stored="true" multiValued="true" />
+		
+		<copyField source="designer_brand_name_label" dest="designer_brand_name_label_ph" />
+		
+		<copyField source="product_type_all_label" dest="product_type_all_label_ph" />
+		
+		<copyField source="designer_brand_name_label" dest="designer_brand_name_label_text" />
+		
+		<copyField source="product_type_all_label" dest="product_type_all_label_text" />
+		
+		<copyField source="floor_type_label" dest="floor_type_label_text" />
+		
+		<copyField source="color_label" dest="color_label_text" />
+		
+		<field name="filters" type="text_ws_sd" indexed="true" stored="true"
+			multiValued="true" />
+		
+		<dynamicField name="*_s" type="text_ws_sd" indexed="true"
+			stored="true" multiValued="true" />
+		
+		<copyField source="*_s" dest="filters" />
+		
+		<field name="creation_date" type="date" indexed="true" stored="true" />
+		
+		<field name="popularity" type="float_rq_dv" indexed="true"
+			stored="true" />
+		
+		<field name="rounded_price" type="float_rq_dv" indexed="true"
+			stored="true" />
+
+		<field name="last_modified" type="date" indexed="false" stored="true" />
+		
+		<!-- debug fields -->
+		<field name="timestamp" type="date" indexed="true" stored="true"
+			default="NOW" />
+	</fields>
+
+	<uniqueKey>_id</uniqueKey>
+
+</schema>

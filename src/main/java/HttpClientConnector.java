@@ -24,7 +24,7 @@ public class HttpClientConnector {
 		// String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
 		// String serviceUrl = "http://10.11.19.19:8081/uaa/oauth/authorize";
 //		 String serviceUrl = "http://localhost:3333/uaa/login";
-		// String serviceUrl = "http://10.41.64.84:3333/uaa/login";
+//		 String serviceUrl = "http://10.30.59.152:8888/uaa/login";
 //		String serviceUrl = "https://api.exclusively.com/uaa/login";
 		if (serviceUrl != null) {
 			try {

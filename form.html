@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
+<script src="/vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+</head>
+<body>
+	<div class="panel panel-primary" style="width: 500px">
+		<div class="panel-body">
+			<form role="form" >
+				<div class="form-group">
+					<label for="exampleInputName" class="control-label">Name</label> <input
+						type="text" placeholder="Name" id="exampleInputName"
+						class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="exampleInputEmail1" class="control-label">Email</label>
+					<input type="email" placeholder="Enter email"
+						id="exampleInputEmail1" class="form-control">
+				</div>
+
+
+				<div class="form-group">
+					<label class="control-label">Select Your Favourites types
+						of Music</label>
+					<div class="checkbox">
+						<label> <input type="checkbox" checked="" value="option1"
+							id="optionsCheckbox1" name="optionsRadios"> POP
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox" value="option2"
+							id="optionsCheckbox2" name="optionsRadios"> Classical
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox" value="option3"
+							id="optionsCheckbox3" name="optionsRadios"> Rock
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox" value="option4"
+							id="optionsCheckbox4" name="optionsRadios"> Folk
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox" value="option5"
+							id="optionsCheckbox5" name="optionsRadios"> Rap
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox" value="option6"
+							id="optionsCheckbox6" name="optionsRadios"> Other
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Select How often you purchase
+						Movies</label>
+					<div class="radio">
+						<label> <input type="radio" checked="" value="option1"
+							id="optionsRadios1" name="optionsRadios"> Weekly
+						</label>
+					</div>
+					<div class="radio">
+						<label> <input type="radio" value="option2"
+							id="optionsRadios2" name="optionsRadios">A Few CDs each
+							year
+						</label>
+					</div>
+					<div class="radio">
+						<label> <input type="radio" value="option3"
+							id="optionsRadios3" name="optionsRadios"> Monthly
+						</label>
+					</div>
+					<div class="radio">
+						<label> <input type="radio" value="option4"
+							id="optionsRadios4" name="optionsRadios"> Never Purchase
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Select the locations you
+						listen to Music</label>
+					<div class="control-label">
+						<select class="form-control" name="location" multiple="multiple">
+							<option value="male">At Home</option>
+							<option value="female">In the Car</option>
+							<option value="other">Any where</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">What does role music play in
+						your life?</label>
+					<textarea class="form-control custom-control" rows="3"
+						style="resize: none"></textarea>
+				</div>
+
+				<button class="btn btn-default" type="submit">Submit</button>
+				<button class="btn btn-default" type="reset">Reset</button>
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>

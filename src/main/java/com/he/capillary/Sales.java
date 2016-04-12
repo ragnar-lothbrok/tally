@@ -1,23 +1,38 @@
 package com.he.capillary;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Sales {
+
+class A{
+	int i;
+	
+	public A() {
+	i=4;	// TODO Auto-generated constructor stub
+	}
+}
+public class Sales extends A{
 
 	static int reservationNumber = 500;
 
+	public void get(){
+		i = 4;
+	}
 	public static void processReservation(String name, String typeOfRoom, String hotelName, String numOfNight,
 			String numOfGuest, String arrivalDate) {
-
-		boolean result = isValid(name, typeOfRoom, hotelName, numOfNight, numOfGuest, arrivalDate);
+				boolean result = isValid(name, typeOfRoom, hotelName, numOfNight, numOfGuest, arrivalDate);
 		if (result) {
 			double cost = calcReservationCosts(typeOfRoom, hotelName, numOfNight, numOfGuest);
 			String str[] = name.split(",");
@@ -127,7 +142,42 @@ public class Sales {
 			return Acker(m - 1, Acker(m, n - 1));
 	}
 
-	public static void main(String[] args) {
+	static final long t = 9l;
+	
+	public static long increment(long t){
+		return ++t;
+	}
+	
+	public static synchronized void get1() throws InterruptedException{
+		Thread t1 = new Thread();
+//		t1.start();
+		System.out.println("X");
+//		t1.wait(1000);
+		System.out.println("Y");
+	}
+	public static void main(String[] args) throws InterruptedException {
+		
+		String str = "2222#222#www";
+		String values[] = str.split("#");
+				
+		new Sales().get1();
+		final long t =6l;
+		System.out.println(increment(t));
+		List x = new ArrayList();
+		x.add("x");
+		x.add("xx");
+		x.add("Xx");
+//		Comparator<String> cp = Collections.reverseOrder();
+//		Collections.sort(x,cp);
+		Collections.reverse(x);
+		System.out.println(x);
+		
+		
+		Set set = new TreeSet();
+		set.add(1);
+		set.add(2
+				);
+		System.out.println(set);
 
 		// System.out.println("Acker(1, 2) : "+ Acker(1, 2));
 		System.out.println("Acker(2, 1) : " + Acker(2, 1));
@@ -148,6 +198,7 @@ public class Sales {
 	 */
 	private void calculateSales(String fileName) throws FileNotFoundException, IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
+//		BufferedWriter bw = new BufferedWriter(new File(""));
 		String line = br.readLine();
 		String str[] = new String[2];
 		List<Sale> saleList = new ArrayList<Sale>();
