@@ -19,13 +19,13 @@ public class HttpClientConnector {
 
 	public static void call() {
 		System.out.println(Math.pow(2, 9));
-		 String serviceUrl = "http://st-api.exclusively.net/uaa/login";
+//		 String serviceUrl = "http://st-api.exclusively.net/uaa/login";
 //		 String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
 		// String serviceUrl = "http://localhost:8081/uaa/oauth/authorize";
 		// String serviceUrl = "http://10.11.19.19:8081/uaa/oauth/authorize";
 //		 String serviceUrl = "http://localhost:3333/uaa/login";
 //		 String serviceUrl = "http://10.30.59.152:8888/uaa/login";
-//		String serviceUrl = "https://api.exclusively.com/uaa/login";
+		String serviceUrl = "https://api.exclusively.com/uaa/login";
 		if (serviceUrl != null) {
 			try {
 
@@ -41,7 +41,7 @@ public class HttpClientConnector {
 				// "oBkFcQS1iNuCj3N6cHjbHjQLwjtYKlitddVyjneXvT1jOS3ittpw7r1mXm-7N4TgrP7XnBpd8wBdRXe3r0-MbOHvXO3WloSx_1sMBU2EDXipUfBOZzqPXObRHdexVkSC");
 
 				loginServiceSocialGetRequest.setHeader("Login-Token",
-						"Scufun4IejYz6mJQiYwZcKus4xyIUvRgq7OJqsIavCpByYx423kJXVP_YFOWu2xROS7tWDxozQnPHfdVuFqB-weypbRQEADLrNBh-dueC3m_FIw_Zb6YA_H8TnR8nIj7");
+						"Vzg3Y7c_liGZYGiBRgVWo71ggpA7KZfZkAXAHchGPC1fC2TMnGkWIp8kS5wClEelUn5B3yDeu9E7U7oqd6cTBJ0TaY7xw-qEqrjaPFjzGA9SfQIXZhXpJKXQnujzItqF");
 
 				// loginServiceSocialGetRequest.setHeader("GENDER", "female");
 //				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TOKEN",

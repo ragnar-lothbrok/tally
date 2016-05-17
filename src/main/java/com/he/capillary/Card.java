@@ -37,7 +37,6 @@ public class Card implements Comparable<Card> {
 		return "Card [color=" + getColorName() + ", value=" + value + "]";
 	}
 
-	@Override
 	public int compareTo(Card o) {
 		int result = 0;
 		if (o.getValue() != null && this.getValue() != null) {
