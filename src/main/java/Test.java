@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -45,6 +46,10 @@ class B extends A {
 
 public class Test {
     public static void main(String args[]) throws JsonGenerationException, JsonMappingException, IOException {
+    	
+    	for(int i=0;i<9;i++){
+    		System.out.println("$$$$"+new Random().nextInt(6));
+    	}
     	
     	List<String> test = new ArrayList<String>();
     	test.add("asddsdf");

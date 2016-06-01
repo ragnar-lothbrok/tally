@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 
 ///https://www.hackerearth.com/prysm-qa-coding-test/problems/e4773b368150476c9de4dd9c7c37bae3/
 public class CountPrimes {
+
+	public void test(){
+		Integer.parseInt("TTT");
+	}
 	
 	 public static void main(String[] args) throws IOException {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
