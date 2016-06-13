@@ -25,7 +25,7 @@ public class HttpClientConnector {
 		// String serviceUrl = "http://10.11.19.19:8081/uaa/oauth/authorize";
 //		 String serviceUrl = "http://localhost:3333/uaa/login";
 //		 String serviceUrl = "http://10.30.59.152:8888/uaa/login";
-		String serviceUrl = "https://api.exclusively.com/uaa/login";
+		String serviceUrl = "http://localhost:8082/cart/login";
 		if (serviceUrl != null) {
 			try {
 
@@ -40,8 +40,8 @@ public class HttpClientConnector {
 				// loginServiceSocialGetRequest.setHeader("Login-Token",
 				// "oBkFcQS1iNuCj3N6cHjbHjQLwjtYKlitddVyjneXvT1jOS3ittpw7r1mXm-7N4TgrP7XnBpd8wBdRXe3r0-MbOHvXO3WloSx_1sMBU2EDXipUfBOZzqPXObRHdexVkSC");
 
-				loginServiceSocialGetRequest.setHeader("Login-Token",
-						"Vzg3Y7c_liGZYGiBRgVWo71ggpA7KZfZkAXAHchGPC1fC2TMnGkWIp8kS5wClEelUn5B3yDeu9E7U7oqd6cTBJ0TaY7xw-qEqrjaPFjzGA9SfQIXZhXpJKXQnujzItqF");
+//				loginServiceSocialGetRequest.setHeader("Login-Token",
+//						"Vzg3Y7c_liGZYGiBRgVWo71ggpA7KZfZkAXAHchGPC1fC2TMnGkWIp8kS5wClEelUn5B3yDeu9E7U7oqd6cTBJ0TaY7xw-qEqrjaPFjzGA9SfQIXZhXpJKXQnujzItqF");
 
 				// loginServiceSocialGetRequest.setHeader("GENDER", "female");
 //				loginServiceSocialGetRequest.setHeader("X-SOCIAL-TOKEN",
@@ -54,8 +54,8 @@ public class HttpClientConnector {
 				// "GOOGLE");
 
 				System.out.println("Basic " + bytesEncoded);
-				// loginServiceSocialGetRequest.setHeader("Authorization",
-				// "Basic " + bytesEncoded);
+				 loginServiceSocialGetRequest.setHeader("Authorization",
+				 "Basic " + bytesEncoded);
 				HttpClient httpClient = HttpClientBuilder.create().build();
 				response = httpClient.execute(loginServiceSocialGetRequest);
 				if (response.getHeaders("X-API-TOKEN").length > 0) {

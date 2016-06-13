@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,15 @@ class B extends A {
 
 public class Test {
     public static void main(String args[]) throws JsonGenerationException, JsonMappingException, IOException {
+    	
+    	
+    	int x=3|5&3|5&1;
+        System.out.println(x);
+        
+    	Calendar cal = Calendar.getInstance();
+    	Date date = new Date(cal.getTimeInMillis());
+    	SimpleDateFormat SQL_TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	System.out.println(SQL_TIMESTAMP_FORMAT.format(date));
     	
     	for(int i=0;i<9;i++){
     		System.out.println("$$$$"+new Random().nextInt(6));
