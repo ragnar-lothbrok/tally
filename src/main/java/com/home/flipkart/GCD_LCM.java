@@ -4,7 +4,7 @@ public class GCD_LCM {
 
     public static void main(String[] args) {
 
-        System.out.println(GCD(10, 15));
+        System.out.println(GCD(3, 4));
         System.out.println(LCM(10, 15));
 
     }
