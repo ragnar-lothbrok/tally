@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 
 // class MyThread extends Thread {
 // public String text;
@@ -49,6 +48,15 @@ public class Test {
     public static void main(String args[]) throws JsonGenerationException, JsonMappingException, IOException {
     	
     	
+    	String str = "abc";
+    	System.out.println(str.split("~")[0]);
+    	
+    	 Map<String,String> mapOk = new HashMap<String,String>();
+         mapOk.put("ok", "ok1");
+         mapOk.put("ok", "ok2");
+         System.out.println(mapOk);
+         
+    	
     	int x=3|5&3|5&1;
         System.out.println(x);
         
@@ -76,6 +84,8 @@ public class Test {
 
         System.out.println(daysCount("15-10-2015", "15-10-2015"));
         System.out.println(daysCount("10-06-2012", "15-10-2015"));
+        
+       
     }
 
     public static int daysCount(String input1, String input2) {

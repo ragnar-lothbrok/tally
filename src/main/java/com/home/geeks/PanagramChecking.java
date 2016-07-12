@@ -1,5 +1,5 @@
 package com.home.geeks;
-
+//http://www.geeksforgeeks.org/pangram-checking/
 public class PanagramChecking {
 
 	public static void main(String[] args) {

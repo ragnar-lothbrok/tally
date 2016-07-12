@@ -20,7 +20,7 @@ public class MaxProfit {
 				firstMax = arr[i];
 			}
 
-			if (firstMax > arr[i] || arr.length-1 == i) {
+			if (firstMax > arr[i] || arr.length - 1 == i) {
 				if (firstMax - firstMin > 0) {
 					stock += firstMax - firstMin;
 					firstMax = 0;

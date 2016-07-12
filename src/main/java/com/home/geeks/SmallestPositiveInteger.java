@@ -1,9 +1,10 @@
 package com.home.geeks;
 
+//http://www.geeksforgeeks.org/find-smallest-value-represented-sum-subset-given-array/
 public class SmallestPositiveInteger {
 
 	public static void main(String[] args) {
-		int arr[] = { 1, 3, 4, 5 };
+		int arr[] = { -7, 3, 4, 5 };
 		findSmallest(arr);
 	}
 
