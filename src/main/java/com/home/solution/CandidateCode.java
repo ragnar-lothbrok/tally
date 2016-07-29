@@ -104,7 +104,7 @@ public class CandidateCode {
 	public static void main(String[] args) {
 		
 		
-		System.out.println(ThirstyCrowProblem(new int[]{-5,0,10,15,20}, 5, 1));
+		System.out.println(ThirstyCrowProblem(new int[]{5,58}, 2, 1));
 
 		/*
 		 * System.out.println(triplet_sum(new int[] { 12, 3, 4, 1, 6, 9 }, 6,
