@@ -1,27 +1,59 @@
 package com.home.geeks;
 
-//http://www.geeksforgeeks.org/find-smallest-value-represented-sum-subset-given-array/
+//http://www.geeksforgeeks.org/find-the-smallest-positive-number-missing-from-an-unsorted-array/
 public class SmallestPositiveInteger {
 
 	public static void main(String[] args) {
-		int arr[] = { -7, 3, 4, 5 };
-		findSmallest(arr);
 		
-		
-		String str = "abc";
-		String str1 = "a" + "bc";
-		String str2 = "ab" + "c";
-		String str3 = new String("abc");
-		
-		System.out.println(str == str1);
-		System.out.println(str == str3.intern());
+		System.out.println((3 + 1) / (3 / 6) );
+		int arr[] = { 2, 3, 7, 6, 8, 1, -10, 15 };
+		findSmallestPositiveInteger(arr);
 	}
 
-	private static void findSmallest(int arr[]) {
-		int sum = 1;
-		for (int i = 0; i < arr.length && arr[i] <= sum; i++) {
-			sum += arr[i];
+	private static void findSmallestPositiveInteger(int arr[]) {
+		shuffle(arr);
+		int start = -1;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > 0) {
+				start = i;
+				break;
+			}
 		}
-		System.out.println(sum);
+
+		for (int i = start; i < arr.length; i++) {
+			if (Math.abs(arr[i]) <= arr.length - start && arr[start + Math.abs(arr[i]) - 1] > 0) {
+				arr[start + Math.abs(arr[i]) - 1] = -1 * arr[start + Math.abs(arr[i]) - 1];
+			}
+		}
+
+		int result = 1;
+		for (int i = start; i < arr.length; i++) {
+			if (arr[i] > 0) {
+				result = i - start + 1;
+				break;
+			}
+		}
+		System.out.println(result);
+	}
+
+	private static void shuffle(int arr[]) {
+		int i = 0, j = arr.length - 1;
+		while (j > i) {
+			while (arr[i] <= 0) {
+				i++;
+			}
+
+			while (arr[j] > 0) {
+				j--;
+			}
+
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
+
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 }

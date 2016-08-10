@@ -15,7 +15,7 @@ public class ArrayWithSumZero {
 	}
 
 	private static void findSumZero(int[] arr) {
-		Map<Integer, List<Integer>> sumMap = new HashMap<>();
+		Map<Integer, List<Integer>> sumMap = new HashMap<Integer, List<Integer>>();
 		int sum = 0;
 		for (int i = 0; i < arr.length; i++) {
 			sum += arr[i];
@@ -30,7 +30,7 @@ public class ArrayWithSumZero {
 			}
 
 			if (sumMap.get(sum) == null) {
-				sumMap.put(sum, new ArrayList<>());
+				sumMap.put(sum, new ArrayList<Integer>());
 			}
 			sumMap.get(sum).add(i);
 
