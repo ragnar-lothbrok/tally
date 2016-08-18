@@ -4,6 +4,13 @@ package com.home.geeks;
 public class SmallestPositiveInteger {
 
 	public static void main(String[] args) {
+		double d =344.44;
+		int j=0;
+		float b = ((byte)j);
+		
+		System.out.println(new StringBuffer("Hello").length());
+		
+		System.out.println(Thread.currentThread().getPriority());
 		
 		System.out.println((3 + 1) / (3 / 6) );
 		int arr[] = { 2, 3, 7, 6, 8, 1, -10, 15 };
