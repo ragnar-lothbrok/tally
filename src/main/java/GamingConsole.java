@@ -5,7 +5,7 @@ import java.util.Map;
 public class GamingConsole {
 
 	public static void main(String[] args) {
-		System.out.println(combinationCounts(1));
+		System.out.println(combinationCounts(2));
 	}
 
 	private static Map<String, char[]> possibleMap = new LinkedHashMap<String, char[]>();
@@ -32,9 +32,12 @@ public class GamingConsole {
 			for (String key : possibleMap.keySet()) {
 				int count = 0;
 				char[] values = possibleMap.get(key);
+				System.out.println("i = "+i+" ");
 				for (int k = 0; k < values.length; k++) {
 					count += aux[i - 1][values[k] - 'A'];
+					System.out.print(aux[i - 1][values[k] - 'A']+" ");
 				}
+				System.out.println();
 				aux[i][j] = count;
 				j++;
 			}
