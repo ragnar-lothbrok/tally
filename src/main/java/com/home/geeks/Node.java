@@ -3,10 +3,8 @@ package com.home.geeks;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeSet;
-
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 
 public class Node implements Comparable<Node> {
 	Integer data;
@@ -42,64 +40,96 @@ public class Node implements Comparable<Node> {
 		this.right = right;
 	}
 
-//	public void main1(String[] args) {
-//
-//		Cache<String, List<Node>> productEntityCache = CacheBuilder.newBuilder().build();
-//		List<byte[]> nodess = null;
-//		List<Node> nodes = new ArrayList<Node>();
-//		nodes.add(new Node(7));
-//		nodes.add(new Node(8));
-//		nodes.add(new Node(5));
-//
-//		productEntityCache.put("a", nodes);
-//		// System.out.println(productEntityCache.getIfPresent("a"));
-//
-//	}
-	
+	public static void main(String[] args) {
+		random(8);
+	}
+
+	public static void random(int noOfAdsToBeServed) {
+		int productScoreBiasProbPower = 4;
+		double productScoreBiasIndexPower = 1d / productScoreBiasProbPower;
+		int maxProductsToConsider = 200;
+		boolean[] selectionStatusArray = new boolean[list.size()];
+		Random random = new Random();
+		double max = Math.pow((double) (Math.min(list.size(), maxProductsToConsider)), productScoreBiasProbPower) - 1.00;
+		for (int i = 0; i < noOfAdsToBeServed; i++) {
+			double randomNumber = max * random.nextDouble();
+			int index = (int) (Math.floor(Math.pow(randomNumber, productScoreBiasIndexPower)));
+			int attemptIndex = index;
+			System.out.print(attemptIndex+" ");
+			boolean descCheck = true;
+			while (selectionStatusArray[attemptIndex]) {
+				if (attemptIndex == selectionStatusArray.length - 1) {
+					descCheck = false;
+					attemptIndex = index;
+				}
+				attemptIndex = descCheck ? attemptIndex + 1 : attemptIndex - 1;
+			}
+			selectionStatusArray[attemptIndex] = true; // This index is used..
+		}
+		Node[] filteredCreatives = new Node[noOfAdsToBeServed];
+		int addIndex = 0;
+		System.out.println();
+		for (int selectIndex = selectionStatusArray.length - 1; selectIndex >= 0; selectIndex--) {
+			if (selectionStatusArray[selectIndex]) {
+				filteredCreatives[addIndex++] = list.get(selectIndex);
+				System.out.print(list.get(selectIndex).getData()+" ");
+			}
+		}
+	}
+
 	static TreeSet<Node> set = new TreeSet<Node>(new NodeComp());
-	
-	static{
+	static List<Node> list = new ArrayList<Node>();
+	static {
+		for (int i = 10; i < 17; i++) {
+			list.add(new Node(i));
+		}
+	}
+
+	/*static {
+		for (int i = 10; i < 50; i++) {
+			list.add(new Node(i));
+		}
 		set.add(new Node(7));
 		set.add(new Node(8));
 		set.add(new Node(8));
-		System.out.println("$$$" + set);
-		
+//		System.out.println("$$$" + set);
+
 		Thread t1 = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				getFromSet();
 			}
 		});
-		t1.start();
+//		t1.start();
 		try {
 			t1.join();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
-		
-		System.out.println("%%%"+set.size());
+
+		System.out.println("%%%" + set.size());
 		try {
 			Thread.currentThread().sleep(4000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		System.out.println(set.size());
-		
-	}
+
+	}*/
 	private static Object obj = new Object();
-	
-	private static void getFromSet(){
+
+	private static void getFromSet() {
 		synchronized (obj) {
 			set = null;
-			System.out.println("Set : "+set);
+			System.out.println("Set : " + set);
 		}
 	}
+
 	@Override
 	public int compareTo(Node o) {
 		int score = ((Integer) o.getScore()).compareTo(this.getScore());
-		if(score == 0){
+		if (score == 0) {
 			return 1;
 		}
 		return score;
@@ -161,11 +191,11 @@ class NodeComp implements Comparator<Node> {
 
 	@Override
 	public int compare(Node o1, Node o2) {
-		int score =  o1.score.compareTo(o2.score);
-		if(score == 0){
+		int score = o1.score.compareTo(o2.score);
+		if (score == 0) {
 			return 1;
 		}
-		return  score;
+		return score;
 	}
 
 }
