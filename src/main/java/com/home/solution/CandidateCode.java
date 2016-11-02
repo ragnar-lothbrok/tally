@@ -3,6 +3,8 @@ package com.home.solution;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+//https://www.careercup.com/question?id=5202297397182464
+//https://www.scribd.com/document/319226793/Cadbury-Problem
 public class CandidateCode {
 
 	public static final String TRUE = "True";
@@ -50,6 +52,54 @@ public class CandidateCode {
 	}
 
 	public static int ThirstyCrowProblem(int[] input1, int input2, int input3) {
+		int temp = 0;
+
+		// Invalid Input Case
+		if (input1 == null || input3 < 0 || input3 > input1.length || input2 <= 0 || input1.length != input2) {
+			return -1;
+		}
+
+		// If Number of OverFlow Pots is Zero
+		if (0 == input3) {
+			return 0;
+		}
+
+		for (int i = 0; i < input2; i++) {
+
+			if (input1[i] < 0) {
+				return -1;
+			} else if (input1[i] == 0) {
+				if (++temp == input3) {
+					return 0;
+				}
+			}
+		}
+
+		// Valid Input
+		Arrays.sort(input1);
+		int final_array[] = new int[input3];
+
+		for (int j = 0; j < final_array.length; j++) {
+			final_array[j] = input1[j];
+		}
+
+		int n = final_array.length - 1;
+
+		int min_stones = final_array[n] * (input2 - input3 + 1);
+
+		for (int k = 0; k < n; k++) {
+			min_stones = min_stones + final_array[k];
+		}
+		
+		int alternate_sum = 0;
+		for(int i=input1.length-1;i>=input1.length-input3;i--){
+			alternate_sum += input1[i];
+		}
+
+		return (alternate_sum > min_stones ? min_stones : alternate_sum);
+	}
+
+	public static int ThirstyCrowProblem1(int[] input1, int input2, int input3) {
 		int numOfPots = 0;
 		Arrays.sort(input1);
 		if (input1 == null || input3 > input2 || input1.length != input2 || input2 == 0 || input1[0] < 0) {
@@ -58,7 +108,7 @@ public class CandidateCode {
 			int i = 0;
 			while (input3 > i) {
 				numOfPots += (input1[i]) * (input2 - i);
-				for(int j=i+1;j<input2;j++){
+				for (int j = i + 1; j < input2; j++) {
 					input1[j] = input1[j] - input1[i];
 				}
 				i++;
@@ -102,9 +152,11 @@ public class CandidateCode {
 	}
 
 	public static void main(String[] args) {
-		
-		
-		System.out.println(ThirstyCrowProblem(new int[]{5,58}, 2, 1));
+
+		int arr[] = {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,8,11};
+		int k=2;
+		System.out.println(ThirstyCrowProblem(arr, arr.length, k));
+		System.out.println(ThirstyCrowProblem1(arr, arr.length, k));
 
 		/*
 		 * System.out.println(triplet_sum(new int[] { 12, 3, 4, 1, 6, 9 }, 6,
@@ -119,14 +171,18 @@ public class CandidateCode {
 
 		/* System.out.println(cadbury(5, 6, 3, 4)); */
 
-//		System.out.println(get_total_profit(new String("50,200,30,5,3,2,2,15,10")));
-//		System.out.println(get_total_profit(new String("10,10,5,2,2,3,1,14,25")));
-//
-//		System.out.println(get_total_profit(new String("10,10,5,0,2,3,1,14,25")));
-//
-//		double d = 0d;
-//		System.out.println((String.valueOf(d)));
-//		System.out.println(d == 0 ? "0.00" : ((d + "").substring(0, (d + "").indexOf(".") + 3)));
+		// System.out.println(get_total_profit(new
+		// String("50,200,30,5,3,2,2,15,10")));
+		// System.out.println(get_total_profit(new
+		// String("10,10,5,2,2,3,1,14,25")));
+		//
+		// System.out.println(get_total_profit(new
+		// String("10,10,5,0,2,3,1,14,25")));
+		//
+		// double d = 0d;
+		// System.out.println((String.valueOf(d)));
+		// System.out.println(d == 0 ? "0.00" : ((d + "").substring(0, (d +
+		// "").indexOf(".") + 3)));
 
 	}
 

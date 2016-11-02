@@ -37,6 +37,12 @@
 			<version>2.7.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 		<!-- SD -->
 		<dependency>
@@ -51,6 +57,12 @@
 			<version>1.9.13</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.amazonaws</groupId>
@@ -147,6 +159,22 @@
 			<version>2.12.0</version>
 		</dependency>
 
+		<!-- Amazon SDK -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.11.3</version>
+			<!-- <exclusions>
+				<exclusion>
+					<artifactId>joda-time</artifactId>
+					<groupId>joda-time</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>httpclient</artifactId>
+					<groupId>org.apache.httpcomponents</groupId>
+				</exclusion>
+			</exclusions> -->
+		</dependency>
 
 		<!-- <dependency> <groupId>javax.activation</groupId> <artifactId>activation</artifactId> 
 			<version>1.0.2</version> </dependency> -->
