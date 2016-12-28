@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,8 +14,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +28,9 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
 import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+
+import net.minidev.json.JSONObject;
 
 // class MyThread extends Thread {
 // public String text;
@@ -104,17 +112,6 @@ public class Test {
 		}
 	}
 
-	private static int findGCD(int num1, int num2) {
-		if (num2 == 0) {
-			return num1;
-		}
-		return findGCD(num2, num1 % num2);
-	}
-
-	private static int findLCM(int num1, int num2) {
-		return num1 * (num2 / findGCD(num1, num2));
-	}
-
 	private void lol() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Test obj = new Test();
 		for (Method m : obj.getClass().getDeclaredMethods()) {
@@ -131,7 +128,7 @@ public class Test {
 
 	private void testNull() {
 		Test ob = new Test();
-		List<String> fieldsAsNull = new LinkedList<>();
+		List<String> fieldsAsNull = new LinkedList<String>();
 		for (Field f : ob.getClass().getDeclaredFields()) {
 			f.setAccessible(true);
 			try {
@@ -207,7 +204,481 @@ public class Test {
 		return true;
 	}
 
-	public static void main(String args[]) throws JsonGenerationException, JsonMappingException, Exception {
+	public static int landingPosition(int[] input1, String[] input2) {
+		if (input2 == null || input1 == null || (input2.length != input1[1])) {
+			return -1;
+		}
+
+		int arr[][] = new int[input1[1]][input1[0]];
+		for (int i = 0; i < input2.length; i++) {
+			String split[] = input2[i].split("#");
+			for (int j = 0; j < input1[0]; j++) {
+				if (split[j].equals("x")) {
+					arr[i][j] = 0;
+				} else {
+					arr[i][j] = 1;
+				}
+			}
+		}
+		return maxSize(arr);
+	}
+
+	private static int min(int a, int b, int c) {
+		int l = Math.min(a, b);
+		return Math.min(l, c);
+	}
+
+	public static int maxSize(int arr[][]) {
+
+		int result[][] = new int[arr.length][arr[0].length];
+		int max = 0;
+		for (int i = 0; i < arr.length; i++) {
+			result[i][0] = arr[i][0];
+			if (result[i][0] == 1) {
+				max = 1;
+			}
+		}
+
+		for (int i = 0; i < arr[0].length; i++) {
+			result[0][i] = arr[0][i];
+			if (result[0][i] == 1) {
+				max = 1;
+			}
+
+		}
+
+		for (int i = 1; i < arr.length; i++) {
+			for (int j = 1; j < arr[i].length; j++) {
+				if (arr[i][j] == 0) {
+					continue;
+				}
+				int t = min(result[i - 1][j], result[i - 1][j - 1], result[i][j - 1]);
+				result[i][j] = t + 1;
+				if (result[i][j] > max) {
+					max = result[i][j];
+				}
+			}
+		}
+		return max;
+	}
+
+	private static String append(StringBuilder sb, Node node) {
+		sb.append(node.getDisplayName());
+		if (node.getBucketId() != null) {
+			sb.append("|" + node.getBucketId());
+		}
+		return sb.toString();
+	}
+
+	private static String append(StringBuilder sb, int commaCount) {
+		while (commaCount > 0) {
+			sb.append(",");
+			commaCount--;
+		}
+		return sb.toString();
+	}
+
+	private static void writeListInFile(String possibleCombinations) {
+		try {
+			PrintWriter writer = new PrintWriter("/home/raghunandangupta/Downloads/bucket_details.csv", "UTF-8");
+			writer.println(possibleCombinations);
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static int findGCD(int num1, int num2) {
+		if (num2 == 0) {
+			return num1;
+		}
+		return findGCD(num2, num1 % num2);
+	}
+
+	private static int findLCM(int num1, int num2) {
+		return num1 * (num2 / findGCD(num1, num2));
+	}
+
+	public static int nochange_bits(String input1, int input2, int input3) {
+		if (input2 <= 0 || input3 <= 0) {
+			return -1;
+		}
+		int result = input1.length();
+
+		if (input2 == input3) {
+			return result;
+		} else {
+			int lcm = findLCM(input2, input3);
+			int rem1 = result / lcm;
+			int rem2 = result / input2;
+			int rem3 = result / input3;
+
+			result = result + (2 * rem1) - rem2 - rem3;
+		}
+
+		return result;
+	}
+
+	public static String minimumCost(String[] input1, int input2) {
+		if (input1 != null && input1.length > 0) {
+			int rowCount = input1.length;
+			int colCount = input1[0].split("#").length;
+			int mat[][] = new int[rowCount][colCount];
+			for (int i = 0; i < input1.length; i++) {
+				String split[] = input1[i].split("#");
+				for (int j = 0; j < colCount; j++) {
+					mat[i][j] = Integer.parseInt(split[j]);
+				}
+			}
+			findMinimumPath("", mat[0][0], 0, 0, rowCount - 1, colCount - 1, mat);
+		}
+		return result.toString();
+	}
+
+	private static Result result = new Result();
+
+	static int X[] = { 1, 1, 0 };
+	static int Y[] = { 1, 0, 1 };
+	static String direc[] = { "D", "B", "R" };
+
+	public static void findMinimumPath(String path, int cost, int srcX, int srcY, int destX, int destY, int mat[][]) {
+		if (srcX == destX && srcY == destY) {
+			if (path.equals("BDDR"))
+				System.out.println();
+			if (result.getPath() == null) {
+				result = new Result();
+				result.setPath(path);
+				result.setCost(cost);
+			} else {
+				if (result.getCost() > cost) {
+					result.setPath(path);
+					result.setCost(cost);
+				}
+			}
+			return;
+		}
+
+		for (int i = 0; i < X.length; i++) {
+			if ((srcY + Y[i]) < mat.length && (srcX + X[i]) < mat[0].length) {
+				if (path.equals("B") || path.equals("BD") || path.equals("BDD") || path.equals("BDDR")) {
+					System.out.println();
+				}
+				findMinimumPath(path + direc[i], cost + mat[srcX + X[i]][srcY + Y[i]], srcX + X[i], srcY + Y[i], destX, destY, mat);
+				System.out.println();
+			}
+		}
+	}
+
+	static class Result {
+		private String path;
+		private Integer cost = 0;
+
+		public String getPath() {
+			return path;
+		}
+
+		public void setPath(String path) {
+			this.path = path;
+		}
+
+		public Integer getCost() {
+			return cost;
+		}
+
+		public void setCost(Integer cost) {
+			this.cost = cost;
+		}
+
+		@Override
+		public String toString() {
+			return cost + "," + path;
+		}
+
+	}
+
+	public static int traveltime(int[] input1, int input2) {
+		int shortestDistance = 0;
+		int maximumWeight = 0;
+		for (int i = 0; i < input2; i++) {
+			for (int j = i + 1; j < input2; j++) {
+				int temp1 = input1[i] + input1[j] + (Math.abs(i - j));
+
+				System.out.println();
+
+				if (temp1 > maximumWeight) {
+					maximumWeight = temp1;
+					shortestDistance = Math.abs(i - j);
+				}
+
+				if (maximumWeight == temp1 && shortestDistance < Math.abs(i - j)) {
+					shortestDistance = Math.abs(i - j);
+				}
+
+			}
+		}
+		return maximumWeight;
+	}
+
+	public static int ball_count(int[] input1, int input2, int input3) {
+		if(input3 > input1.length){
+			return -1;
+		}
+		findSum(input3, 0, input2, input1, 0);
+		return ballNum == 0 ? -1 : ballNum;
+	}
+
+	static int ballNum = 0;
+
+	public static void findSum(int count, int sum, int givenSum, int arr[], int index) {
+		if (count == 0) {
+			if (sum % givenSum == 0) {
+				if (ballNum == 0 || ballNum > sum) {
+					ballNum = sum;
+				}
+			}
+			return;
+		}
+		if (index < arr.length)
+			findSum(count - 1, sum + arr[index], givenSum, arr, index + 1);
+		if (index < arr.length)
+			findSum(count, sum, givenSum, arr, index + 1);
+	}
+	public static void main(char[] args) throws Exception {
+		
+	}
+	
+	
+	static void  test(List<Long> pogIds){
+		pogIds.clear();
+	}
+
+	public static void main(String[] args) throws Exception {
+		
+		Map<Long, String> map2 = new HashMap<Long, String>();
+		map2.put(1l, "abc");
+		map2.put(1l, "2abc");
+		map2.put(3l, "abc");
+		
+		
+		System.out.println(map2);
+		List<Long> pogIds = new ArrayList<Long>();
+		pogIds.add(1212l);
+		pogIds.add(12121212l);
+		
+//		test(pogIds);
+		System.out.println(pogIds.size());
+		
+		ListIterator<Long> listIterator = pogIds.listIterator();
+		listIterator.next();
+		listIterator.set(1212l);
+		listIterator.add(8788l);
+		System.out.println(ball_count(new int[] { 1, 2, 3, 4, 5 }, 50, 3));
+		if (true)
+			return;
+		System.out.println(traveltime(new int[] { 1, 2, 3, 4 }, 4));
+		System.out.println(minimumCost(new String[] { "5#7#2#4", "1#8#1#3", "6#2#9#5", "1#6#2#8" }, 4));
+
+		System.out.println(nochange_bits("101101011011", 0, 4));
+
+		JSONObject jsonObject = new JSONObject();
+
+		 map2 = new HashMap<Long, String>();
+		map2.put(1l, "abc");
+		map2.put(2l, "abc");
+		map2.put(3l, "abc");
+
+
+		List<Node> pogId = new ArrayList<Node>();
+		pogId.add(new Node(121212, "234234"));
+		pogId.add(new Node(1212112122, "werwer"));
+
+		jsonObject.put("ok", map2);
+		jsonObject.put("ok1", pogIds);
+		jsonObject.put("ok2", pogId);
+		System.out.println(jsonObject);
+		System.out.println(map2);
+
+		Properties prop = new Properties();
+		prop.put("222", "dsasd");
+		System.out.println(prop);
+
+		Map<Long, String> map1 = new HashMap<Long, String>();
+		map1.put(1l, "abc");
+
+		map2.keySet().removeAll(map1.keySet());
+
+		System.out.println(map2);
+
+		for (long i = 0; i < 5; i++) {
+			pogIds.add(i);
+		}
+		int batchSize = 2;
+
+		if (pogIds != null && pogIds.size() > 0) {
+			for (int i = 0; i < pogIds.size();) {
+				List<Long> batchPogIds = pogIds.subList(i, (pogIds.size() - i < batchSize ? pogIds.size() : i + batchSize));
+				i += batchSize;
+				System.out.println(batchPogIds);
+			}
+		}
+
+		BufferedReader br = new BufferedReader(new FileReader("/home/raghunandangupta/Desktop/books/allLabel"));
+		OuterNode sample = new Gson().fromJson(br, OuterNode.class);
+
+		StringBuilder sb = new StringBuilder();
+		int commaCount = 0;
+		int count = 0;
+		for (Node node : sample.getLabels()) {
+			append(sb, commaCount);
+			append(sb, node);
+			sb.append("\n");
+			commaCount++;
+			for (Node level1 : node.getSubLabels()) {
+				append(sb, commaCount);
+				append(sb, level1);
+				sb.append("\n");
+				commaCount++;
+				for (Node level2 : level1.getSubLabels()) {
+					append(sb, commaCount);
+					append(sb, level2);
+					sb.append("\n");
+					commaCount++;
+					for (Node level3 : level2.getSubLabels()) {
+						append(sb, commaCount);
+						append(sb, level3);
+						sb.append("\n");
+						commaCount++;
+						for (Node level4 : level3.getSubLabels()) {
+							append(sb, commaCount);
+							append(sb, level4);
+							sb.append("\n");
+							commaCount++;
+							for (Node level5 : level4.getSubLabels()) {
+								append(sb, commaCount);
+								append(sb, level5);
+								sb.append("\n");
+								System.out.println(level5.getSubLabels().size());
+							}
+							commaCount--;
+						}
+						commaCount--;
+					}
+					commaCount--;
+				}
+				commaCount--;
+			}
+			commaCount--;
+		}
+
+		writeListInFile(sb.toString());
+		if (true)
+			return;
+
+		System.out.println(
+				landingPosition(new int[] { 6, 5 }, new String[] { "x#o#o#o#x#o", "x#o#o#o#x#x", "x#o#o#o#x#x", "x#o#x#o#o#x", "x#o#x#o#o#x" }));
+		System.out.println(landingPosition(new int[] { 6, 5 }, new String[] { "x#o#o#o#x#o", "x#o#o#o#x#x", "x#o#o#o#x#x", "x#o#x#o#o#x" }));
+		if (true)
+			return;
+		double d1 = Math.pow(10, 3580.0 / 400);
+		double d2 = Math.pow(10, 3481.0 / 400);
+
+		double e1 = d1 / (d1 + d2);
+		double e2 = d2 / (d1 + d2);
+
+		System.out.println(d1 + " " + d2 + " " + e1 + " " + e2);
+
+		System.out.println((d1 + (32 * (1 - e1))));
+		System.out.println((d1 + (32 * (0 - e1))));
+		System.out.println((d2 + (32 * (1 - e2))));
+		System.out.println((d2 + (32 * (0 - e2))));
+
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+
+		for (int i = 0; i < 10; i++) {
+			map.put(i, new ArrayList<Integer>());
+		}
+
+		map.get(0).add(10);
+
+		System.out.println(map);
+
+	}
+
+	public static class OuterNode {
+		private List<Node> labels = new ArrayList<Test.Node>();
+
+		public List<Node> getLabels() {
+			return labels;
+		}
+
+		public void setLabels(List<Node> labels) {
+			this.labels = labels;
+		}
+
+	}
+
+	public static class Node {
+		private Integer bucketId;
+		private String displayName;
+		private List<Node> subLabels = new ArrayList<Test.Node>();
+
+		public Node(Integer bucketId, String displayName) {
+			super();
+			this.bucketId = bucketId;
+			this.displayName = displayName;
+		}
+
+		public Integer getBucketId() {
+			return bucketId;
+		}
+
+		public void setBucketId(Integer bucketId) {
+			this.bucketId = bucketId;
+		}
+
+		public String getDisplayName() {
+			return displayName;
+		}
+
+		public void setDisplayName(String displayName) {
+			this.displayName = displayName;
+		}
+
+		public List<Node> getSubLabels() {
+			return subLabels;
+		}
+
+		public void setSubLabels(List<Node> subLabels) {
+			this.subLabels = subLabels;
+		}
+
+	}
+
+	public static void main2(String args[]) {
+		List<Integer> productScoreContainers = new ArrayList<Integer>();
+		for (int i = 1; i <= 1; i++) {
+			productScoreContainers.add(i);
+		}
+
+		int pageNum = 4;
+		List<Integer> subCreativeContainerList = null;
+		for (int i = 1; i <= 5; i++) {
+			pageNum = i;
+			int slotClusterSize = 10;
+			int maxSlotPossible = productScoreContainers.size() / slotClusterSize;
+			if (pageNum <= maxSlotPossible) {
+				subCreativeContainerList = productScoreContainers.subList(((pageNum - 1) % maxSlotPossible) * slotClusterSize,
+						(((pageNum - 1) % maxSlotPossible) * slotClusterSize + slotClusterSize < productScoreContainers.size()
+								? ((pageNum - 1) % maxSlotPossible) * slotClusterSize + slotClusterSize : productScoreContainers.size()));
+			} else if ((pageNum - 1) * slotClusterSize < productScoreContainers.size()) {
+				subCreativeContainerList = productScoreContainers.subList((pageNum - 1) * slotClusterSize,
+						((pageNum - 1) * slotClusterSize * slotClusterSize + slotClusterSize < productScoreContainers.size()
+								? ((pageNum - 1) * slotClusterSize + slotClusterSize) : productScoreContainers.size()));
+			}
+		}
+	}
+
+	public static void main1(String args[]) throws JsonGenerationException, JsonMappingException, Exception {
 
 		{
 

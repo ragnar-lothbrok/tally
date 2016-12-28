@@ -11,7 +11,7 @@ public class WordLadder {
 
 		String start = "hit";
 		String end = "cog";
-		List<String> dicList = new ArrayList<>();
+		List<String> dicList = new ArrayList<String>();
 		dicList.add("hot");
 		dicList.add("dot");
 		dicList.add("dog");
