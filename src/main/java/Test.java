@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -27,6 +28,7 @@ import javax.swing.JOptionPane;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 
@@ -420,7 +422,7 @@ public class Test {
 	}
 
 	public static int ball_count(int[] input1, int input2, int input3) {
-		if(input3 > input1.length){
+		if (input3 > input1.length) {
 			return -1;
 		}
 		findSum(input3, 0, input2, input1, 0);
@@ -443,31 +445,47 @@ public class Test {
 		if (index < arr.length)
 			findSum(count, sum, givenSum, arr, index + 1);
 	}
+
 	public static void main(char[] args) throws Exception {
-		
+
 	}
-	
-	
-	static void  test(List<Long> pogIds){
+
+	static void test(List<Long> pogIds) {
 		pogIds.clear();
 	}
 
 	public static void main(String[] args) throws Exception {
 		
-		Map<Long, String> map2 = new HashMap<Long, String>();
+		String i2 = "+1.8 +bravo +3";
+		i2 = i2.replaceAll("\\+", "");
+		System.out.println();
+		
+		String json = "{'installDate': '2016-10-01','deviceOs': 'Android','numberOfInstalls': 2,'commissionRate': 52,'commissionFee': 104,'affSub1': 'hp_____mob','affSub2': null   }";
+		System.out.println(new ObjectMapper().readValue(json, AppReportDTO.class));
+
+		Integer lar = new Integer(10);
+		int j = 10;
+		System.out.println(lar == j);
+
+		Map<Long, String> map2 = new LinkedHashMap<Long, String>();
 		map2.put(1l, "abc");
 		map2.put(1l, "2abc");
 		map2.put(3l, "abc");
-		
-		
+
+		Map<Long, String> map3 = new LinkedHashMap<Long, String>();
+		map3.putAll(map2);
+
+		map2.clear();
+		System.out.println();
+
 		System.out.println(map2);
 		List<Long> pogIds = new ArrayList<Long>();
 		pogIds.add(1212l);
 		pogIds.add(12121212l);
-		
-//		test(pogIds);
+
+		// test(pogIds);
 		System.out.println(pogIds.size());
-		
+
 		ListIterator<Long> listIterator = pogIds.listIterator();
 		listIterator.next();
 		listIterator.set(1212l);
@@ -482,11 +500,10 @@ public class Test {
 
 		JSONObject jsonObject = new JSONObject();
 
-		 map2 = new HashMap<Long, String>();
+		map2 = new HashMap<Long, String>();
 		map2.put(1l, "abc");
 		map2.put(2l, "abc");
 		map2.put(3l, "abc");
-
 
 		List<Node> pogId = new ArrayList<Node>();
 		pogId.add(new Node(121212, "234234"));
@@ -823,5 +840,79 @@ public class Test {
 		s1 = s1 + "stream";
 		System.out.print(s1 + " ");
 		return "stream";
+	}
+
+	static public class AppReportDTO {
+
+		private Date installDate;
+		private String affSub1;
+		private String affSub2;
+		private String deviceOs;
+		private double commissionFee;
+		private double numberOfInstalls;
+		private double commissionRate;
+
+		public Date getInstallDate() {
+			return installDate;
+		}
+
+		public void setInstallDate(Date installDate) {
+			this.installDate = installDate;
+		}
+
+		public String getAffSub1() {
+			return affSub1;
+		}
+
+		public void setAffSub1(String affSub1) {
+			this.affSub1 = affSub1;
+		}
+
+		public String getAffSub2() {
+			return affSub2;
+		}
+
+		public void setAffSub2(String affSub2) {
+			this.affSub2 = affSub2;
+		}
+
+		public String getDeviceOs() {
+			return deviceOs;
+		}
+
+		public void setDeviceOs(String deviceOs) {
+			this.deviceOs = deviceOs;
+		}
+
+		public double getCommissionFee() {
+			return commissionFee;
+		}
+
+		public void setCommissionFee(double commissionFee) {
+			this.commissionFee = commissionFee;
+		}
+
+		public double getNumberOfInstalls() {
+			return numberOfInstalls;
+		}
+
+		public void setNumberOfInstalls(double numberOfInstalls) {
+			this.numberOfInstalls = numberOfInstalls;
+		}
+
+		public double getCommissionRate() {
+			return commissionRate;
+		}
+
+		public void setCommissionRate(double commissionRate) {
+			this.commissionRate = commissionRate;
+		}
+
+		@Override
+		public String toString() {
+			return "AppReportDTO [installDate=" + installDate + ", affSub1=" + affSub1 + ", affSub2=" + affSub2 + ", deviceOs=" + deviceOs
+					+ ", commissionFee=" + commissionFee + ", numberOfInstalls=" + numberOfInstalls + ", commissionRate=" + commissionRate + "]";
+		}
+
 	}
 }

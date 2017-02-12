@@ -1,8 +1,14 @@
 package com.home.geeks;
 
+/**
+ * Circular Queue Groupon
+ * @author raghunandangupta
+ *
+ */
+
 public class Solution {
 	public static void main(String args[]) throws Exception {
-		int arr[] = new int[14];
+		int arr[] = new int[5];
 
 		Solution s1 = new Solution();
 

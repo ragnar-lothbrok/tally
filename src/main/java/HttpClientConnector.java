@@ -103,18 +103,6 @@ public class HttpClientConnector {
 			get.addHeader("visitorId", "123456");
 			get.addHeader("X-API-TOKEN",
 					"eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0ODc3NDk3NTksInVzZXJfbmFtZSI6Im1hbm9qZ3VwdGEwMUB5YWhvby5jby5pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQVVUSEVOVElDQVRFRF9VU0VSIl0sImp0aSI6ImVlZjVlMzQyLTE5ODQtNDM1My1iYWE5LTU5OGM3NGZlZjk5MiIsImNsaWVudF9pZCI6ImFjbWUiLCJzY29wZSI6WyJvcGVuaWQiXX0.jpbCDHhYq7t16emboZWf3WTiXVmth1HyJynlqLoOHr1PTLrhBCauaI-0gLApXwMHxVWxeF_gh2IN53la2HZBHprZIm-kGT4TI7OkGs19jmHhYEJudsf5nk11Hu04AhpSBmytlGTgm-0-N7SDhzh7iAYaOrSfbpq2nlgoTGaR4_Lwtgydlicjqh0WOBF9ccnPng_NYOFxXmfZOVJ8ay48kAYUdwwk2VcGej7TwXI2iBeLojVMO0k2IMhwXsOo0Dov-SWnNpnsslcSdEqkN_w8-fMxysf-JBlCG5uv4SstcNZoSHDatTrCiIA4rBGMw-JKHi83AxEu6ubvnCvlLkGNMA"/*
-																																																																																																																																																														 * token
-																																																																																																																																																														 * .
-																																																																																																																																																														 * substring
-																																																																																																																																																														 * (
-																																																																																																																																																														 * token
-																																																																																																																																																														 * .
-																																																																																																																																																														 * indexOf
-																																																																																																																																																														 * (
-																																																																																																																																																														 * '
-																																																																																																																																																														 * '
-																																																																																																																																																														 * )
-																																																																																																																																																														 * )
 																																																																																																																																																														 */);
 			response = httpClient.execute(get);
 			System.out.println(">>>>" + response.getHeaders("X-API-TOKEN"));
