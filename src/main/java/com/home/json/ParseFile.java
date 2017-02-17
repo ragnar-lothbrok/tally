@@ -41,8 +41,13 @@ public class ParseFile {
 		System.out.println(filters);
 		return filters;
 	}
+	
+	public static void main(String[] args) {
+		String words[] = "Started GET \"/\" for 127.0.0.1 at Tue Dec 01 20:28:08 +0530 2015".toString().split(" (?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+		System.out.println();
+	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main1(String[] args) throws Exception {
 		Map<String, String> filters = test();
 		Map<String, String> buckets = test1();
 		BufferedReader br = new BufferedReader(new FileReader(new File("/home/raghunandangupta/Downloads/part-00000")));

@@ -65,7 +65,7 @@ class B extends A {
 	}
 }
 
-public class Test {
+public class Test implements Cloneable{
 
 	private Integer age;
 
@@ -167,7 +167,7 @@ public class Test {
 	}
 
 	public Test() {
-		Test t = new Test();
+//		Test t = new Test();
 	}
 
 	private static Integer saveYears() {
@@ -453,9 +453,43 @@ public class Test {
 	static void test(List<Long> pogIds) {
 		pogIds.clear();
 	}
+	
+	private int i = 5;
+	
+
+	public int getI() {
+		return i;
+	}
+
+	public void setI(int i) {
+		this.i = i;
+	}
+
+	private Integer ab = 10;
+	
+	public Integer getAb() {
+		return ab;
+	}
+
+	public void setAb(Integer ab) {
+		this.ab = ab;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 
 	public static void main(String[] args) throws Exception {
+		Test t1 = new Test();
+		System.out.println(t1.getI());
 		
+		Test t2 = (Test) t1.clone();
+		
+		System.out.println(t2.getI());
+		t2.setI(99);
+		t2.setAb(90);
+		System.out.println(t1.getI()+" "+t1.getAb());
 		String i2 = "+1.8 +bravo +3";
 		i2 = i2.replaceAll("\\+", "");
 		System.out.println();

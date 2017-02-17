@@ -4,7 +4,7 @@ public class HeapSort {
 
 	private static int N;
 
-	private static boolean asc = false;
+	private static boolean asc = true;
 
 	public static void main(String[] args) {
 

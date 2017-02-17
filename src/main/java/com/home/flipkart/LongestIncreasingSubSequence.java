@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
 public class LongestIncreasingSubSequence {
 
 	public static void main(String[] args) {
 
 		// int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
+//		int arr[] = { 2, 5, 3, 7, 11, 8, 10, 13, 6 };
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			String line = br.readLine();
