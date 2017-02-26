@@ -65,7 +65,7 @@ class B extends A {
 	}
 }
 
-public class Test implements Cloneable{
+public class Test implements Cloneable {
 
 	private Integer age;
 
@@ -167,7 +167,7 @@ public class Test implements Cloneable{
 	}
 
 	public Test() {
-//		Test t = new Test();
+		// Test t = new Test();
 	}
 
 	private static Integer saveYears() {
@@ -446,16 +446,44 @@ public class Test implements Cloneable{
 			findSum(count, sum, givenSum, arr, index + 1);
 	}
 
-	public static void main(char[] args) throws Exception {
+	class Generic<T extends Number & Runnable> {
 
 	}
 
-	static void test(List<Long> pogIds) {
+	public static void m1(ArrayList<Integer> list) {
+		System.out.println();
+	}
+	
+//	public static void m1(List<String> list) {
+//		System.out.println();
+//	}
+
+//	public static void m1(List<? super Number> list) {
+//		System.out.println();
+//	}
+	
+	public static void m1(List<?> list) {
+		System.out.println();
+		m2(new ArrayList<Object>());
+	}
+	
+	public static void m2(List<? super Runnable> list) {
+		list.add(new Thread());
+		System.out.println();
+	}
+	
+	
+	
+//	public static void m2(List<? extends Runnable> list) {
+//		list.add(new Thread());
+//		System.out.println();
+//	}
+
+	public static void test(List<Long> pogIds) {
 		pogIds.clear();
 	}
-	
+
 	private int i = 5;
-	
 
 	public int getI() {
 		return i;
@@ -466,7 +494,7 @@ public class Test implements Cloneable{
 	}
 
 	private Integer ab = 10;
-	
+
 	public Integer getAb() {
 		return ab;
 	}
@@ -481,19 +509,23 @@ public class Test implements Cloneable{
 	}
 
 	public static void main(String[] args) throws Exception {
+		List<String> list = new ArrayList<String>();
+
+		m1(((ArrayList<String>) list));
+		m1(new ArrayList<String>());
 		Test t1 = new Test();
 		System.out.println(t1.getI());
-		
+
 		Test t2 = (Test) t1.clone();
-		
+
 		System.out.println(t2.getI());
 		t2.setI(99);
 		t2.setAb(90);
-		System.out.println(t1.getI()+" "+t1.getAb());
+		System.out.println(t1.getI() + " " + t1.getAb());
 		String i2 = "+1.8 +bravo +3";
 		i2 = i2.replaceAll("\\+", "");
 		System.out.println();
-		
+
 		String json = "{'installDate': '2016-10-01','deviceOs': 'Android','numberOfInstalls': 2,'commissionRate': 52,'commissionFee': 104,'affSub1': 'hp_____mob','affSub2': null   }";
 		System.out.println(new ObjectMapper().readValue(json, AppReportDTO.class));
 

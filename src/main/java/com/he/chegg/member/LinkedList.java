@@ -103,6 +103,18 @@ public class LinkedList {
 		}
 
 	}
+	
+	public static Node delete(char ch,Node node){
+		if(node == null){
+			return node;
+		}else if(ch == node.getCh()){
+			return node.getNext();
+		}else{
+			Node temp = delete(ch, node.getNext());
+			node.setNext(temp);
+			return node;
+		}
+	}
 
 	public static void main(String[] args) {
 		LinkedList ll = new LinkedList();
@@ -111,6 +123,9 @@ public class LinkedList {
 			firstList = ll.add((char) i);
 		}
 		ll.traverse(firstList);
+		delete('d', firstList);
+		ll.traverse(firstList);
+		
 		Node secondList = ll.createSecondList(firstList);
 		ll.traverse(secondList);
 

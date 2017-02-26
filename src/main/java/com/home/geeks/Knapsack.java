@@ -26,6 +26,12 @@ public class Knapsack {
 			}
 		}
 
+		for(int i = 0; i < K.length; i++){
+			for(int j = 0; j < K[0].length; j++){
+				System.out.print(K[i][j]+" ");
+			}
+			System.out.println();
+		}
 		System.out.println(K[n][W]);
 	}
 }
