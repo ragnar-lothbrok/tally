@@ -196,7 +196,7 @@ public class CreditCard {
 		list.add(new CreditCard("B", "mark2"));
 		list.add(new CreditCard("C", "mark3"));
 
-		Map<String, List<CreditCard>> obj = list.stream().collect(Collectors.groupingBy(new Function<CreditCard, String>() {
+		Map<String, List<CreditCard>> obj = (Map<String, List<CreditCard>>) list.stream().collect(Collectors.groupingBy(new Function<CreditCard, String>() {
 
 			@Override
 			public String apply(CreditCard t) {

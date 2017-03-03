@@ -126,7 +126,7 @@ public class MatrixEvaluatior {
 		return operandStack.pop();
 	}
 
-	private static Long evaluateExp(Long oper2, Long oper1, String operator) {
+	private static Long evaluateExp(Long oper2, Long oper1, final String operator) {
 		Long result = 0l;
 		switch (operator) {
 		case "+":

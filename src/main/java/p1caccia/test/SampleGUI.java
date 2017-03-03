@@ -30,7 +30,7 @@ public class SampleGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		final int size = 7;
-		javafx.scene.control.Button b[][] = new javafx.scene.control.Button[7][7];
+		final javafx.scene.control.Button b[][] = new javafx.scene.control.Button[7][7];
 		for (int row = 0; row < size; row++) {
 			for (int col = 0; col < size; col++) {
 				b[row][col] = new javafx.scene.control.Button();
@@ -57,7 +57,6 @@ public class SampleGUI extends Application {
 		primaryStage.show();
 
 		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-			@Override
 			public void handle(KeyEvent event) {
 				for (int row = 0; row < size; row++) {
 					for (int col = 0; col < size; col++) {

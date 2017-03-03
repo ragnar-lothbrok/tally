@@ -27,10 +27,12 @@ public class CreativeService {
 		File[] allFiles = folder.listFiles();
 
 		Cache<Long, Creative> tempCreative = CacheBuilder.newBuilder().build();
-		Map<Long, Creative> creatives = new HashMap<>();
+		Map<Long, Creative> creatives = new HashMap<Long, Creative>();
 
 		for (File file : allFiles) {
-			try (InputStream inputStream = new FileInputStream(file)) {
+
+			try{
+				InputStream inputStream = new FileInputStream(file);
 				JsonReader jsonReader = new JsonReader(new InputStreamReader(inputStream));
 				jsonReader.setLenient(true);
 				while (jsonReader.hasNext()) {
