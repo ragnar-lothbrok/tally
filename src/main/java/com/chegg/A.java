@@ -1,3 +1,4 @@
+package com.chegg;
 //package com.he.aug_easy_1;
 //
 //public class A extends Solution1 {

@@ -1,4 +1,4 @@
-package com.he.aug_easy_1;
+package com.chegg;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

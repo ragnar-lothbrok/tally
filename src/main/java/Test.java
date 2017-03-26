@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -114,7 +118,8 @@ public class Test implements Cloneable {
 		}
 	}
 
-	private void lol() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	private void lol() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
 		Test obj = new Test();
 		for (Method m : obj.getClass().getDeclaredMethods()) {
 			if (m.getName().startsWith("get") && m.getParameterTypes().length == 1) {
@@ -134,7 +139,8 @@ public class Test implements Cloneable {
 		for (Field f : ob.getClass().getDeclaredFields()) {
 			f.setAccessible(true);
 			try {
-				if (Objects.isNull(f.get(ob)) || (f.getType().getName().equals("int") && ((Integer) f.get(ob)).intValue() == 0)) {
+				if (Objects.isNull(f.get(ob))
+						|| (f.getType().getName().equals("int") && ((Integer) f.get(ob)).intValue() == 0)) {
 					fieldsAsNull.add(f.getName());
 				}
 			} catch (Exception e) {
@@ -365,7 +371,8 @@ public class Test implements Cloneable {
 				if (path.equals("B") || path.equals("BD") || path.equals("BDD") || path.equals("BDDR")) {
 					System.out.println();
 				}
-				findMinimumPath(path + direc[i], cost + mat[srcX + X[i]][srcY + Y[i]], srcX + X[i], srcY + Y[i], destX, destY, mat);
+				findMinimumPath(path + direc[i], cost + mat[srcX + X[i]][srcY + Y[i]], srcX + X[i], srcY + Y[i], destX,
+						destY, mat);
 				System.out.println();
 			}
 		}
@@ -453,31 +460,29 @@ public class Test implements Cloneable {
 	public static void m1(ArrayList<Integer> list) {
 		System.out.println();
 	}
-	
-//	public static void m1(List<String> list) {
-//		System.out.println();
-//	}
 
-//	public static void m1(List<? super Number> list) {
-//		System.out.println();
-//	}
-	
+	// public static void m1(List<String> list) {
+	// System.out.println();
+	// }
+
+	// public static void m1(List<? super Number> list) {
+	// System.out.println();
+	// }
+
 	public static void m1(List<?> list) {
 		System.out.println();
 		m2(new ArrayList<Object>());
 	}
-	
+
 	public static void m2(List<? super Runnable> list) {
 		list.add(new Thread());
 		System.out.println();
 	}
-	
-	
-	
-//	public static void m2(List<? extends Runnable> list) {
-//		list.add(new Thread());
-//		System.out.println();
-//	}
+
+	// public static void m2(List<? extends Runnable> list) {
+	// list.add(new Thread());
+	// System.out.println();
+	// }
 
 	public static void test(List<Long> pogIds) {
 		pogIds.clear();
@@ -508,7 +513,61 @@ public class Test implements Cloneable {
 		return super.clone();
 	}
 
+	private static void test() {
+		Enumeration e = null;
+		try {
+			e = NetworkInterface.getNetworkInterfaces();
+		} catch (SocketException e1) {
+		}
+		while (e.hasMoreElements()) {
+			NetworkInterface n = (NetworkInterface) e.nextElement();
+			Enumeration ee = n.getInetAddresses();
+			while (ee.hasMoreElements()) {
+				InetAddress i = (InetAddress) ee.nextElement();
+				System.out.println(i.getHostAddress());
+			}
+		}
+	}
+
+	public static void findNextSparseNumber(Integer number) {
+		String binary = Integer.toBinaryString(number);
+		binary = "0" + binary;
+		Boolean isAlreadyParse = true;
+		int i = 1;
+		while (i < binary.length()) {
+			if (binary.charAt(i) == '1' && binary.charAt(i - 1) == '1') {
+				isAlreadyParse = false;
+				break;
+			}
+			i++;
+		}
+
+		int lastChangedPos = 0;
+		StringBuilder stringBuilder = new StringBuilder(binary);
+		if (!isAlreadyParse) {
+			stringBuilder = stringBuilder.reverse();
+			for (i = 1; i < stringBuilder.length()-1; i++) {
+				if(stringBuilder.charAt(i) == '1'  && stringBuilder.charAt(i-1) == '1' && stringBuilder.charAt(i+1) == '0'){
+					stringBuilder.setCharAt(i+1,'1');
+					int j = i;
+					while(j >= lastChangedPos){
+						stringBuilder.setCharAt(j--,'0');
+					}
+					lastChangedPos = i+1;
+				}
+			}
+			stringBuilder = stringBuilder.reverse();
+		}
+		System.out.println(Integer.parseInt(stringBuilder.toString(), 2));
+	}
+
 	public static void main(String[] args) throws Exception {
+		findNextSparseNumber(3);
+		findNextSparseNumber(38);
+		findNextSparseNumber(44);
+		findNextSparseNumber(6);
+		
+		test();
 		List<String> list = new ArrayList<String>();
 
 		m1(((ArrayList<String>) list));
@@ -599,7 +658,8 @@ public class Test implements Cloneable {
 
 		if (pogIds != null && pogIds.size() > 0) {
 			for (int i = 0; i < pogIds.size();) {
-				List<Long> batchPogIds = pogIds.subList(i, (pogIds.size() - i < batchSize ? pogIds.size() : i + batchSize));
+				List<Long> batchPogIds = pogIds.subList(i,
+						(pogIds.size() - i < batchSize ? pogIds.size() : i + batchSize));
 				i += batchSize;
 				System.out.println(batchPogIds);
 			}
@@ -657,9 +717,10 @@ public class Test implements Cloneable {
 		if (true)
 			return;
 
-		System.out.println(
-				landingPosition(new int[] { 6, 5 }, new String[] { "x#o#o#o#x#o", "x#o#o#o#x#x", "x#o#o#o#x#x", "x#o#x#o#o#x", "x#o#x#o#o#x" }));
-		System.out.println(landingPosition(new int[] { 6, 5 }, new String[] { "x#o#o#o#x#o", "x#o#o#o#x#x", "x#o#o#o#x#x", "x#o#x#o#o#x" }));
+		System.out.println(landingPosition(new int[] { 6, 5 },
+				new String[] { "x#o#o#o#x#o", "x#o#o#o#x#x", "x#o#o#o#x#x", "x#o#x#o#o#x", "x#o#x#o#o#x" }));
+		System.out.println(landingPosition(new int[] { 6, 5 },
+				new String[] { "x#o#o#o#x#o", "x#o#o#o#x#x", "x#o#o#o#x#x", "x#o#x#o#o#x" }));
 		if (true)
 			return;
 		double d1 = Math.pow(10, 3580.0 / 400);
@@ -750,13 +811,16 @@ public class Test implements Cloneable {
 			int slotClusterSize = 10;
 			int maxSlotPossible = productScoreContainers.size() / slotClusterSize;
 			if (pageNum <= maxSlotPossible) {
-				subCreativeContainerList = productScoreContainers.subList(((pageNum - 1) % maxSlotPossible) * slotClusterSize,
-						(((pageNum - 1) % maxSlotPossible) * slotClusterSize + slotClusterSize < productScoreContainers.size()
-								? ((pageNum - 1) % maxSlotPossible) * slotClusterSize + slotClusterSize : productScoreContainers.size()));
+				subCreativeContainerList = productScoreContainers.subList(
+						((pageNum - 1) % maxSlotPossible) * slotClusterSize,
+						(((pageNum - 1) % maxSlotPossible) * slotClusterSize + slotClusterSize < productScoreContainers
+								.size() ? ((pageNum - 1) % maxSlotPossible) * slotClusterSize + slotClusterSize
+										: productScoreContainers.size()));
 			} else if ((pageNum - 1) * slotClusterSize < productScoreContainers.size()) {
 				subCreativeContainerList = productScoreContainers.subList((pageNum - 1) * slotClusterSize,
-						((pageNum - 1) * slotClusterSize * slotClusterSize + slotClusterSize < productScoreContainers.size()
-								? ((pageNum - 1) * slotClusterSize + slotClusterSize) : productScoreContainers.size()));
+						((pageNum - 1) * slotClusterSize * slotClusterSize + slotClusterSize < productScoreContainers
+								.size() ? ((pageNum - 1) * slotClusterSize + slotClusterSize)
+										: productScoreContainers.size()));
 			}
 		}
 	}
@@ -780,13 +844,15 @@ public class Test implements Cloneable {
 			int SecondDigit = entered_digits.charAt(1) - 48;
 			System.out.println("The second digit that was entered was:" + " " + SecondDigit);
 			int EnteredNumberPlusTen = ((++FirstDigit * 10) + SecondDigit);
-			System.out.println("This new number:" + " " + EnteredNumberPlusTen + " " + "Is the original number plus ten");
+			System.out
+					.println("This new number:" + " " + EnteredNumberPlusTen + " " + "Is the original number plus ten");
 
 			Integer number = Keyboard.nextInt();
 			int first = number / 10;
 			int second = number % 10;
 			EnteredNumberPlusTen = ((++first * 10) + second);
-			System.out.println("This new number:" + " " + EnteredNumberPlusTen + " " + "Is the original number plus ten");
+			System.out
+					.println("This new number:" + " " + EnteredNumberPlusTen + " " + "Is the original number plus ten");
 		}
 
 		saveYears();
@@ -836,7 +902,8 @@ public class Test implements Cloneable {
 		mapOk.put("ok", "ok2");
 		System.out.println(mapOk);
 
-		System.out.println(Math.abs(Hashing.murmur3_32().hashString("ahhhkhk3444444444444444444444444", StandardCharsets.UTF_8).hashCode()));
+		System.out.println(Math.abs(Hashing.murmur3_32()
+				.hashString("ahhhkhk3444444444444444444444444", StandardCharsets.UTF_8).hashCode()));
 
 		int x = 3 | 5 & 3 | 5 & 1;
 		System.out.println(x);
@@ -876,7 +943,8 @@ public class Test implements Cloneable {
 			if (date1.getTime() == date2.getTime()) {
 				return 0;
 			}
-			return (int) (1l + TimeUnit.DAYS.convert(Math.abs(date2.getTime() - date1.getTime()), TimeUnit.MILLISECONDS));
+			return (int) (1l
+					+ TimeUnit.DAYS.convert(Math.abs(date2.getTime() - date1.getTime()), TimeUnit.MILLISECONDS));
 		} catch (ParseException e) {
 		}
 		return 0;
@@ -976,8 +1044,9 @@ public class Test implements Cloneable {
 
 		@Override
 		public String toString() {
-			return "AppReportDTO [installDate=" + installDate + ", affSub1=" + affSub1 + ", affSub2=" + affSub2 + ", deviceOs=" + deviceOs
-					+ ", commissionFee=" + commissionFee + ", numberOfInstalls=" + numberOfInstalls + ", commissionRate=" + commissionRate + "]";
+			return "AppReportDTO [installDate=" + installDate + ", affSub1=" + affSub1 + ", affSub2=" + affSub2
+					+ ", deviceOs=" + deviceOs + ", commissionFee=" + commissionFee + ", numberOfInstalls="
+					+ numberOfInstalls + ", commissionRate=" + commissionRate + "]";
 		}
 
 	}
