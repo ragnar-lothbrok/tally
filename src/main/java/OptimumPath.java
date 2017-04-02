@@ -13,15 +13,23 @@ import java.util.TreeMap;
 public class OptimumPath {
 
 	public static void main(String[] args) {
-		String output[] = getTollPlan(
-				new String[] { "6#8", "1#2#8", "1#4#7", "1#5#12", "2#3#4", "2#4#2", "3#6#6", "4#6#8", "5#6#10" });
+		String output[] = null;
+		String arr[] = 
+				new String[] { "6#8", "1#2#8", "1#4#7", "1#5#12", "2#3#4", "2#4#2", "3#6#6", "4#6#8", "5#6#10" };
+		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
-		output = getTollPlan(new String[] { "4#6", "1#2#7", "1#2#8", "1#3#10", "2#4#4", "2#4#3", "3#4#15" });
+		arr = new String[] { "4#6", "1#2#7", "1#2#8", "1#3#10", "2#4#4", "2#4#3", "3#4#15" };
+		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
-
-		output = getTollPlan(new String[] { "4#4", "1#2#7", "1#3#10", "2#4#4", "3#4#15" });
+		
+		arr = new String[] { "4#4", "1#2#7", "1#3#10", "2#4#4", "3#4#15" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
+		arr = new String[] { "5#5", "1#2#5", "1#4#2", "2#5#10", "1#3#10", "3#5#15" };
+		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
 	}
@@ -170,9 +178,9 @@ public class OptimumPath {
 		}
 		tollToBeAdded.removeAll(maxWeightedPath);
 
-		// System.out.println("After removing max weighted paths : " +
-		// tollToBeAdded);
-		// System.out.println("Max weighted paths : " + maxWeightedPath);
+//		 System.out.println("After removing max weighted paths : " +
+//		 tollToBeAdded);
+//		 System.out.println("Max weighted paths : " + maxWeightedPath);
 
 		Map<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
 		Boolean result = settled(tollToBeAdded, maxWeight, maxWeightedPath, 0, treeMap, hashMap);
