@@ -14,8 +14,7 @@ public class OptimumPath {
 
 	public static void main(String[] args) {
 		String output[] = null;
-		String arr[] = 
-				new String[] { "6#8", "1#2#8", "1#4#7", "1#5#12", "2#3#4", "2#4#2", "3#6#6", "4#6#8", "5#6#10" };
+		String arr[] = new String[] { "6#8", "1#2#8", "1#4#7", "1#5#12", "2#3#4", "2#4#2", "3#6#6", "4#6#8", "5#6#10" };
 		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
@@ -23,12 +22,27 @@ public class OptimumPath {
 		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
-		
+
 		arr = new String[] { "4#4", "1#2#7", "1#3#10", "2#4#4", "3#4#15" };
 		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
 		arr = new String[] { "5#5", "1#2#5", "1#4#2", "2#5#10", "1#3#10", "3#5#15" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
+
+		arr = new String[] { "2#1", "1#2#5" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
+
+		arr = new String[] { "2#2", "1#2#5", "1#2#6" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
+
+		arr = new String[] { "4#4", "2#4#10", "1#2#5", "3#4#5", "1#3#5" };
 		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
@@ -126,75 +140,83 @@ public class OptimumPath {
 	}
 
 	private static String[] getTollPlan(String[] input) {
-		String splits[] = input[0].split("\\#");
-		int numberOfJunctions = Integer.parseInt(splits[0]);
-		int numberOfRoads = Integer.parseInt(splits[1]);
+		try {
+			String splits[] = input[0].split("\\#");
+			int numberOfJunctions = Integer.parseInt(splits[0]);
+			int numberOfRoads = Integer.parseInt(splits[1]);
 
-		Map<Integer, List<Edge>> hashMap = new HashMap<Integer, List<Edge>>();
+			Map<Integer, List<Edge>> hashMap = new HashMap<Integer, List<Edge>>();
 
-		int roadCount = 1;
-		for (int i = 1; i < numberOfRoads + 1; i++) {
-			splits = input[i].split("\\#");
-			int start = Integer.parseInt(splits[0]);
-			int end = Integer.parseInt(splits[1]);
-			if (hashMap.get(start) == null) {
-				List<Edge> edges = new ArrayList<Edge>();
-				edges.add(new Edge(start, end, Integer.parseInt(splits[2]), 0, roadCount++));
-				hashMap.put(start, edges);
-			} else {
-				hashMap.get(start).add(new Edge(start, end, Integer.parseInt(splits[2]), 0, roadCount++));
-			}
-		}
-
-		List<Point> tollToBeAdded = new ArrayList<Point>();
-		Queue<Point> queue = new LinkedList<Point>();
-		Point point = new Point(1);
-		queue.add(point);
-		while (!queue.isEmpty()) {
-			Point popped = queue.remove();
-			if (popped.getX() == numberOfJunctions) {
-				tollToBeAdded.add(popped);
-			}
-
-			if (hashMap.get(popped.getX()) != null) {
-				for (Edge edge : hashMap.get(popped.getX())) {
-					edge.used++;
-					Point newP = new Point(edge.endIndex);
-					newP.edge.addAll(popped.edge);
-					newP.edge.add(edge);
-					queue.add(newP);
+			int roadCount = 1;
+			for (int i = 1; i < numberOfRoads + 1; i++) {
+				splits = input[i].split("\\#");
+				int start = Integer.parseInt(splits[0]);
+				int end = Integer.parseInt(splits[1]);
+				if (hashMap.get(start) == null) {
+					List<Edge> edges = new ArrayList<Edge>();
+					edges.add(new Edge(start, end, Integer.parseInt(splits[2]), 0, roadCount++));
+					hashMap.put(start, edges);
+				} else {
+					hashMap.get(start).add(new Edge(start, end, Integer.parseInt(splits[2]), 0, roadCount++));
 				}
 			}
-		}
-		Collections.sort(tollToBeAdded);
-		List<Point> maxWeightedPath = new ArrayList<Point>();
-		int maxWeight = Integer.MIN_VALUE;
-		for (Point pt : tollToBeAdded) {
-			if (maxWeight <= pt.getTotalWeight()) {
-				maxWeight = pt.getTotalWeight();
-				maxWeightedPath.clear();
-				maxWeightedPath.add(pt);
-			}
-		}
-		tollToBeAdded.removeAll(maxWeightedPath);
 
-//		 System.out.println("After removing max weighted paths : " +
-//		 tollToBeAdded);
-//		 System.out.println("Max weighted paths : " + maxWeightedPath);
+			List<Point> tollToBeAdded = new ArrayList<Point>();
+			Queue<Point> queue = new LinkedList<Point>();
+			Point point = new Point(1);
+			queue.add(point);
+			while (!queue.isEmpty()) {
+				Point popped = queue.remove();
+				if (popped.getX() == numberOfJunctions) {
+					tollToBeAdded.add(popped);
+				}
 
-		Map<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
-		Boolean result = settled(tollToBeAdded, maxWeight, maxWeightedPath, 0, treeMap, hashMap);
-		if (result) {
-			String output[] = new String[treeMap.size() + 1];
-			output[0] = treeMap.size() + "#" + maxWeight;
-			int count = 1;
-			for (Entry<Integer, Integer> entry : treeMap.entrySet()) {
-				output[count] = entry.getKey() + "#" + entry.getValue();
-				count++;
+				if (hashMap.get(popped.getX()) != null) {
+					for (Edge edge : hashMap.get(popped.getX())) {
+						edge.used++;
+						Point newP = new Point(edge.endIndex);
+						newP.edge.addAll(popped.edge);
+						newP.edge.add(edge);
+						queue.add(newP);
+					}
+				}
 			}
-			return output;
-		} else {
-			System.out.println("No Solution");
+			Collections.sort(tollToBeAdded);
+			List<Point> maxWeightedPath = new ArrayList<Point>();
+			int maxWeight = Integer.MIN_VALUE;
+			for (Point pt : tollToBeAdded) {
+				if (maxWeight <= pt.getTotalWeight()) {
+					maxWeight = pt.getTotalWeight();
+					maxWeightedPath.clear();
+					maxWeightedPath.add(pt);
+				}
+			}
+			tollToBeAdded.removeAll(maxWeightedPath);
+
+			// System.out.println("After removing max weighted paths : " +
+			// tollToBeAdded);
+			// System.out.println("Max weighted paths : " + maxWeightedPath);
+
+			Map<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
+			Boolean result = settled(tollToBeAdded, maxWeight, maxWeightedPath, 0, treeMap, hashMap);
+			if (result) {
+				if (treeMap.size() > 0) {
+					String output[] = new String[treeMap.size() + 1];
+					output[0] = treeMap.size() + "#" + maxWeight;
+					int count = 1;
+					for (Entry<Integer, Integer> entry : treeMap.entrySet()) {
+						output[count] = entry.getKey() + "#" + entry.getValue();
+						count++;
+					}
+					return output;
+				} else {
+					System.out.println("No Solution");
+				}
+			} else {
+				System.out.println("No Solution");
+			}
+		} catch (Exception e) {
+			System.out.println("Exception occured : " + e.getMessage());
 		}
 		return null;
 	}
@@ -211,7 +233,7 @@ public class OptimumPath {
 	// 3#22,2#7,5#4,6#4
 	private static Boolean settled(List<Point> finalPaths, int maxPathSum, List<Point> finalPath, int index,
 			Map<Integer, Integer> treeMap, Map<Integer, List<Edge>> hashMap) {
-		if (index >= finalPaths.size()) {
+		if (index >= finalPaths.size() || finalPaths.size() == 0) {
 			return true;
 		}
 		Point point = finalPaths.get(index);
