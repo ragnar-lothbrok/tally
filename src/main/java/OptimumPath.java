@@ -46,6 +46,21 @@ public class OptimumPath {
 		output = getTollPlan(arr);
 		if (output != null)
 			System.out.println(Arrays.asList(output));
+
+		arr = new String[] { "7#8", "1#2#7", "2#3#4", "1#3#5", "3#7#5", "1#5#3", "5#7#20", "1#6#10", "6#7#10" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
+		
+		arr = new String[] { "7#9", "1#2#7", "2#3#4", "1#3#5","1#3#5", "3#5#5", "1#5#3", "5#7#20", "1#6#10", "6#7#10" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
+		
+		arr = new String[] { "7#8", "1#2#2", "2#3#3", "1#3#5", "3#7#5", "1#5#3", "5#7#20", "1#6#10", "6#7#10" };
+		output = getTollPlan(arr);
+		if (output != null)
+			System.out.println(Arrays.asList(output));
 	}
 
 	static class Edge {
@@ -169,6 +184,7 @@ public class OptimumPath {
 				Point popped = queue.remove();
 				if (popped.getX() == numberOfJunctions) {
 					tollToBeAdded.add(popped);
+					continue;
 				}
 
 				if (hashMap.get(popped.getX()) != null) {
@@ -193,9 +209,8 @@ public class OptimumPath {
 			}
 			tollToBeAdded.removeAll(maxWeightedPath);
 
-			// System.out.println("After removing max weighted paths : " +
-			// tollToBeAdded);
-			// System.out.println("Max weighted paths : " + maxWeightedPath);
+//			System.out.println("After removing max weighted paths : " + tollToBeAdded);
+//			System.out.println("Max weighted paths : " + maxWeightedPath);
 
 			Map<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
 			Boolean result = settled(tollToBeAdded, maxWeight, maxWeightedPath, 0, treeMap, hashMap);
@@ -237,29 +252,33 @@ public class OptimumPath {
 			return true;
 		}
 		Point point = finalPaths.get(index);
-		for (int i = point.edge.size() - 1; i >= 0; i--) {
-			Edge edge = point.edge.get(i);
-			Boolean maxWeightContainsEdge = false;
-			for (Point finalPoint : finalPath) {
-				if (finalPoint.edge.contains(edge)) {
-					maxWeightContainsEdge = true;
-					break;
+		if (point.getTotalWeight() != maxPathSum) {
+			for (int i = point.edge.size() - 1; i >= 0; i--) {
+				Edge edge = point.edge.get(i);
+				Boolean maxWeightContainsEdge = false;
+				for (Point finalPoint : finalPath) {
+					if (finalPoint.edge.contains(edge)) {
+						maxWeightContainsEdge = true;
+						break;
+					}
 				}
-			}
-			if (!maxWeightContainsEdge && edge.getTollWeight() == 0) {
-				edge.setTollWeight(maxPathSum - point.getTotalWeight());
-				if (!isBalanced(finalPaths, maxPathSum, edge)) {
-					edge.setTollWeight(0);
-				} else {
-					Boolean result = settled(finalPaths, maxPathSum, finalPath, index + 1, treeMap, hashMap);
-					if (!result) {
+				if (!maxWeightContainsEdge && edge.getTollWeight() == 0) {
+					edge.setTollWeight(maxPathSum - point.getTotalWeight());
+					if (!isBalanced(finalPaths, maxPathSum, edge)) {
 						edge.setTollWeight(0);
 					} else {
-						treeMap.put(edge.getRoadCount(), edge.getTollWeight());
-						return result;
+						Boolean result = settled(finalPaths, maxPathSum, finalPath, index + 1, treeMap, hashMap);
+						if (!result) {
+							edge.setTollWeight(0);
+						} else {
+							treeMap.put(edge.getRoadCount(), edge.getTollWeight());
+							return result;
+						}
 					}
 				}
 			}
+		} else {
+			return settled(finalPaths, maxPathSum, finalPath, index + 1, treeMap, hashMap);
 		}
 		return false;
 	}
