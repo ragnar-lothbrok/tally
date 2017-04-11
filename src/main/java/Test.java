@@ -546,14 +546,15 @@ public class Test implements Cloneable {
 		StringBuilder stringBuilder = new StringBuilder(binary);
 		if (!isAlreadyParse) {
 			stringBuilder = stringBuilder.reverse();
-			for (i = 1; i < stringBuilder.length()-1; i++) {
-				if(stringBuilder.charAt(i) == '1'  && stringBuilder.charAt(i-1) == '1' && stringBuilder.charAt(i+1) == '0'){
-					stringBuilder.setCharAt(i+1,'1');
+			for (i = 1; i < stringBuilder.length() - 1; i++) {
+				if (stringBuilder.charAt(i) == '1' && stringBuilder.charAt(i - 1) == '1'
+						&& stringBuilder.charAt(i + 1) == '0') {
+					stringBuilder.setCharAt(i + 1, '1');
 					int j = i;
-					while(j >= lastChangedPos){
-						stringBuilder.setCharAt(j--,'0');
+					while (j >= lastChangedPos) {
+						stringBuilder.setCharAt(j--, '0');
 					}
-					lastChangedPos = i+1;
+					lastChangedPos = i + 1;
 				}
 			}
 			stringBuilder = stringBuilder.reverse();
@@ -561,12 +562,20 @@ public class Test implements Cloneable {
 		System.out.println(Integer.parseInt(stringBuilder.toString(), 2));
 	}
 
+	
+
 	public static void main(String[] args) throws Exception {
+		
+		int k = 6;
+		System.out.println(k & ~(k-1));
+		
+		System.out.println(2%1);
+		
 		findNextSparseNumber(3);
 		findNextSparseNumber(38);
 		findNextSparseNumber(44);
 		findNextSparseNumber(6);
-		
+
 		test();
 		List<String> list = new ArrayList<String>();
 
