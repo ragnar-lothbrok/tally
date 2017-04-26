@@ -63,6 +63,9 @@ class A {
 	}
 }
 
+
+
+
 class B extends A {
 	public int GetResult(int a, int b) {
 		return 1;
@@ -70,6 +73,20 @@ class B extends A {
 }
 
 public class Test implements Cloneable {
+	
+	
+	public static int appearanceCount(int input1,int input2,String input3,String input4)
+    {
+		int count =0;
+		java.util.Map<String, Integer> map = new HashMap<String, Integer>();
+		for(int i=0;i<input3.length();i++){
+			
+		}
+		
+		
+		return count;
+    }
+
 
 	private Integer age;
 
