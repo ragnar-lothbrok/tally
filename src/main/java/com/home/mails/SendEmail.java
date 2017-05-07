@@ -1,6 +1,8 @@
 package com.home.mails;
 
+import java.io.StringWriter;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,13 +12,19 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
 public class SendEmail {
 
     public static void main(String[] args) {
 
+    	
+    	System.out.println(UUID.randomUUID().toString());
         try {
-            final String username = "acbd@gmail.com";
-            final String password = "lol";
+            final String username = "xxx@gmail.com";
+            final String password = "xxx";
 
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -29,53 +37,33 @@ public class SendEmail {
                     return new PasswordAuthentication(username, password);
                 }
             });
+            VelocityEngine ve = new VelocityEngine();
+            ve.init();
+            Template t = ve.getTemplate( "email_template.vm" );
+            VelocityContext context = new VelocityContext();
+            context.put("username", "Facebook User");
+            context.put("passwordResetLink", "http://www.facebook.com/reset");
+            context.put("supportemail", "support@facebook.com");
+            context.put("siteLink", "http://www.facebook.com");
+            context.put("siteTitle", "Facebook");
+            StringWriter writer = new StringWriter();
+            t.merge( context, writer );
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("acbd@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("abc@xyz.com"));
-            message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler," + "\n\n No spam to my email, please!");
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("xxx@gmail.com"));
+            message.setSubject("Reset your password");
+            message.setContent(writer.toString(), "text/html");
 
             Transport.send(message);
 
             System.out.println("Done");
-
+            
+            
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-
-        }
-        main();
-    }
-
-    public static void main() {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-
-        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("acbd@gmail.com", "lol");
-            }
-        });
-
-        try {
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("acbd@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("abc@xyz.com"));
-            message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler," + "\n\n No spam to my email, please!");
-
-            Transport.send(message);
-
-            System.out.println("Done");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        	System.out.println(e.getMessage());
         }
     }
 }

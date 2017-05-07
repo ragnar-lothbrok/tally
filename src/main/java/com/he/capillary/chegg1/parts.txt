@@ -1,0 +1,8 @@
+24680,Smoke Shifter,0.98,PGH,48
+01020,Inflatable Dart Board,32.95,PGH,453
+00000,Glass Hammer,105.90,PGH,8
+12345,Left-Handed Bacon Stretcher,125.95,PGH,2
+86420,Pre-dug Post Hole,2.49,ATL,34
+25632,Acme Widget,98.29,ATL,248
+12345,Left-Handed Bacon Stretcher,125.95,ATL,15
+97531,Anti-Gravity Turbine,895.29,ATL,3

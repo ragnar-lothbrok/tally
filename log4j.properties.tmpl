@@ -1,0 +1,124 @@
+log4j.rootLogger=INFO, file
+
+log4j.appender.file=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.file.File=${catalina.home}/logs/plafeeds.log
+log4j.appender.file.DatePattern='.'yyyy-MM-dd-HH
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.file.append=true
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %t %-5p [%t] %c{1}:%L - %m%n
+
+
+log4j.additivity.com.snapdeal.sem.adwords=false
+log4j.additivity.com.google.api.ads.adwords.lib.client.AdWordsServiceClient.soapXmlLogger=false
+log4j.additivity.com.snapdeal.sem.dwh=false
+log4j.additivity.dwhLogger=false
+log4j.additivity.com.snapdeal.sem.kafka=false
+log4j.additivity.facebookkafkalogger=false
+log4j.additivity.googlekafkalogger=false
+
+
+log4j.category.inmobiAWSPublisherLogger=INFO, inmobiAWSPublisher
+log4j.appender.inmobiAWSPublisher=org.apache.log4j.RollingFileAppender
+log4j.appender.inmobiAWSPublisher.File=${catalina.home}/logs/inmobiAWSPublisher.log
+log4j.appender.inmobiAWSPublisher.MaxFileSize=100MB
+log4j.appender.inmobiAWSPublisher.MaxBackupIndex=10
+log4j.appender.inmobiAWSPublisher.layout=org.apache.log4j.PatternLayout
+log4j.appender.inmobiAWSPublisher.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.inmobiAWSPublisher.append=true
+log4j.additivity.inmobiAWSPublisherLogger=false
+
+
+log4j.category.fbLogger=INFO, fbPublisher
+log4j.appender.fbPublisher=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.fbPublisher.File=${catalina.home}/logs/fbPublisher.log
+log4j.appender.file.DatePattern='.'yyyy-MM-dd-HH
+log4j.appender.fbPublisher.layout=org.apache.log4j.PatternLayout
+log4j.appender.fbPublisher.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.fbPublisher.append=true
+log4j.additivity.fbLogger=false
+
+log4j.category.com.google.api.ads.adwords.lib.client.AdWordsServiceClient.soapXmlLogger=INFO, SOAP_LOG
+log4j.category.com.snapdeal.sem.adwords=INFO, SOAP_LOG
+
+log4j.appender.SOAP_LOG=org.apache.log4j.RollingFileAppender
+log4j.appender.SOAP_LOG.File=${catalina.home}/logs/adwordSoap.log
+log4j.appender.SOAP_LOG.MaxFileSize=100MB
+log4j.appender.SOAP_LOG.MaxBackupIndex=10
+log4j.appender.SOAP_LOG.layout=org.apache.log4j.PatternLayout
+log4j.appender.SOAP_LOG.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.SOAP_LOG.append=true
+log4j.additivity.SOAP_LOG=false
+
+log4j.category.com.snapdeal.sem.dwh=INFO, dwh
+log4j.category.dwhLogger=INFO, dwh
+log4j.appender.dwh=org.apache.log4j.RollingFileAppender
+log4j.appender.dwh.File=${catalina.home}/logs/dwh.log
+log4j.appender.dwh.MaxFileSize=100MB
+log4j.appender.dwh.MaxBackupIndex=10
+log4j.appender.dwh.layout=org.apache.log4j.PatternLayout
+log4j.appender.dwh.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.dwh.append=true
+log4j.additivity.dwh=false
+
+
+log4j.category.facebookkafkalogger=DEBUG, facebookkafka
+log4j.appender.facebookkafka=org.apache.log4j.RollingFileAppender
+log4j.appender.facebookkafka.File=${catalina.home}/logs/kafka_stream_facebook.log
+log4j.appender.facebookkafka.MaxFileSize=100MB
+log4j.appender.facebookkafka.MaxBackupIndex=10
+log4j.appender.facebookkafka.layout=org.apache.log4j.PatternLayout
+log4j.appender.facebookkafka.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.facebookkafka.append=true
+log4j.additivity.facebookkafka=false
+
+log4j.category.googlekafkalogger=DEBUG, googlekafka
+log4j.appender.googlekafka=org.apache.log4j.RollingFileAppender
+log4j.appender.googlekafka.File=${catalina.home}/logs/kafka_stream_google.log
+log4j.appender.googlekafka.MaxFileSize=100MB
+log4j.appender.googlekafka.MaxBackupIndex=10
+log4j.appender.googlekafka.layout=org.apache.log4j.PatternLayout
+log4j.appender.googlekafka.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.googlekafka.append=true
+log4j.additivity.googlekafka=false
+
+log4j.appender.emailClientLogger=org.apache.log4j.RollingFileAppender
+log4j.appender.emailClientLogger.File=${catalina.home}/logs/emailLogger.log
+log4j.appender.emailClientLogger.MaxFileSize=100MB
+log4j.appender.emailClientLogger.MaxBackupIndex=10
+log4j.appender.emailClientLogger.layout=org.apache.log4j.PatternLayout
+log4j.appender.emailClientLogger.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.emailClientLogger.append=true
+
+log4j.appender.fbCustomAudience=org.apache.log4j.RollingFileAppender
+log4j.appender.fbCustomAudience.File=${catalina.home}/logs/fbCustomAudience.log
+log4j.appender.fbCustomAudience.MaxFileSize=100MB
+log4j.appender.fbCustomAudience.MaxBackupIndex=10
+log4j.appender.fbCustomAudience.layout=org.apache.log4j.PatternLayout
+log4j.appender.fbCustomAudience.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n
+log4j.appender.fbCustomAudience.append=true
+
+log4j.category.fbCustomAudience=INFO, fbCustomAudience, stdout
+log4j.additivity.fbCustomAudience=false
+
+#log4j.category.com.snapdeal.sem.email=INFO, emailClientLogger
+#log4j.category.emailClientLogger=INFO, emailClientLogger
+#log4j.additivity.emailClientLogger=false
+
+#log4j.appender.emailClientLogger=org.apache.log4j.RollingFileAppender
+#log4j.appender.emailClientLogger.File=${catalina.home}/logs/emailLogger.log
+#log4j.appender.emailClientLogger.MaxFileSize=100MB
+#log4j.appender.emailClientLogger.MaxBackupIndex=10
+#log4j.appender.emailClientLogger.layout=org.apache.log4j.PatternLayout
+#log4j.appender.emailClientLogger.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+#log4j.appender.emailClientLogger.append=true
+
+
+log4j.logger.org.hibernate=INFO  
+   
+log4j.logger.org.hibernate.type=INFO
+log4j.logger.org.hibernate.stat=INFO

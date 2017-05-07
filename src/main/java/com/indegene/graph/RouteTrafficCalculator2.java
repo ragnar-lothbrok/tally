@@ -10,7 +10,7 @@ public class RouteTrafficCalculator2 {
 
         System.out.println("\n\n");
         applyTolls(4, 6, new String[] { "1#2#7", "1#2#8", "1#3#10", "2#4#4", "2#4#3", "3#4#15" });
-
+        
     }
 
     private static Stack<Vertex> stack = new Stack<Vertex>();

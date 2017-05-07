@@ -3,8 +3,16 @@ package com.he.bits_28_Aug;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class Solution {
 
@@ -23,7 +31,11 @@ public class Solution {
             }
         }
         
+<<<<<<< HEAD
 //        int num = 19_90;
+=======
+        int num = 19;
+>>>>>>> 8ab8b8d6fce89645b824101d1544b86c1b40ba3c
         
         
 //        int a = 0123;
@@ -95,7 +107,26 @@ public class Solution {
     }
 
     public static void main(String[] args) throws IOException {
-        
+    	
+    	List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+    	Map<String, String> staticmap = new HashMap<String, String>();
+    	staticmap.put("dsdf", "dfsdfs");
+    	staticmap.put("dsdewerf", "dfwerwersdfs");
+    	Map<String, String> dynamic = new HashMap<String, String>();
+    	dynamic.put("234234", "dfsdfs");
+    	dynamic.put("234324", "dfwerwersdfs");
+    	list.add(dynamic);
+    	list.add(staticmap);
+//    	System.out.println("##"+new ObjectMapper().writeValueAsString(list));
+    	
+    	Set<String> set = new HashSet<String>();
+    	set.add("ssdsdf");
+    	set.add("dsdfsdfsdf");
+//    	System.out.println("##$$$$"+new ObjectMapper().writeValueAsString(set));
+     	
+    	String next = "https://graph.facebook.com/v2.4/dXNlcl9jb250ZAXh0OgGQvhtWziW5WpkytLLmAqhzptdffwHhX6ZBP3H6WpWBOrUzwfdiQK5jwrbQ8QOShk69Vq2LF9I67Hymp85EdAMNQLjQvDRiJglfwbR2a2CTOxZCEZD/mutual_likes?limit=25&after=NjY1MzM0NDYxNDYZD";
+    	int index = next.indexOf("?");
+        System.out.println(next.substring(0, index));
         ConcurrentHashMap<String,String> premiumPhone = new ConcurrentHashMap<String,String>();
         premiumPhone.put("Apple", "iPhone6");
         premiumPhone.put("HTC", "HTC one");

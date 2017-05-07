@@ -3,6 +3,8 @@ package com.home.solution;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+//https://www.careercup.com/question?id=5202297397182464
+//https://www.scribd.com/document/319226793/Cadbury-Problem
 public class CandidateCode {
 
 	public static final String TRUE = "True";
@@ -31,8 +33,7 @@ public class CandidateCode {
 	}
 
 	public static final int[] bottleLimit = new int[] { 10, 7, 5, 1 };
-	public static final int[] staticBottleCount = new int[] { 1, 2, 3, 4, 1, 2,
-			1, 2, 3, 1, 2, 2, 3, 2, 2, 3, 2, 3, 3, 2 };
+	public static final int[] staticBottleCount = new int[] { 1, 2, 3, 4, 1, 2, 1, 2, 3, 1, 2, 2, 3, 2, 2, 3, 2, 3, 3, 2 };
 
 	public static int minimumBottles(int input1) {
 
@@ -48,6 +49,72 @@ public class CandidateCode {
 		}
 
 		return noOfBottlesRequired;
+	}
+
+	public static int ThirstyCrowProblem(int[] input1, int input2, int input3) {
+		int temp = 0;
+
+		// Invalid Input Case
+		if (input1 == null || input3 < 0 || input3 > input1.length || input2 <= 0 || input1.length != input2) {
+			return -1;
+		}
+
+		// If Number of OverFlow Pots is Zero
+		if (0 == input3) {
+			return 0;
+		}
+
+		for (int i = 0; i < input2; i++) {
+
+			if (input1[i] < 0) {
+				return -1;
+			} else if (input1[i] == 0) {
+				if (++temp == input3) {
+					return 0;
+				}
+			}
+		}
+
+		// Valid Input
+		Arrays.sort(input1);
+		int final_array[] = new int[input3];
+
+		for (int j = 0; j < final_array.length; j++) {
+			final_array[j] = input1[j];
+		}
+
+		int n = final_array.length - 1;
+
+		int min_stones = final_array[n] * (input2 - input3 + 1);
+
+		for (int k = 0; k < n; k++) {
+			min_stones = min_stones + final_array[k];
+		}
+		
+		int alternate_sum = 0;
+		for(int i=input1.length-1;i>=input1.length-input3;i--){
+			alternate_sum += input1[i];
+		}
+
+		return (alternate_sum > min_stones ? min_stones : alternate_sum);
+	}
+
+	public static int ThirstyCrowProblem1(int[] input1, int input2, int input3) {
+		int numOfPots = 0;
+		Arrays.sort(input1);
+		if (input1 == null || input3 > input2 || input1.length != input2 || input2 == 0 || input1[0] < 0) {
+			numOfPots = -1;
+		} else {
+			int i = 0;
+			while (input3 > i) {
+				numOfPots += (input1[i]) * (input2 - i);
+				for (int j = i + 1; j < input2; j++) {
+					input1[j] = input1[j] - input1[i];
+				}
+				i++;
+			}
+		}
+		return numOfPots;
 	}
 
 	public static int cadbury(int input1, int input2, int input3, int input4) {
@@ -86,6 +153,11 @@ public class CandidateCode {
 
 	public static void main(String[] args) {
 
+		int arr[] = {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,8,11};
+		int k=2;
+		System.out.println(ThirstyCrowProblem(arr, arr.length, k));
+		System.out.println(ThirstyCrowProblem1(arr, arr.length, k));
+
 		/*
 		 * System.out.println(triplet_sum(new int[] { 12, 3, 4, 1, 6, 9 }, 6,
 		 * 24)); System.out.println(triplet_sum(new int[] { 1, 1, 1 }, 3, 3));
@@ -99,18 +171,18 @@ public class CandidateCode {
 
 		/* System.out.println(cadbury(5, 6, 3, 4)); */
 
-		System.out.println(get_total_profit(new String(
-				"50,200,30,5,3,2,2,15,10")));
-		System.out
-				.println(get_total_profit(new String("10,10,5,2,2,3,1,14,25")));
-
-		System.out
-				.println(get_total_profit(new String("10,10,5,0,2,3,1,14,25")));
-
-		double d = 0d;
-		System.out.println((String.valueOf(d)));
-		System.out.println(d == 0 ? "0.00" : ((d + "").substring(0,
-				(d + "").indexOf(".") + 3)));
+		// System.out.println(get_total_profit(new
+		// String("50,200,30,5,3,2,2,15,10")));
+		// System.out.println(get_total_profit(new
+		// String("10,10,5,2,2,3,1,14,25")));
+		//
+		// System.out.println(get_total_profit(new
+		// String("10,10,5,0,2,3,1,14,25")));
+		//
+		// double d = 0d;
+		// System.out.println((String.valueOf(d)));
+		// System.out.println(d == 0 ? "0.00" : ((d + "").substring(0, (d +
+		// "").indexOf(".") + 3)));
 
 	}
 
@@ -142,34 +214,25 @@ public class CandidateCode {
 			riceInsectiside = Double.parseDouble(values[6]);
 			wheatPrice = Double.parseDouble(values[7]);
 			ricePrice = Double.parseDouble(values[8]);
-			double[] resultForWheat = getResultForWheat(landArea,
-					totalFertilizer, totalInsectiside, wheatFertilizer,
-					wheatInsectiside, riceFertilizer, riceInsectiside,
-					wheatPrice, ricePrice);
-			double[] resultForRice = getResultForRice(landArea,
-					totalFertilizer, totalInsectiside, wheatFertilizer,
-					wheatInsectiside, riceFertilizer, riceInsectiside,
-					wheatPrice, ricePrice);
+			double[] resultForWheat = getResultForWheat(landArea, totalFertilizer, totalInsectiside, wheatFertilizer, wheatInsectiside,
+					riceFertilizer, riceInsectiside, wheatPrice, ricePrice);
+			double[] resultForRice = getResultForRice(landArea, totalFertilizer, totalInsectiside, wheatFertilizer, wheatInsectiside, riceFertilizer,
+					riceInsectiside, wheatPrice, ricePrice);
 			if (resultForWheat[0] == resultForRice[0]) {
 				return "-1";
 			} else if (resultForWheat[0] > resultForRice[0]) {
-				result = decimalFormat.format(resultForWheat[0]) + ","
-						+ decimalFormat.format(resultForWheat[1]) + ","
+				result = decimalFormat.format(resultForWheat[0]) + "," + decimalFormat.format(resultForWheat[1]) + ","
 						+ decimalFormat.format(resultForWheat[2]);
 			} else {
-				result = decimalFormat.format(resultForRice[0]) + ","
-						+ decimalFormat.format(resultForRice[1]) + ","
+				result = decimalFormat.format(resultForRice[0]) + "," + decimalFormat.format(resultForRice[1]) + ","
 						+ decimalFormat.format(resultForRice[2]);
 			}
 		}
 		return result;
 	}
 
-	public static double[] getResultForWheat(double landArea,
-			double totalFertilizer, double totalInsectiside,
-			double wheatFertilizer, double wheatInsectiside,
-			double riceFertilizer, double riceInsectiside, double wheatPrice,
-			double ricePrice) {
+	public static double[] getResultForWheat(double landArea, double totalFertilizer, double totalInsectiside, double wheatFertilizer,
+			double wheatInsectiside, double riceFertilizer, double riceInsectiside, double wheatPrice, double ricePrice) {
 		double[] result = new double[3];
 		double remainingFertilizer = 0.0;
 		double remainingInsectiside = 0.0;
@@ -177,50 +240,37 @@ public class CandidateCode {
 		double leftSafeRiceArea = 0.0;
 		if (wheatFertilizer == 0 && wheatInsectiside == 0) {
 			safeWheatArea = landArea;
-		} else if ((wheatFertilizer == 0 && wheatInsectiside != 0)
-				|| ((totalFertilizer / wheatFertilizer) > (totalInsectiside / wheatInsectiside))) {
-			safeWheatArea = Math.min((totalInsectiside / wheatInsectiside),
-					landArea);
+		} else if ((wheatFertilizer == 0 && wheatInsectiside != 0) || ((totalFertilizer / wheatFertilizer) > (totalInsectiside / wheatInsectiside))) {
+			safeWheatArea = Math.min((totalInsectiside / wheatInsectiside), landArea);
 			if (safeWheatArea != landArea)
-				remainingFertilizer = totalFertilizer
-						- (wheatFertilizer == 0 ? 0.0
-								: -(wheatFertilizer * (totalInsectiside / wheatInsectiside)));
+				remainingFertilizer = totalFertilizer - (wheatFertilizer == 0 ? 0.0 : -(wheatFertilizer * (totalInsectiside / wheatInsectiside)));
 		} else {
-			safeWheatArea = Math.min(totalFertilizer / wheatFertilizer,
-					landArea);
+			safeWheatArea = Math.min(totalFertilizer / wheatFertilizer, landArea);
 			if (safeWheatArea != landArea)
-				remainingInsectiside = totalInsectiside
-						- (wheatInsectiside == 0 ? 0.0
-								: (wheatInsectiside * (totalFertilizer / wheatFertilizer)));
+				remainingInsectiside = totalInsectiside - (wheatInsectiside == 0 ? 0.0 : (wheatInsectiside * (totalFertilizer / wheatFertilizer)));
 		}
 		if (remainingFertilizer != 0 || remainingInsectiside != 0) {
 			if (remainingFertilizer != 0 && riceInsectiside == 0) {
-				double leftLandArea = landArea
-						- (landArea > safeWheatArea ? safeWheatArea : landArea);
+				double leftLandArea = landArea - (landArea > safeWheatArea ? safeWheatArea : landArea);
 				leftSafeRiceArea = (remainingFertilizer / riceFertilizer);
 				if (leftLandArea < leftSafeRiceArea)
 					leftSafeRiceArea = leftLandArea;
 			} else if (remainingInsectiside != 0 && riceFertilizer == 0) {
-				double leftLandArea = landArea
-						- (landArea > safeWheatArea ? safeWheatArea : landArea);
+				double leftLandArea = landArea - (landArea > safeWheatArea ? safeWheatArea : landArea);
 				leftSafeRiceArea = (remainingInsectiside / riceInsectiside);
 				if (leftLandArea < leftSafeRiceArea)
 					leftSafeRiceArea = leftLandArea;
 			}
 		}
 
-		result[0] = (safeWheatArea * wheatPrice)
-				+ (leftSafeRiceArea * ricePrice);
+		result[0] = (safeWheatArea * wheatPrice) + (leftSafeRiceArea * ricePrice);
 		result[1] = safeWheatArea;
 		result[2] = leftSafeRiceArea;
 		return result;
 	}
 
-	public static double[] getResultForRice(double landArea,
-			double totalFertilizer, double totalInsectiside,
-			double wheatFertilizer, double wheatInsectiside,
-			double riceFertilizer, double riceInsectiside, double wheatPrice,
-			double ricePrice) {
+	public static double[] getResultForRice(double landArea, double totalFertilizer, double totalInsectiside, double wheatFertilizer,
+			double wheatInsectiside, double riceFertilizer, double riceInsectiside, double wheatPrice, double ricePrice) {
 		double[] result = new double[3];
 		double remainingFertilizer = 0.0;
 		double remainingInsectiside = 0.0;
@@ -228,40 +278,30 @@ public class CandidateCode {
 		double leftSafeWheatArea = 0.0;
 		if (riceFertilizer == 0 && riceInsectiside == 0) {
 			safeRiceArea = landArea;
-		} else if ((riceFertilizer == 0 && riceInsectiside != 0)
-				|| (totalFertilizer / riceFertilizer) > (totalInsectiside / riceInsectiside)) {
-			safeRiceArea = Math.min((riceInsectiside == 0 ? 0.0
-					: (totalInsectiside / riceInsectiside)), landArea);
+		} else if ((riceFertilizer == 0 && riceInsectiside != 0) || (totalFertilizer / riceFertilizer) > (totalInsectiside / riceInsectiside)) {
+			safeRiceArea = Math.min((riceInsectiside == 0 ? 0.0 : (totalInsectiside / riceInsectiside)), landArea);
 			if (safeRiceArea != landArea)
-				remainingFertilizer = totalFertilizer
-						- (wheatFertilizer == 0 ? 0.0
-								: (riceFertilizer * (totalInsectiside / riceInsectiside)));
+				remainingFertilizer = totalFertilizer - (wheatFertilizer == 0 ? 0.0 : (riceFertilizer * (totalInsectiside / riceInsectiside)));
 		} else {
-			safeRiceArea = Math.min((totalFertilizer / riceFertilizer),
-					landArea);
+			safeRiceArea = Math.min((totalFertilizer / riceFertilizer), landArea);
 			if (safeRiceArea != landArea)
-				remainingInsectiside = totalInsectiside
-						- (riceInsectiside == 0 ? 0.0
-								: (riceInsectiside * (totalFertilizer / riceFertilizer)));
+				remainingInsectiside = totalInsectiside - (riceInsectiside == 0 ? 0.0 : (riceInsectiside * (totalFertilizer / riceFertilizer)));
 		}
 		if (remainingFertilizer != 0 || remainingInsectiside != 0) {
 			if (remainingFertilizer != 0 && wheatInsectiside == 0) {
-				double leftLandArea = landArea
-						- (landArea > safeRiceArea ? safeRiceArea : landArea);
+				double leftLandArea = landArea - (landArea > safeRiceArea ? safeRiceArea : landArea);
 				leftSafeWheatArea = (remainingFertilizer / wheatFertilizer);
 				if (leftLandArea < leftSafeWheatArea)
 					leftSafeWheatArea = leftLandArea;
 			} else if (remainingInsectiside != 0 && wheatFertilizer == 0) {
-				double leftLandArea = landArea
-						- (landArea > safeRiceArea ? safeRiceArea : landArea);
+				double leftLandArea = landArea - (landArea > safeRiceArea ? safeRiceArea : landArea);
 				leftSafeWheatArea = (remainingInsectiside / wheatInsectiside);
 				if (leftLandArea < leftSafeWheatArea)
 					leftSafeWheatArea = leftLandArea;
 			}
 		}
 
-		result[0] = (safeRiceArea * ricePrice)
-				+ (leftSafeWheatArea * wheatPrice);
+		result[0] = (safeRiceArea * ricePrice) + (leftSafeWheatArea * wheatPrice);
 		result[1] = leftSafeWheatArea;
 		result[2] = safeRiceArea;
 		return result;

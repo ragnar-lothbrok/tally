@@ -30,6 +30,7 @@ public class CoinDispencer {
         // after the index greater than or equal to the value of the
         // picked coin
         for (int i = 0; i < coinsLength; i++) {
+        	//table[i] + table[i-coin's value]
             for (int j = S[i]; j <= num; j++)
                 table[j] += table[j - S[i]];
         }

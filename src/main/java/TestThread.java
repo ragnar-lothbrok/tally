@@ -6,7 +6,7 @@ public class TestThread {
     public static void main(String[] args) {
 
         test();
-        testDeadlock();
+//        testDeadlock();
 
     }
 
@@ -32,14 +32,14 @@ public class TestThread {
         Runnable runnable2 = new Runnable() {
 
             public void run() {
-                synchronized (Lock1) {
+                synchronized (Lock2) {
                     System.out.println("Thread 1: Holding lock 1...");
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {
                     }
                     System.out.println("Thread 1: Waiting for lock 2...");
-                    synchronized (Lock2) {
+                    synchronized (Lock1) {
                         System.out.println("Thread 1: Holding lock 1 & 2...");
                     }
                 }

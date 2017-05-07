@@ -1,0 +1,50 @@
+In ECommerce there are different ways to advertise your products, you can use third party like cashkaro, crieto etc.These are the ones 
+which gets rvenue when an rrder is plcaed also your produts might not gt muhch exposure while using these affiliates.
+
+On the other hand we have facebook and google which provides a fair visibility to your products on the basis of users activities.
+Most of the revenue of google comes from ads which i believe every  company uses. Google provides different types of ads like PLA ads, Google AdSense & Google Adwords.
+
+I will be talking about Google Adwords and how it can play a crucial role in advertising. Google adwords provides lot of flexibility in bids, location & what you want to advertise.
+Google Adwords is depednet on keywords on whhich you want to advertise.
+
+There are four types of keywrds google accepts
+1. Broad 
+2. Broad match modifier
+3. Phrase 
+4. Exact match
+
+All above types have their own working styles. 
+
+How we approcahed to these because now google will search on the basis of keywords you have provided. You must chose your keywords carefully.
+
+We followed below mentieond steps for creating a campaign.
+
+1. Gathering keywords [Most searched / having more products] : We don't know what use search on google so we need to think as a user
+to see what he can search. Another way if you are developing for ecommcerce site than yu must have popular
+keywords which used searches on your site. Another way which we thougth migh tbe a google one We selected a category at very granular level
+like "saree". now what user can search for this red saree , blue saree, cotton saree and many more. There can be millions typs of search ur can do.
+also there is possibility you may not have what user is asing and if you provide that keyword in your campaigns than you
+will be changed unnecessary. So ew collected attributes of each products and genrate permutations and combinations for selected attributes
+only like fabric, color, type etc. We hit our search API which will do exact matching and got the results. now we are sure that if user search that keywords 
+and somehow our ad is displayed on google he will see hwta is wanted. Purvhaseing is different things. We always trhive for clicks 
+in advertisement. Because if we show him right content than he may visit us again that probaility will be high.
+
+There is another catch there might be a used who can make spelling mstakes that we have to handle like sadi,sari etc. So we can get these keywords from 
+solr search.
+
+After that we got our keywords list with result count also we created the search url which will be destination url in google campaign.
+
+In google adwords we run campaigns and below is the basic things which campaign contains
+1. AdwordAd [This is text which will be visible on google when you search something]
+2. AdGroup [This will consist various keywords]
+3. Keywords [This will contains a keyword and it's type]
+
+so now we had to create campaign for saree category. So for campaign creation we were using google adwords APi this is one way or you can directly create from UI.
+but when you have many keywords then task becomes impossible. 
+
+Campaign Creation : we were creating campaign in paused state so that once campaign is successfully created we can check
+the condition of the campaign. 
+AdGroup Creation : This will accept campaign because there wont be any adgroup without campaign. 
+Keyword Creation : This will be created using our keyword list which will have some rules which keywords to be considered and which not.
+For now we were considering result count from the search on the badis of we were adding keyword. Each keyword will be create 4 times because keyword can be f
+4 types.
