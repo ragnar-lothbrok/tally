@@ -14,7 +14,6 @@ public class TestThread {
         System.out.println("test method...");
         Runnable runnable1 = new Runnable() {
 
-            @Override
             public void run() {
                 synchronized (Lock1) {
                     System.out.println("Thread 1: Holding lock 1...");
@@ -32,7 +31,6 @@ public class TestThread {
 
         Runnable runnable2 = new Runnable() {
 
-            @Override
             public void run() {
                 synchronized (Lock1) {
                     System.out.println("Thread 1: Holding lock 1...");
@@ -60,7 +58,6 @@ public class TestThread {
         System.out.println("testDeadlock method...");
         Runnable runnable1 = new Runnable() {
 
-            @Override
             public void run() {
                 synchronized (Lock1) {
                     System.out.println("Thread 1: Holding lock 1...");
@@ -78,7 +75,6 @@ public class TestThread {
 
         Runnable runnable2 = new Runnable() {
 
-            @Override
             public void run() {
                 synchronized (Lock2) {
                     System.out.println("Thread 1: Holding lock 2...");

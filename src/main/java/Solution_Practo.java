@@ -42,7 +42,7 @@ public class Solution_Practo {
     }
 
     private static void numOfSubStrigs(String inputStr) {
-        Set<String> hashSet = new HashSet<>();
+        Set<String> hashSet = new HashSet<String>();
         for (int i = 0; i < inputStr.length(); i++) {
           for (int j = i; j < inputStr.length(); j++) {
             hashSet.add(inputStr.substring(i, j+1));
